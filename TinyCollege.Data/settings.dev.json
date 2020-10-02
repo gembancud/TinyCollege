@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "TinyCollegeContext": "Server=localhost\\DEV;Database=TinyCollegeTest;Trusted_Connection=true;"
+  }
+}
