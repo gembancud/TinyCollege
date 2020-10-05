@@ -7,7 +7,7 @@ namespace TinyCollege.Data.Models
     public class Section
     {
         public int SectionId { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public int ScheduleId { get; set; }
         public Schedule Schedule { get; set; }

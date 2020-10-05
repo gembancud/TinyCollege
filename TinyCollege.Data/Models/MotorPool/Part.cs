@@ -7,6 +7,7 @@ namespace TinyCollege.Data.Models.MotorPool
     public class Part
     {
         public int PartId { get; set; }
+        public string Name { get; set; }
         public int CurrentAmount { get; set; }
         public int MinimumLevel { get; set; }
 

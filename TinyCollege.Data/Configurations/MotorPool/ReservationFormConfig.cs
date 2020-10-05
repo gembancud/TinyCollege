@@ -7,7 +7,7 @@ using TinyCollege.Data.Models.MotorPool;
 
 namespace TinyCollege.Data.Configurations.MotorPool
 {
-    public class FormConfig : IEntityTypeConfiguration<ReservationForm>
+    public class ReservationFormConfig : IEntityTypeConfiguration<ReservationForm>
     {
         public void Configure(EntityTypeBuilder<ReservationForm> builder)
         {

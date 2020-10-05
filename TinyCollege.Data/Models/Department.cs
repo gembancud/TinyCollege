@@ -12,8 +12,7 @@ namespace TinyCollege.Data.Models
         public int SchoolId { get; set; }
         public School School { get; set; }
 
-        public int ChairId { get; set; }
-        public Professor Chair { get; set; }
+        public ICollection<Tenure> Tenures { get; set; }
 
         public ICollection<Professor> Professors { get; set; }
 

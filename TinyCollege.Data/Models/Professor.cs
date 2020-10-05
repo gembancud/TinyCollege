@@ -16,7 +16,8 @@ namespace TinyCollege.Data.Models
 
         public ICollection<Reservation> Reservations { get; set; }
 
-        public int? ContractId { get; set; }
-        public Contract Contract { get; set; }
+        public ICollection<Tenure> Tenures { get; set; }
+
+        public ICollection<ProfessorContract> ProfessorContracts { get; set; }
     }
 }

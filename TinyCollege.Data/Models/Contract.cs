@@ -9,6 +9,6 @@ namespace TinyCollege.Data.Models
         public int ContractId { get; set; }
         public string Type { get; set; }
 
-        public ICollection<Professor> Professors { get; set; }
+        public ICollection<ProfessorContract> ProfessorContracts { get; set; }
     }
 }
