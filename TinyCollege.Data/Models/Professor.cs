@@ -10,13 +10,13 @@ namespace TinyCollege.Data.Models
         public int ProfessorId { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Section>? Sections { get; set; }
+        public ICollection<Section> Sections { get; set; }
 
-        public ICollection<Advisory>? Advisories { get; set; }
+        public ICollection<Advisory> Advisories { get; set; }
 
-        public ICollection<Reservation>? Reservations { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
 
         public int? ContractId { get; set; }
-        public Contract? Contract { get; set; }
+        public Contract Contract { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace TinyCollege.Data.Models
         public string Name { get; set; }
 
         public int? DepartmentId { get; set; }
-        public Department? Department { get; set; }
+        public Department Department { get; set; }
 
         public ICollection<Enrollment> Enrollments { get; set; }
 

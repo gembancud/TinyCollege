@@ -10,6 +10,6 @@ namespace TinyCollege.Data.Models.MotorPool
         public string Name { get; set; }
         public bool IsMechanic { get; set; }
 
-        public ICollection<Form> Forms { get; set; }
+        public ICollection<ReservationForm> Forms { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using TinyCollege.Data.Configurations;
+using TinyCollege.Data.Configurations.MotorPool;
 using TinyCollege.Data.Models.MotorPool;
 
 namespace TinyCollege.Data.Models
@@ -9,7 +11,7 @@ namespace TinyCollege.Data.Models
     public class TinyCollegeContext : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Form> Forms { get; set; }
+        public DbSet<ReservationForm> Forms { get; set; }
         public DbSet<Maintenance> Maintenances { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<PartUsage> PartUsages { get; set; }
@@ -34,6 +36,25 @@ namespace TinyCollege.Data.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new EmployeeConfig());
+            modelBuilder.ApplyConfiguration(new FormConfig());
+            modelBuilder.ApplyConfiguration(new MaintenanceConfig());
+            modelBuilder.ApplyConfiguration(new PartConfig());
+            modelBuilder.ApplyConfiguration(new PartUsageConfig());
+            modelBuilder.ApplyConfiguration(new ReportConfig());
+            modelBuilder.ApplyConfiguration(new ReservationConfig());
+            modelBuilder.ApplyConfiguration(new VehicleConfig());
+
+            modelBuilder.ApplyConfiguration(new AdvisoryConfig());
+            modelBuilder.ApplyConfiguration(new ContractConfig());
+            modelBuilder.ApplyConfiguration(new CourseConfig());
+            modelBuilder.ApplyConfiguration(new DepartmentConfig());
+            modelBuilder.ApplyConfiguration(new EnrollmentConfig());
+            modelBuilder.ApplyConfiguration(new ProfessorConfig());
+            modelBuilder.ApplyConfiguration(new ScheduleConfig());
+            modelBuilder.ApplyConfiguration(new ScheduleConfig());
+            modelBuilder.ApplyConfiguration(new SectionConfig());
+            modelBuilder.ApplyConfiguration(new StudentConfig());
         }
     }
 }

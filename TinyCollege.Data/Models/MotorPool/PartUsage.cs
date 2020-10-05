@@ -12,7 +12,7 @@ namespace TinyCollege.Data.Models.MotorPool
         public int PartId { get; set; }
         public Part Part { get; set; }
 
-        public int FormId { get; set; }
-        public Form Form { get; set; }
+        public int MaintenanceDetailId { get; set; }
+        public MaintenanceDetail MaintenanceDetail { get; set; }
     }
 }

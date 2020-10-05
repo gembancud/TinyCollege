@@ -12,11 +12,7 @@ namespace TinyCollege.Data.Models.MotorPool
         public int Billing { get; set; }
         public int Mileage { get; set; }
 
-        public int? CheckoutFormId { get; set; }
-        public Form? CheckoutForm { get; set; }
-
-        public int? CompletionFormId { get; set; }
-        public Form? CompletionForm { get; set; }
+        public ICollection<ReservationForm> ReservationForms { get; set; }
 
         public int ProfessorId { get; set; }
         public Professor Professor { get; set; }
@@ -25,6 +21,6 @@ namespace TinyCollege.Data.Models.MotorPool
         public Vehicle Vehicle { get; set; }
 
         public int? ReportId { get; set; }
-        public Report? Report { get; set; }
+        public Report Report { get; set; }
     }
 }

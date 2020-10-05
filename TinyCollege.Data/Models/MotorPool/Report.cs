@@ -10,7 +10,7 @@ namespace TinyCollege.Data.Models.MotorPool
         public DateTime Month { get; set; }
         public string Type { get; set; }
 
-        public ICollection<Maintenance>? Maintenances { get; set; }
-        public ICollection<Reservation>? Reservations { get; set; }
+        public ICollection<Maintenance> Maintenances { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }
