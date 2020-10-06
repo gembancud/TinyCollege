@@ -16,7 +16,8 @@ namespace TinyCollege.Data.Configurations
             builder.Property(d => d.ScheduleId).ValueGeneratedOnAdd();
             builder.HasOne<Section>(s => s.Section)
                 .WithOne(s => s.Schedule)
-                .HasForeignKey<Section>(s => s.SectionId);
+                .HasForeignKey<Section>(s => s.SectionId)
+                .IsRequired(false);
         }
     }
 }

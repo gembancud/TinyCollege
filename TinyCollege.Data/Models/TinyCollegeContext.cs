@@ -57,8 +57,9 @@ namespace TinyCollege.Data.Models
             modelBuilder.ApplyConfiguration(new EnrollmentConfig());
             modelBuilder.ApplyConfiguration(new ProfessorConfig());
             modelBuilder.ApplyConfiguration(new ProfessorContractConfig());
+            modelBuilder.ApplyConfiguration(new ProfessorshipConfig());
             modelBuilder.ApplyConfiguration(new ScheduleConfig());
-            modelBuilder.ApplyConfiguration(new ScheduleConfig());
+            modelBuilder.ApplyConfiguration(new SchoolConfig());
             modelBuilder.ApplyConfiguration(new SectionConfig());
             modelBuilder.ApplyConfiguration(new StudentConfig());
             modelBuilder.ApplyConfiguration(new TenureConfig());

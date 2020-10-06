@@ -8,4 +8,9 @@
   <ItemGroup>
     <PackageReference Include="MvvmCross" Version="7.0.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TinyCollege.Data\TinyCollege.Data.csproj" />
+    <ProjectReference Include="..\TinyCollege.Service\TinyCollege.Service.csproj" />
+  </ItemGroup>
 </Project>

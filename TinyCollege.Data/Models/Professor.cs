@@ -10,6 +10,8 @@ namespace TinyCollege.Data.Models
         public int ProfessorId { get; set; }
         public string Name { get; set; }
 
+        public ICollection<Professorship> Professorships { get; set; }
+
         public ICollection<Section> Sections { get; set; }
 
         public ICollection<Advisory> Advisories { get; set; }

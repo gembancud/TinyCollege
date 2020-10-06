@@ -14,7 +14,7 @@ namespace TinyCollege.Data.Models
 
         public ICollection<Tenure> Tenures { get; set; }
 
-        public ICollection<Professor> Professors { get; set; }
+        public ICollection<Professorship> Professorships { get; set; }
 
         public ICollection<Course> Courses { get; set; }
 

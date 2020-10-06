@@ -11,7 +11,7 @@ namespace TinyCollege.Data.Configurations.MotorPool
     {
         public void Configure(EntityTypeBuilder<ReservationForm> builder)
         {
-            builder.ToTable("Form");
+            builder.ToTable("ReservationForm");
             builder.HasKey(d => d.ReservationFormId);
             builder.Property(d => d.ReservationFormId).ValueGeneratedOnAdd();
         }

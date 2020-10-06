@@ -12,7 +12,7 @@ namespace TinyCollege.Data.Models.MotorPool
 
         public ICollection<MaintenanceDetail> MaintenanceDetails { get; set; }
 
-        public int ReleasingMechanicId { get; set; }
+        public int? ReleasingMechanicId { get; set; }
         public Employee ReleasingMechanic { get; set; }
 
         public int VehicleId { get; set; }
