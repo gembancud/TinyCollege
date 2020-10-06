@@ -9,7 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
     <PackageReference Include="MahApps.Metro" Version="2.2.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.5.0" />
     <PackageReference Include="MvvmCross" Version="7.0.1" />
     <PackageReference Include="MvvmCross.Platforms.Wpf" Version="7.0.1" />
   </ItemGroup>

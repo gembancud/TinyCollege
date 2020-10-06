@@ -6,10 +6,98 @@
                   xmlns:local="clr-namespace:TinyCollege.Wpf.Views"
                   xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
                   xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                  xmlns:xcad ="http://schemas.xceed.com/wpf/xaml/avalondock"
+                  xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
                   mc:Ignorable="d"
- 
                   d:DesignHeight="600" d:DesignWidth="1000">
+
     <Grid>
+        <xcad:DockingManager 
+                           AllowMixedOrientation="True"
+                           BorderBrush="Black"
+                           BorderThickness="1"
+        >
+            <xcad:DockingManager.Theme>
+                <xcad:MetroTheme />
+            </xcad:DockingManager.Theme>
+            <xcad:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.DocumentHeaderTemplate>
+            <xcad:DockingManager.AnchorableHeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Title}" FontWeight="SemiBold"  />
+                    </StackPanel>
+                </DataTemplate>
+            </xcad:DockingManager.AnchorableHeaderTemplate>
+            <xcad:LayoutRoot x:Name="_layoutRoot">
+                <xcad:LayoutPanel Orientation="Horizontal">
+                    <xcad:LayoutAnchorablePaneGroup DockWidth="*" >
+                        <xcad:LayoutAnchorablePane >
+                            <xcad:LayoutAnchorable ContentId="tinycollege" Title="Tiny College" CanHide="False" CanClose="False"
+                                            AutoHideWidth="250">
+                            </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable ContentId="motorpool" Title="Motor Pool" CanHide="False" CanClose="False"
+                                                   AutoHideWidth="250">
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
+
+                    <xcad:LayoutAnchorablePane DockWidth="2*">
+                        <xcad:LayoutAnchorable ContentId="browser" Title="Browser" CanHide="False" CanClose="False"
+                                               AutoHideWidth="240">
+                            <GroupBox Padding="5" Margin="2" BorderThickness="3">
+                                <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <iconPacks:PackIconModern Kind="Eye"/>
+                                    </DataTemplate>
+                                </GroupBox.HeaderTemplate>
+                                <DataGrid ItemsSource="{Binding Students}" 
+                                          AutoGenerateColumns="True" 
+                                          ColumnWidth="*" 
+                                          EnableColumnVirtualization="True" 
+                                          EnableRowVirtualization="True"
+                                          ScrollViewer.CanContentScroll="True" 
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                ></DataGrid>
+                            </GroupBox>
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorablePane>
+
+                    <xcad:LayoutAnchorablePaneGroup DockWidth="*">
+                        <xcad:LayoutAnchorablePane>
+                            <xcad:LayoutAnchorable ContentId="inspector" Title="Inspector"  >
+                                <TextBlock> Entity Inspector</TextBlock>
+                            </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable ContentId="manager" Title="Manager" >
+                                <TextBlock> Entity Manager</TextBlock>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorablePane>
+                    </xcad:LayoutAnchorablePaneGroup>
+                </xcad:LayoutPanel>
+
+                <xcad:LayoutRoot.LeftSide>
+                    <xcad:LayoutAnchorSide>
+                        <xcad:LayoutAnchorGroup>
+                            <xcad:LayoutAnchorable Title="Tiny College Associatives" ContentId="tcassociatives" >
+                                <TextBlock Text="Here are the tc associative entities" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                            <xcad:LayoutAnchorable Title="Motor Pool Associatives" ContentId="mpassociatives"  >
+                                <TextBlock Text="Here are the mp associative entities" Margin="10" FontSize="18" FontWeight="Black" TextWrapping="Wrap"/>
+                            </xcad:LayoutAnchorable>
+                        </xcad:LayoutAnchorGroup>
+                    </xcad:LayoutAnchorSide>
+                </xcad:LayoutRoot.LeftSide>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+    </Grid>
+    <!--<Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"></ColumnDefinition>
             <ColumnDefinition Width="5"></ColumnDefinition>
@@ -71,5 +159,5 @@
         <GroupBox Grid.Column="2" Header="Entity Manager" Padding="5" Margin="2" BorderThickness="3">
             <TextBlock> Read Delete Entity</TextBlock>
         </GroupBox>
-    </Grid>
+    </Grid>-->
 </views:MvxWpfView>
