@@ -8,8 +8,44 @@
                   mc:Ignorable="d"
                   d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel Margin="10">
-            <DataGrid ItemsSource="{Binding Students}" AutoGenerateColumns="True"></DataGrid>
-        </StackPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <ColumnDefinition Width="5"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="5"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" BorderBrush="MidnightBlue" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
+                    <TextBlock>Entity Selection</TextBlock>
+                </Border>
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"></GridSplitter>
+                <Border Grid.Column="2" BorderBrush="MediumTurquoise" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
+                    <StackPanel  Margin="10">
+                        <DataGrid ItemsSource="{Binding Students}" AutoGenerateColumns="True"></DataGrid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"></GridSplitter>
+            <Border Grid.Row="2" BorderBrush="DarkCyan" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
+                <TextBlock>Create Update Entity</TextBlock>
+            </Border>
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"></GridSplitter>
+        <Border Grid.Column="2" BorderBrush="DodgerBlue" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
+            <TextBlock> Read Delete Entity</TextBlock>
+        </Border>
     </Grid>
 </views:MvxWpfView>
