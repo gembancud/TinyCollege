@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework.Constraints;
+using TinyCollege.Data.Interfaces.IMotorPool;
 
 namespace TinyCollege.Data.Models.MotorPool
 {
-    public class ReservationForm
+    public class ReservationForm: IReservationForm
     {
         public int ReservationFormId { get; set; }
         public string Type { get; set; }

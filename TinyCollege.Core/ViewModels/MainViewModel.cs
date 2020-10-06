@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using MvvmCross.ViewModels;
+using TinyCollege.Data.Interfaces;
 using TinyCollege.Data.Models;
 using TinyCollege.Service.Services;
 
@@ -26,14 +27,14 @@ namespace TinyCollege.Core.ViewModels
         private void _Initialize()
         {
             var students = _studentService.GetStudents().ToList();
-            Students = new ObservableCollection<Student>(students);
+            Students = new ObservableCollection<IStudent>(students);
         }
 
         private void _AddCommands()
         {
         }
 
-        public ObservableCollection<Student> Students { get; set; }
+        public ObservableCollection<IStudent> Students { get; set; }
         private StudentService _studentService;
     }
 }

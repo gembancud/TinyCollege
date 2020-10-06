@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyCollege.Data.Interfaces;
 
 namespace TinyCollege.Data.Models
 {
-    public class Enrollment
+    public class Enrollment: IEnrollment
     {
         public int EnrollmentId { get; set; }
 

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyCollege.Data.Interfaces;
 using TinyCollege.Data.Models.MotorPool;
 
 namespace TinyCollege.Data.Models
 {
-    public class Professor
+    public class Professor: IProfessor
     {
         public int ProfessorId { get; set; }
         public string Name { get; set; }

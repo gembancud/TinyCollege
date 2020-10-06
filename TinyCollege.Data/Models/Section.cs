@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyCollege.Data.Interfaces;
 
 namespace TinyCollege.Data.Models
 {
-    public class Section
+    public class Section: ISection
     {
         public int SectionId { get; set; }
         public string Name { get; set; }

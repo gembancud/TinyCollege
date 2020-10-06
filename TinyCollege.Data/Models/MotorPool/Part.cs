@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyCollege.Data.Interfaces.IMotorPool;
 
 namespace TinyCollege.Data.Models.MotorPool
 {
-    public class Part
+    public class Part: IPart
     {
         public int PartId { get; set; }
         public string Name { get; set; }

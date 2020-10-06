@@ -5,11 +5,13 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:local="clr-namespace:TinyCollege.Wpf.Views"
                   xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                   mc:Ignorable="d"
-                  d:DesignHeight="450" d:DesignWidth="800">
+ 
+                  d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <ColumnDefinition Width="8*"></ColumnDefinition>
             <ColumnDefinition Width="5"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
@@ -23,29 +25,51 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="5"></ColumnDefinition>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" BorderBrush="MidnightBlue" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
-                    <TextBlock>Entity Selection</TextBlock>
-                </Border>
-                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"></GridSplitter>
-                <Border Grid.Column="2" BorderBrush="MediumTurquoise" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
-                    <StackPanel  Margin="10">
-                        <DataGrid ItemsSource="{Binding Students}" AutoGenerateColumns="True"></DataGrid>
-                    </StackPanel>
-                </Border>
-            </Grid>
+                <GroupBox Grid.Column="0" Header="Entity Selection" Padding="5" Margin="2" BorderThickness="3">
+                    <TabControl>
+                        <TabControl.Resources>
+                            <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
+                                <Setter Property="mah:HeaderedControlHelper.HeaderFontSize" Value="18" />
+                            </Style>
+                        </TabControl.Resources>
+                        <TabItem Header="Tiny College">
+                            <StackPanel>
+                                <TextBlock>Entity Selection</TextBlock>
+                                <Button>Student</Button>
 
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Motor Pool">
+                            <Label Content="MotorPool goes here..." />
+                        </TabItem>
+                    </TabControl>
+
+                </GroupBox>
+                <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"></GridSplitter>
+                <GroupBox Grid.Column="2" Header="Browser" Padding="5" Margin="2" BorderThickness="3">
+                    <DataGrid ItemsSource="{Binding Students}" 
+                              AutoGenerateColumns="True" 
+                              ColumnWidth="*" 
+                              EnableColumnVirtualization="True" 
+                              EnableRowVirtualization="True"
+                              ScrollViewer.CanContentScroll="True" 
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                    ></DataGrid>
+                </GroupBox>
+            </Grid>
             <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"></GridSplitter>
-            <Border Grid.Row="2" BorderBrush="DarkCyan" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
+            <GroupBox Grid.Row="2" Header="Entity Inspector" Padding="5" Margin="2" BorderThickness="3">
                 <TextBlock>Create Update Entity</TextBlock>
-            </Border>
+            </GroupBox>
         </Grid>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch"></GridSplitter>
-        <Border Grid.Column="2" BorderBrush="DodgerBlue" BorderThickness="2" Padding="5" Margin="5" CornerRadius="5">
+        <GroupBox Grid.Column="2" Header="Entity Manager" Padding="5" Margin="2" BorderThickness="3">
             <TextBlock> Read Delete Entity</TextBlock>
-        </Border>
+        </GroupBox>
     </Grid>
 </views:MvxWpfView>

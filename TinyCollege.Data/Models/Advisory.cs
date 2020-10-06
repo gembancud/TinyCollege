@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TinyCollege.Data.Interfaces;
 
 namespace TinyCollege.Data.Models
 {
-    public class Advisory
+    public class Advisory: IAdvisory
     {
         public int AdvisoryId { get; set; }
 
