@@ -12,7 +12,7 @@ namespace TinyCollege.Service.Services.MotorPool
         {
         }
 
-        public IQueryable<Report> GetReportsPartUsages()
+        public IQueryable<Report> GetReports()
         {
             return _context.Reports;
         }

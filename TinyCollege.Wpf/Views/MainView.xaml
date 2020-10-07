@@ -17,8 +17,8 @@
                            AllowMixedOrientation="True"
                            BorderBrush="Black"
                            BorderThickness="1"
-                           GridSplitterWidth="7"
-                           GridSplitterHeight="7"
+                           GridSplitterWidth="9"
+                           GridSplitterHeight="9"
             >
             <xcad:DockingManager.Theme>
                 <xcad:MetroTheme />
@@ -37,9 +37,9 @@
                 </DataTemplate>
             </xcad:DockingManager.AnchorableTitleTemplate>
             <xcad:LayoutRoot x:Name="_layoutRoot">
-                <xcad:LayoutPanel Orientation="Horizontal">
-                    <xcad:LayoutPanel Orientation="Vertical">
-                        <xcad:LayoutAnchorablePaneGroup DockWidth="250" DockHeight="*" >
+                <xcad:LayoutPanel Orientation="Horizontal" DockHeight="*" DockWidth="*">
+                    <xcad:LayoutPanel Orientation="Vertical" >
+                        <xcad:LayoutAnchorablePaneGroup >
                             <xcad:LayoutAnchorablePane >
                                 <xcad:LayoutAnchorable ContentId="tinycollege" Title="Tiny College" CanHide="False" CanClose="False"
                                             AutoHideWidth="250">
@@ -52,18 +52,18 @@
                                         </GroupBox.HeaderTemplate>
                                         <ScrollViewer>
                                             <StackPanel>
-                                                <Button Margin="2">Schools</Button>
-                                                <Button Margin="2">Courses</Button>
-                                                <Button Margin="2">Departments</Button>
-                                                <Button Margin="2">Professors</Button>
-                                                <Button Margin="2">Students</Button>
+                                                <Button Margin="2" Command="{Binding ViewSchoolsCommand}">Schools</Button>
+                                                <Button Margin="2" Command="{Binding ViewCoursesCommand}">Courses</Button>
+                                                <Button Margin="2" Command="{Binding ViewDepartmentsCommand}">Departments</Button>
+                                                <Button Margin="2" Command="{Binding ViewProfessorsCommand}">Professors</Button>
+                                                <Button Margin="2" Command="{Binding ViewStudentsCommand}">Students</Button>
                                             </StackPanel>
                                         </ScrollViewer>
                                     </GroupBox>
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutAnchorablePaneGroup>
-                        <xcad:LayoutAnchorablePaneGroup DockWidth="250" DockHeight="*">
+                        <xcad:LayoutAnchorablePaneGroup >
                             <xcad:LayoutAnchorablePane>
                                 <xcad:LayoutAnchorable ContentId="motorpool" 
                                                    Title="Motor Pool" 
@@ -80,12 +80,12 @@
 
                                         <ScrollViewer>
                                             <StackPanel>
-                                                <Button Margin="2">Employees</Button>
-                                                <Button Margin="2">Parts</Button>
-                                                <Button Margin="2">Maintenances</Button>
-                                                <Button Margin="2">Reservations</Button>
-                                                <Button Margin="2">Vehicles</Button>
-                                                <Button Margin="2">Reports</Button>
+                                                <Button Margin="2" Command="{Binding ViewEmployeesCommand}">Employees</Button>
+                                                <Button Margin="2" Command="{Binding ViewPartsCommand}">Parts</Button>
+                                                <Button Margin="2" Command="{Binding ViewMaintenancesCommand}">Maintenances</Button>
+                                                <Button Margin="2" Command="{Binding ViewReservationsCommand}">Reservations</Button>
+                                                <Button Margin="2" Command="{Binding ViewVehiclesCommand}">Vehicles</Button>
+                                                <Button Margin="2" Command="{Binding ViewReportsCommand}">Reports</Button>
                                             </StackPanel>
                                         </ScrollViewer>
                                     </GroupBox>
@@ -94,7 +94,7 @@
                         </xcad:LayoutAnchorablePaneGroup>
                     </xcad:LayoutPanel>
 
-                    <xcad:LayoutAnchorablePane DockWidth="*">
+                    <xcad:LayoutAnchorablePane>
                         <xcad:LayoutAnchorable ContentId="browser" 
                                                Title="Browser" 
                                                CanHide="False" 
@@ -106,7 +106,7 @@
                                         <iconPacks:PackIconModern Kind="Eye"/>
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
-                                <DataGrid ItemsSource="{Binding Students}" 
+                                <DataGrid ItemsSource="{Binding BrowserEnumerable}" 
                                           AutoGenerateColumns="True" 
                                           ColumnWidth="*" 
                                           EnableColumnVirtualization="True" 
@@ -120,7 +120,7 @@
                     </xcad:LayoutAnchorablePane>
 
                     <xcad:LayoutPanel Orientation="Vertical">
-                        <xcad:LayoutAnchorablePaneGroup DockWidth="300" DockHeight="*">
+                        <xcad:LayoutAnchorablePaneGroup >
                             <xcad:LayoutAnchorablePane>
                                 <xcad:LayoutAnchorable ContentId="inspector" 
                                                        Title="Inspector"  
@@ -138,7 +138,7 @@
                             </xcad:LayoutAnchorablePane>
                         </xcad:LayoutAnchorablePaneGroup>
 
-                        <xcad:LayoutAnchorablePaneGroup DockWidth="250" DockHeight="*">
+                        <xcad:LayoutAnchorablePaneGroup >
                             <xcad:LayoutAnchorablePane>
                                 <xcad:LayoutAnchorable ContentId="manager" 
                                                        Title="Manager" 
@@ -175,14 +175,14 @@
                                     </GroupBox.HeaderTemplate>
                                     <ScrollViewer>
                                         <StackPanel>
-                                            <Button Margin="2">Advisory</Button>
-                                            <Button Margin="2">Contracts</Button>
-                                            <Button Margin="2">Enrollments</Button>
-                                            <Button Margin="2">Professor Contracts</Button>
-                                            <Button Margin="2">Professorships</Button>
-                                            <Button Margin="2">Sections</Button>
-                                            <Button Margin="2">Schedules</Button>
-                                            <Button Margin="2">Tenure</Button>
+                                            <Button Margin="2" Command="{Binding ViewAdvisoriesCommand}">Advisory</Button>
+                                            <Button Margin="2" Command="{Binding ViewContractsCommand}">Contracts</Button>
+                                            <Button Margin="2" Command="{Binding ViewEnrollmentsCommand}">Enrollments</Button>
+                                            <Button Margin="2" Command="{Binding ViewProfessorContractsCommand}">Professor Contracts</Button>
+                                            <Button Margin="2" Command="{Binding ViewProfessorshipsCommand}">Professorships</Button>
+                                            <Button Margin="2" Command="{Binding ViewSectionsCommand}">Sections</Button>
+                                            <Button Margin="2" Command="{Binding ViewSchedulesCommand}">Schedules</Button>
+                                            <Button Margin="2" Command="{Binding ViewTenuresCommand}">Tenure</Button>
                                         </StackPanel>
                                     </ScrollViewer>
 
@@ -202,9 +202,9 @@
 
                                     <ScrollViewer>
                                         <StackPanel>
-                                            <Button Margin="2">Maintenance Details</Button>
-                                            <Button Margin="2">Part Usages</Button>
-                                            <Button Margin="2">Reservation Forms</Button>
+                                            <Button Margin="2" Command="{Binding ViewMaintenanceDetailsCommand}">Maintenance Details</Button>
+                                            <Button Margin="2" Command="{Binding ViewPartUsagesCommand}">Part Usages</Button>
+                                            <Button Margin="2" Command="{Binding ViewReservationFormsCommand}">Reservation Forms</Button>
                                         </StackPanel>
                                     </ScrollViewer>
                                 </GroupBox>
