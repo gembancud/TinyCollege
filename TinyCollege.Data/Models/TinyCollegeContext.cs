@@ -27,6 +27,7 @@ namespace TinyCollege.Data.Models
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Professor> Professors { get; set; }
         public DbSet<ProfessorContract> ProfessorContracts { get; set; }
+        public DbSet<Professorship> Professorships { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<School> Schools { get; set; }
         public DbSet<Section> Sections { get; set; }
