@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using MvvmCross.Commands;
@@ -64,7 +65,7 @@ namespace TinyCollege.Core.ViewModels
         }
 
         private IEnumerable<object> _browserEnumerable;
-        private EntityEnums _browserEnumerableType;
+        private EntityEnum _browserEnumerableType;
         public IEnumerable<object> BrowserEnumerable
         {
             get => _browserEnumerable;
@@ -107,49 +108,49 @@ namespace TinyCollege.Core.ViewModels
         {
             get
             {
-                if (_browserEnumerableType == EntityEnums.Employee)
+                if (_browserEnumerableType == EntityEnum.Employee)
                     return "Employee";
-                if (_browserEnumerableType == EntityEnums.Maintenance)
+                if (_browserEnumerableType == EntityEnum.Maintenance)
                     return "Maintenance";
-                if (_browserEnumerableType == EntityEnums.MaintenanceDetail)
+                if (_browserEnumerableType == EntityEnum.MaintenanceDetail)
                     return "Maintenance Detail";
-                if (_browserEnumerableType == EntityEnums.Part)
+                if (_browserEnumerableType == EntityEnum.Part)
                     return "Part";
-                if (_browserEnumerableType == EntityEnums.PartUsage)
+                if (_browserEnumerableType == EntityEnum.PartUsage)
                     return "Part Usage";
-                if (_browserEnumerableType == EntityEnums.Report)
+                if (_browserEnumerableType == EntityEnum.Report)
                     return "Report";
-                if (_browserEnumerableType == EntityEnums.Reservation)
+                if (_browserEnumerableType == EntityEnum.Reservation)
                     return "Reservation";
-                if (_browserEnumerableType == EntityEnums.ReservationForm)
+                if (_browserEnumerableType == EntityEnum.ReservationForm)
                     return "Reservation Form";
-                if (_browserEnumerableType == EntityEnums.Vehicle)
+                if (_browserEnumerableType == EntityEnum.Vehicle)
                     return "Vehicle";
-                if (_browserEnumerableType == EntityEnums.Advisory)
+                if (_browserEnumerableType == EntityEnum.Advisory)
                     return "Advisory";
-                if (_browserEnumerableType == EntityEnums.Contract)
+                if (_browserEnumerableType == EntityEnum.Contract)
                     return "Contract";
-                if (_browserEnumerableType == EntityEnums.Course)
+                if (_browserEnumerableType == EntityEnum.Course)
                     return "Course";
-                if (_browserEnumerableType == EntityEnums.Department)
+                if (_browserEnumerableType == EntityEnum.Department)
                     return "Department";
-                if (_browserEnumerableType == EntityEnums.Enrollment)
+                if (_browserEnumerableType == EntityEnum.Enrollment)
                     return "Enrollment";
-                if (_browserEnumerableType == EntityEnums.Professor)
+                if (_browserEnumerableType == EntityEnum.Professor)
                     return "Professor";
-                if (_browserEnumerableType == EntityEnums.ProfessorContract)
+                if (_browserEnumerableType == EntityEnum.ProfessorContract)
                     return "Professor Contract";
-                if (_browserEnumerableType == EntityEnums.Professorship)
+                if (_browserEnumerableType == EntityEnum.Professorship)
                     return "Professorship";
-                if (_browserEnumerableType == EntityEnums.Schedule)
+                if (_browserEnumerableType == EntityEnum.Schedule)
                     return "Schedule";
-                if (_browserEnumerableType == EntityEnums.School)
+                if (_browserEnumerableType == EntityEnum.School)
                     return "School";
-                if (_browserEnumerableType == EntityEnums.Section)
+                if (_browserEnumerableType == EntityEnum.Section)
                     return "Section";
-                if (_browserEnumerableType == EntityEnums.Student)
+                if (_browserEnumerableType == EntityEnum.Student)
                     return "Student";
-                if (_browserEnumerableType == EntityEnums.Tenure)
+                if (_browserEnumerableType == EntityEnum.Tenure)
                     return "Tenure";
                 return "";
             }
@@ -157,19 +158,19 @@ namespace TinyCollege.Core.ViewModels
         }
 
         private dynamic _browserSelection;
-        private EntityEnums _browserSelectionType;
+        private EntityEnum _browserSelectionType;
         public dynamic BrowserSelection
         {
             get => _browserSelection;
             set
             {
-                if(value!=null)
+                if (value != null)
                 {
                     SetProperty(ref _browserSelectionType, _checkEntityType(value.GetType()));
                     SetProperty(ref _browserSelection, value);
                     RaisePropertyChanged(() => InspectorHeader);
 
-
+                    _fillInspectorFields(value);
                     #region Inspector Entities Visibility RaisePropertyChanged
 
                     RaisePropertyChanged(() => InspectorEmployeeVisibility);
@@ -195,7 +196,39 @@ namespace TinyCollege.Core.ViewModels
                     RaisePropertyChanged(() => InspectorStudentVisibility);
                     RaisePropertyChanged(() => InspectorTenureVisibility);
                     #endregion
+
+
                 }
+            }
+        }
+
+        private void _fillInspectorFields(dynamic value)
+        {
+            if (_browserSelectionType == EntityEnum.Employee)
+            {
+                InspectorEmployee = value;
+                RaisePropertyChanged(() => InspectorEmployee);
+                //InspectorEmployeeId = value.EmployeeId;
+                //InspectorEmployeeName = value.Name;
+                //InspectorEmployeeIsMechanic = value.IsMechanic;
+                //RaisePropertyChanged(() => InspectorEmployeeId);
+                //RaisePropertyChanged(() => InspectorEmployeeName);
+                //RaisePropertyChanged(() => InspectorEmployeeIsMechanic);
+            }
+            if (_browserSelectionType == EntityEnum.Maintenance)
+            {
+                InspectorMaintenance = value;
+                InspectorMaintenanceId = value.MaintenanceId;
+                InspectorMaintenanceType = value.Type;
+                InspectorMaintenanceCompletionDate = value.CompletionDate;
+                InspectorMaintenanceReleasingMechanicId = value.ReleasingMechanicId;
+                InspectorMaintenanceVehicleId = value.VehicleId;
+                InspectorMaintenanceReportId = value.ReportId;
+            }
+
+            if(_browserSelectionType == EntityEnum.MaintenanceDetail)
+            {
+                InspectorMaintenance = value;
             }
         }
 
@@ -204,206 +237,480 @@ namespace TinyCollege.Core.ViewModels
         {
             get
             {
-                if (_browserSelectionType == EntityEnums.Employee)
+                if (_browserSelectionType == EntityEnum.Employee)
                     return "Employee";
-                if (_browserSelectionType == EntityEnums.Maintenance)
+                if (_browserSelectionType == EntityEnum.Maintenance)
                     return "Maintenance";
-                if (_browserSelectionType == EntityEnums.MaintenanceDetail)
+                if (_browserSelectionType == EntityEnum.MaintenanceDetail)
                     return "Maintenance Detail";
-                if (_browserSelectionType == EntityEnums.Part)
+                if (_browserSelectionType == EntityEnum.Part)
                     return "Part";
-                if (_browserSelectionType == EntityEnums.PartUsage)
+                if (_browserSelectionType == EntityEnum.PartUsage)
                     return "Part Usage";
-                if (_browserSelectionType == EntityEnums.Report)
+                if (_browserSelectionType == EntityEnum.Report)
                     return "Report";
-                if (_browserSelectionType == EntityEnums.Reservation)
+                if (_browserSelectionType == EntityEnum.Reservation)
                     return "Reservation";
-                if (_browserSelectionType == EntityEnums.ReservationForm)
+                if (_browserSelectionType == EntityEnum.ReservationForm)
                     return "Reservation Form";
-                if (_browserSelectionType == EntityEnums.Vehicle)
+                if (_browserSelectionType == EntityEnum.Vehicle)
                     return "Vehicle";
-                if (_browserSelectionType == EntityEnums.Advisory)
+                if (_browserSelectionType == EntityEnum.Advisory)
                     return "Advisory";
-                if (_browserSelectionType == EntityEnums.Contract)
+                if (_browserSelectionType == EntityEnum.Contract)
                     return "Contract";
-                if (_browserSelectionType == EntityEnums.Course)
+                if (_browserSelectionType == EntityEnum.Course)
                     return "Course";
-                if (_browserSelectionType == EntityEnums.Department)
+                if (_browserSelectionType == EntityEnum.Department)
                     return "Department";
-                if (_browserSelectionType == EntityEnums.Enrollment)
+                if (_browserSelectionType == EntityEnum.Enrollment)
                     return "Enrollment";
-                if (_browserSelectionType == EntityEnums.Professor)
+                if (_browserSelectionType == EntityEnum.Professor)
                     return "Professor";
-                if (_browserSelectionType == EntityEnums.ProfessorContract)
+                if (_browserSelectionType == EntityEnum.ProfessorContract)
                     return "Professor Contract";
-                if (_browserSelectionType == EntityEnums.Professorship)
+                if (_browserSelectionType == EntityEnum.Professorship)
                     return "Professorship";
-                if (_browserSelectionType == EntityEnums.Schedule)
+                if (_browserSelectionType == EntityEnum.Schedule)
                     return "Schedule";
-                if (_browserSelectionType == EntityEnums.School)
+                if (_browserSelectionType == EntityEnum.School)
                     return "School";
-                if (_browserSelectionType == EntityEnums.Section)
+                if (_browserSelectionType == EntityEnum.Section)
                     return "Section";
-                if (_browserSelectionType == EntityEnums.Student)
+                if (_browserSelectionType == EntityEnum.Student)
                     return "Student";
-                if (_browserSelectionType == EntityEnums.Tenure)
+                if (_browserSelectionType == EntityEnum.Tenure)
                     return "Tenure";
                 return "";
             }
         }
         #region Inspector Entities Visibility Properties
-        
-        public bool InspectorEmployeeVisibility => _browserSelectionType == EntityEnums.Employee;
-        public bool InspectorMaintenanceVisibility => _browserSelectionType == EntityEnums.Maintenance;
-        public bool InspectorMaintenanceDetailVisibility => _browserSelectionType == EntityEnums.MaintenanceDetail;
-        public bool InspectorPartVisibility => _browserSelectionType == EntityEnums.Part;
-        public bool InspectorPartUsageVisibility => _browserSelectionType == EntityEnums.PartUsage;
-        public bool InspectorReportVisibility => _browserSelectionType == EntityEnums.Report;
-        public bool InspectorReservationVisibility => _browserSelectionType == EntityEnums.Reservation;
-        public bool InspectorReservationFormVisibility => _browserSelectionType == EntityEnums.ReservationForm;
-        public bool InspectorVehicleVisibility => _browserSelectionType == EntityEnums.Vehicle;
-        public bool InspectorAdvisoryVisibility => _browserSelectionType == EntityEnums.Advisory;
-        public bool InspectorContractVisibility => _browserSelectionType == EntityEnums.Contract;
-        public bool InspectorCourseVisibility => _browserSelectionType == EntityEnums.Course;
-        public bool InspectorDepartmentVisibility => _browserSelectionType == EntityEnums.Department;
-        public bool InspectorEnrollmentVisibility => _browserSelectionType == EntityEnums.Enrollment;
-        public bool InspectorProfessorVisibility => _browserSelectionType == EntityEnums.Professor;
-        public bool InspectorProfessorContractVisibility => _browserSelectionType == EntityEnums.ProfessorContract;
-        public bool InspectorProfessorshipVisibility => _browserSelectionType == EntityEnums.Professorship;
-        public bool InspectorScheduleVisibility => _browserSelectionType == EntityEnums.Schedule;
-        public bool InspectorSchoolVisibility => _browserSelectionType == EntityEnums.School;
-        public bool InspectorSectionVisibility => _browserSelectionType == EntityEnums.Section;
-        public bool InspectorStudentVisibility => _browserSelectionType == EntityEnums.Student;
-        public bool InspectorTenureVisibility => _browserSelectionType == EntityEnums.Tenure;
+
+        public bool InspectorEmployeeVisibility => _browserSelectionType == EntityEnum.Employee;
+        public bool InspectorMaintenanceVisibility => _browserSelectionType == EntityEnum.Maintenance;
+        public bool InspectorMaintenanceDetailVisibility => _browserSelectionType == EntityEnum.MaintenanceDetail;
+        public bool InspectorPartVisibility => _browserSelectionType == EntityEnum.Part;
+        public bool InspectorPartUsageVisibility => _browserSelectionType == EntityEnum.PartUsage;
+        public bool InspectorReportVisibility => _browserSelectionType == EntityEnum.Report;
+        public bool InspectorReservationVisibility => _browserSelectionType == EntityEnum.Reservation;
+        public bool InspectorReservationFormVisibility => _browserSelectionType == EntityEnum.ReservationForm;
+        public bool InspectorVehicleVisibility => _browserSelectionType == EntityEnum.Vehicle;
+        public bool InspectorAdvisoryVisibility => _browserSelectionType == EntityEnum.Advisory;
+        public bool InspectorContractVisibility => _browserSelectionType == EntityEnum.Contract;
+        public bool InspectorCourseVisibility => _browserSelectionType == EntityEnum.Course;
+        public bool InspectorDepartmentVisibility => _browserSelectionType == EntityEnum.Department;
+        public bool InspectorEnrollmentVisibility => _browserSelectionType == EntityEnum.Enrollment;
+        public bool InspectorProfessorVisibility => _browserSelectionType == EntityEnum.Professor;
+        public bool InspectorProfessorContractVisibility => _browserSelectionType == EntityEnum.ProfessorContract;
+        public bool InspectorProfessorshipVisibility => _browserSelectionType == EntityEnum.Professorship;
+        public bool InspectorScheduleVisibility => _browserSelectionType == EntityEnum.Schedule;
+        public bool InspectorSchoolVisibility => _browserSelectionType == EntityEnum.School;
+        public bool InspectorSectionVisibility => _browserSelectionType == EntityEnum.Section;
+        public bool InspectorStudentVisibility => _browserSelectionType == EntityEnum.Student;
+        public bool InspectorTenureVisibility => _browserSelectionType == EntityEnum.Tenure;
 
         #endregion
+
+        #region Inspector Entities Properties
+
+        public Employee InspectorEmployee { get; set; }
+        public int InspectorEmployeeId { get; set; }
+        public string InspectorEmployeeName { get; set; }
+        public bool InspectorEmployeeIsMechanic { get; set; }
+
+        public Maintenance InspectorMaintenance { get; set; }
+        public int InspectorMaintenanceId { get; set; }
+        public string InspectorMaintenanceType { get; set; }
+        public DateTime InspectorMaintenanceCompletionDate { get; set; }
+        public int InspectorMaintenanceReleasingMechanicId { get; set; }
+        public int InspectorMaintenanceVehicleId { get; set; }
+        public int InspectorMaintenanceReportId { get; set; }
+
+        public MaintenanceDetail InspectorMaintenanceDetail { get; set; }
+        public int InspectorMaintenanceDetailId { get; set; }
+        public DateTime InspectorMaintenanceDetailProcessingDate { get; set; }
+        public int InspectorMaintenanceDetailMaintenanceId { get; set; }
+        public int InspectorMaintenanceDetailEmployeeId { get; set; }
+
+        public Part InspectorPart { get; set; }
+        public int InspectorPartId { get; set; }
+        public string InspectorPartName { get; set; }
+        public int InspectorPartCurrentAmount { get; set; }
+        public int InspectorPartMinimumLevel { get; set; }
+
+        public PartUsage InspectorPartUsage { get; set; }
+        public int InspectorPartUsageId { get; set; }
+        public int InspectorPartUsageCount { get; set; }
+        public int InspectorPartUsagePartId { get; set; }
+        public int InspectorPartUsageMaintenanceDetailId { get; set; }
+
+        public Report InspectorReport { get; set; }
+        public int InspectorReportId { get; set; }
+        public DateTime InspectorReportMonth { get; set; }
+        public string InspectorReportType { get; set; }
+
+        public Reservation InspectorReservation { get; set; }
+        public int InspectorReservationId { get; set; }
+        public DateTime InspectorReservationDepartureDate { get; set; }
+        public string InspectorReservationDestination { get; set; }
+        public int InspectorReservationBilling { get; set; }
+        public int InspectorReservationMileage { get; set; }
+        public int InspectorReservationProfessorId { get; set; }
+        public int InspectorReservationVehicleId { get; set; }
+        public int InspectorReservationReportId { get; set; }
+
+        public ReservationForm InspectorReservationForm { get; set; }
+        public int InspectorReservationFormId { get; set; }
+        public string InspectorReservationFormType { get; set; }
+        public string InspectorReservationFormNotes { get; set; }
+        public DateTime InspectorReservationFormSubmissionDate { get; set; }
+        public int InspectorReservationFormReservationId { get; set; }
+        public int InspectorReservationFormEmployeeId { get; set; }
+
+        public Vehicle InspectorVehicle { get; set; }
+        public int InspectorVehicleId { get; set; }
+        public string InspectorVehicleType { get; set; }
+        public int InspectorVehicleSeatingCapacity { get; set; }
+
+        public Advisory InspectorAdvisory { get; set; }
+        public int InspectorAdvisoryId { get; set; }
+        public int InspectorAdvisoryDepartmentId { get; set; }
+        public int InspectorAdvisoryProfessorId { get; set; }
+        public int InspectorAdvisoryStudentId { get; set; }
+
+        public Contract InspectorContract { get; set; }
+        public int InspectorContractId { get; set; }
+        public string InspectorContractType { get; set; }
+
+        public Course InspectorCourse { get; set; }
+        public int InspectorCourseId { get; set; }
+        public string InspectorCourseName { get; set; }
+        public int InspectorCourseDepartmentId { get; set; }
+
+        public Department InspectorDepartment { get; set; }
+        public int InspectorDepartmentId { get; set; }
+        public string InspectorDepartmentName { get; set; }
+        public int InspectorDepartmentSchoolId { get; set; }
+
+        public Enrollment InspectorEnrollment { get; set; }
+        public int InspectorEnrollmentId { get; set; }
+        public int InspectorEnrollmentStudentId { get; set; }
+        public int InspectorEnrollmentSectionId { get; set; }
+
+        public Professor InspectorProfessor { get; set; }
+        public int InspectorProfessorId { get; set; }
+        public string InspectorProfessorName { get; set; }
+
+        public ProfessorContract InspectorProfessorContract { get; set; }
+        public int InspectorProfessorContractId { get; set; }
+        public bool InspectorProfessorContractisActive { get; set; }
+        public int InspectorProfessorContractProfessorId { get; set; }
+        public int InspectorProfessorContractContractId { get; set; }
+
+        public Professorship InspectorProfessorship { get; set; }
+        public int InspectorProfessorShipId { get; set; }
+        public bool InspectorProfessorisActive { get; set; }
+        public int InspectorProfessorProfessorId { get; set; }
+        public int InspectorProfessorDepartmentId { get; set; }
+
+        public Schedule InspectorSchedule { get; set; }
+        public int InspectorScheduleId { get; set; }
+        public string InspectorScheduleDay { get; set; }
+        public string InspectorScheduleRoomCode { get; set; }
+        public DateTime InspectorScheduleTime { get; set; }
+        public int? InspectorScheduleSectionId { get; set; }
+
+        public School InspectorSchool { get; set; }
+        public int InspectorSchoolId { get; set; }
+        public string InspectorSchoolName { get; set; }
+        public int InspectorSchoolDeanId { get; set; }
+
+        public Section InspectorSection { get; set; }
+        public int InspectorSectionId { get; set; }
+        public string InspectorSectionName { get; set; }
+        public int InspectorSectionScheduleId { get; set; }
+        public int InspectorSectionProfessorId { get; set; }
+        public int InspectorSectionCourseId { get; set; }
+
+        public Student InspectorStudent { get; set; }
+        public int InspectorStudentId { get; set; }
+        public string InspectorStudentName { get; set; }
+        public int? InspectorStudentDepartmentId { get; set; }
+        public int? InspectorStudentAdvisoryId { get; set; }
+
+        public Tenure InspectorTenure { get; set; }
+        public int InspectorTenureId { get; set; }
+        public int InspectorTenureSuccession { get; set; }
+        public int InspectorTenureProfessorId { get; set; }
+        public int InspectorTenureDepartmentId { get; set; }
+
+        #endregion
+
+        #region Inspector Commands
+
+        #endregion
+
+
 
         public string ManagerHeader
         {
             get
             {
-                if (_browserEnumerableType == EntityEnums.Employee)
+                if (_browserEnumerableType == EntityEnum.Employee)
                     return "Employee";
-                if (_browserEnumerableType == EntityEnums.Maintenance)
+                if (_browserEnumerableType == EntityEnum.Maintenance)
                     return "Maintenance";
-                if (_browserEnumerableType == EntityEnums.MaintenanceDetail)
+                if (_browserEnumerableType == EntityEnum.MaintenanceDetail)
                     return "Maintenance Detail";
-                if (_browserEnumerableType == EntityEnums.Part)
+                if (_browserEnumerableType == EntityEnum.Part)
                     return "Part";
-                if (_browserEnumerableType == EntityEnums.PartUsage)
+                if (_browserEnumerableType == EntityEnum.PartUsage)
                     return "Part Usage";
-                if (_browserEnumerableType == EntityEnums.Report)
+                if (_browserEnumerableType == EntityEnum.Report)
                     return "Report";
-                if (_browserEnumerableType == EntityEnums.Reservation)
+                if (_browserEnumerableType == EntityEnum.Reservation)
                     return "Reservation";
-                if (_browserEnumerableType == EntityEnums.ReservationForm)
+                if (_browserEnumerableType == EntityEnum.ReservationForm)
                     return "Reservation Form";
-                if (_browserEnumerableType == EntityEnums.Vehicle)
+                if (_browserEnumerableType == EntityEnum.Vehicle)
                     return "Vehicle";
-                if (_browserEnumerableType == EntityEnums.Advisory)
+                if (_browserEnumerableType == EntityEnum.Advisory)
                     return "Advisory";
-                if (_browserEnumerableType == EntityEnums.Contract)
+                if (_browserEnumerableType == EntityEnum.Contract)
                     return "Contract";
-                if (_browserEnumerableType == EntityEnums.Course)
+                if (_browserEnumerableType == EntityEnum.Course)
                     return "Course";
-                if (_browserEnumerableType == EntityEnums.Department)
+                if (_browserEnumerableType == EntityEnum.Department)
                     return "Department";
-                if (_browserEnumerableType == EntityEnums.Enrollment)
+                if (_browserEnumerableType == EntityEnum.Enrollment)
                     return "Enrollment";
-                if (_browserEnumerableType == EntityEnums.Professor)
+                if (_browserEnumerableType == EntityEnum.Professor)
                     return "Professor";
-                if (_browserEnumerableType == EntityEnums.ProfessorContract)
+                if (_browserEnumerableType == EntityEnum.ProfessorContract)
                     return "Professor Contract";
-                if (_browserEnumerableType == EntityEnums.Professorship)
+                if (_browserEnumerableType == EntityEnum.Professorship)
                     return "Professorship";
-                if (_browserEnumerableType == EntityEnums.Schedule)
+                if (_browserEnumerableType == EntityEnum.Schedule)
                     return "Schedule";
-                if (_browserEnumerableType == EntityEnums.School)
+                if (_browserEnumerableType == EntityEnum.School)
                     return "School";
-                if (_browserEnumerableType == EntityEnums.Section)
+                if (_browserEnumerableType == EntityEnum.Section)
                     return "Section";
-                if (_browserEnumerableType == EntityEnums.Student)
+                if (_browserEnumerableType == EntityEnum.Student)
                     return "Student";
-                if (_browserEnumerableType == EntityEnums.Tenure)
+                if (_browserEnumerableType == EntityEnum.Tenure)
                     return "Tenure";
                 return "";
             }
         }
         #region Manager Entities Visibility Properties
 
-        public bool ManagerEmployeeVisibility => _browserEnumerableType == EntityEnums.Employee;
-        public bool ManagerMaintenanceVisibility => _browserEnumerableType == EntityEnums.Maintenance;
-        public bool ManagerMaintenanceDetailVisibility => _browserEnumerableType == EntityEnums.MaintenanceDetail;
-        public bool ManagerPartVisibility => _browserEnumerableType == EntityEnums.Part;
-        public bool ManagerPartUsageVisibility => _browserEnumerableType == EntityEnums.PartUsage;
-        public bool ManagerReportVisibility => _browserEnumerableType == EntityEnums.Report;
-        public bool ManagerReservationVisibility => _browserEnumerableType == EntityEnums.Reservation;
-        public bool ManagerReservationFormVisibility => _browserEnumerableType == EntityEnums.ReservationForm;
-        public bool ManagerVehicleVisibility => _browserEnumerableType == EntityEnums.Vehicle;
-        public bool ManagerAdvisoryVisibility => _browserEnumerableType == EntityEnums.Advisory;
-        public bool ManagerContractVisibility => _browserEnumerableType == EntityEnums.Contract;
-        public bool ManagerCourseVisibility => _browserEnumerableType == EntityEnums.Course;
-        public bool ManagerDepartmentVisibility => _browserEnumerableType == EntityEnums.Department;
-        public bool ManagerEnrollmentVisibility => _browserEnumerableType == EntityEnums.Enrollment;
-        public bool ManagerProfessorVisibility => _browserEnumerableType == EntityEnums.Professor;
-        public bool ManagerProfessorContractVisibility => _browserEnumerableType == EntityEnums.ProfessorContract;
-        public bool ManagerProfessorshipVisibility => _browserEnumerableType == EntityEnums.Professorship;
-        public bool ManagerScheduleVisibility => _browserEnumerableType == EntityEnums.Schedule;
-        public bool ManagerSchoolVisibility => _browserEnumerableType == EntityEnums.School;
-        public bool ManagerSectionVisibility => _browserEnumerableType == EntityEnums.Section;
-        public bool ManagerStudentVisibility => _browserEnumerableType == EntityEnums.Student;
-        public bool ManagerTenureVisibility => _browserEnumerableType == EntityEnums.Tenure;
+        public bool ManagerEmployeeVisibility => _browserEnumerableType == EntityEnum.Employee;
+        public bool ManagerMaintenanceVisibility => _browserEnumerableType == EntityEnum.Maintenance;
+        public bool ManagerMaintenanceDetailVisibility => _browserEnumerableType == EntityEnum.MaintenanceDetail;
+        public bool ManagerPartVisibility => _browserEnumerableType == EntityEnum.Part;
+        public bool ManagerPartUsageVisibility => _browserEnumerableType == EntityEnum.PartUsage;
+        public bool ManagerReportVisibility => _browserEnumerableType == EntityEnum.Report;
+        public bool ManagerReservationVisibility => _browserEnumerableType == EntityEnum.Reservation;
+        public bool ManagerReservationFormVisibility => _browserEnumerableType == EntityEnum.ReservationForm;
+        public bool ManagerVehicleVisibility => _browserEnumerableType == EntityEnum.Vehicle;
+        public bool ManagerAdvisoryVisibility => _browserEnumerableType == EntityEnum.Advisory;
+        public bool ManagerContractVisibility => _browserEnumerableType == EntityEnum.Contract;
+        public bool ManagerCourseVisibility => _browserEnumerableType == EntityEnum.Course;
+        public bool ManagerDepartmentVisibility => _browserEnumerableType == EntityEnum.Department;
+        public bool ManagerEnrollmentVisibility => _browserEnumerableType == EntityEnum.Enrollment;
+        public bool ManagerProfessorVisibility => _browserEnumerableType == EntityEnum.Professor;
+        public bool ManagerProfessorContractVisibility => _browserEnumerableType == EntityEnum.ProfessorContract;
+        public bool ManagerProfessorshipVisibility => _browserEnumerableType == EntityEnum.Professorship;
+        public bool ManagerScheduleVisibility => _browserEnumerableType == EntityEnum.Schedule;
+        public bool ManagerSchoolVisibility => _browserEnumerableType == EntityEnum.School;
+        public bool ManagerSectionVisibility => _browserEnumerableType == EntityEnum.Section;
+        public bool ManagerStudentVisibility => _browserEnumerableType == EntityEnum.Student;
+        public bool ManagerTenureVisibility => _browserEnumerableType == EntityEnum.Tenure;
+
+        #endregion
+
+        #region Manager Entities Properties
+
+        private Employee managerEmployee;
+        public int ManagerEmployeeId { get; set; }
+        public string ManagerEmployeeName { get; set; }
+        public bool ManagerEmployeeIsMechanic { get; set; }
+
+        private Maintenance managerMaintenance;
+        public string ManagerMaintenanceType { get; set; }
+        public DateTime ManagerMaintenanceCompletionDate { get; set; }
+        public int ManagerMaintenanceReleasingMechanicId { get; set; }
+        public int ManagerMaintenanceVehicleId { get; set; }
+        public int ManagerMaintenanceReportId { get; set; }
+
+        private MaintenanceDetail managerMaintenanceDetail;
+        public int ManagerMaintenanceDetailId { get; set; }
+        public DateTime ManagerMaintenanceDetailProcessingDate { get; set; }
+        public int ManagerMaintenanceDetailMaintenanceId { get; set; }
+        public int ManagerMaintenanceDetailEmployeeId { get; set; }
+
+        private Part managerPart;
+        public int ManagerPartId { get; set; }
+        public string ManagerPartName { get; set; }
+        public int ManagerPartCurrentAmount { get; set; }
+        public int ManagerPartMinimumLevel { get; set; }
+
+        private PartUsage managerPartUsage;
+        public int ManagerPartUsageId { get; set; }
+        public int ManagerPartUsageCount { get; set; }
+        public int ManagerPartUsagePartId { get; set; }
+        public int ManagerPartUsageMaintenanceDetailId { get; set; }
+
+        private Report managerReport;
+        public int ManagerReportId { get; set; }
+        public DateTime ManagerReportMonth { get; set; }
+        public string ManagerReportType { get; set; }
+
+        private Reservation managerReservation;
+        public int ManagerReservationId { get; set; }
+        public DateTime ManagerReservationDepartureDate { get; set; }
+        public string ManagerReservationDestination { get; set; }
+        public int ManagerReservationBilling { get; set; }
+        public int ManagerReservationMileage { get; set; }
+        public int ManagerReservationProfessorId { get; set; }
+        public int ManagerReservationVehicleId { get; set; }
+        public int ManagerReservationReportId { get; set; }
+
+        private ReservationForm managerReservationForm;
+        public int ManagerReservationFormId { get; set; }
+        public string ManagerReservationFormType { get; set; }
+        public string ManagerReservationFormNotes { get; set; }
+        public DateTime ManagerReservationFormSubmissionDate { get; set; }
+        public int ManagerReservationFormReservationId { get; set; }
+        public int ManagerReservationFormEmployeeId { get; set; }
+
+        private Vehicle managerVehicle;
+        public int ManagerVehicleId { get; set; }
+        public string ManagerVehicleType { get; set; }
+        public int ManagerVehicleSeatingCapacity { get; set; }
+
+        private Advisory managerAdvisory;
+        public int ManagerAdvisoryId { get; set; }
+        public int ManagerAdvisoryDepartmentId { get; set; }
+        public int ManagerAdvisoryProfessorId { get; set; }
+        public int ManagerAdvisoryStudentId { get; set; }
+
+        private Contract managerContract;
+        public int ManagerContractId { get; set; }
+        public string ManagerContractType { get; set; }
+
+        private Course managerCourse;
+        public int ManagerCourseId { get; set; }
+        public string ManagerCourseName { get; set; }
+        public int ManagerCourseDepartmentId { get; set; }
+
+        private Department managerDepartment;
+        public int ManagerDepartmentId { get; set; }
+        public string ManagerDepartmentName { get; set; }
+        public int ManagerDepartmentSchoolId { get; set; }
+
+        private Enrollment managerEnrollment;
+        public int ManagerEnrollmentId { get; set; }
+        public int ManagerEnrollmentStudentId { get; set; }
+        public int ManagerEnrollmentSectionId { get; set; }
+
+        private Professor managerProfessor;
+        public int ManagerProfessorId { get; set; }
+        public string ManagerProfessorName { get; set; }
+
+        private ProfessorContract managerProfessorContract;
+        public int ManagerProfessorContractId { get; set; }
+        public bool ManagerProfessorContractisActive { get; set; }
+        public int ManagerProfessorContractProfessorId { get; set; }
+        public int ManagerProfessorContractContractId { get; set; }
+
+        private Professorship managerProfessorship;
+        public int ManagerProfessorShipId { get; set; }
+        public bool ManagerProfessorisActive { get; set; }
+        public int ManagerProfessorProfessorId { get; set; }
+        public int ManagerProfessorDepartmentId { get; set; }
+
+        private Schedule managerSchedule;
+        public int ManagerScheduleId { get; set; }
+        public string ManagerScheduleDay { get; set; }
+        public string ManagerScheduleRoomCode { get; set; }
+        public DateTime ManagerScheduleTime { get; set; }
+        public int? ManagerScheduleSectionId { get; set; }
+
+        private School managerSchool;
+        public int ManagerSchoolId { get; set; }
+        public string ManagerSchoolName { get; set; }
+        public int ManagerSchoolDeanId { get; set; }
+
+        private Section managerSection;
+        public int ManagerSectionId { get; set; }
+        public string ManagerSectionName { get; set; }
+        public int ManagerSectionScheduleId { get; set; }
+        public int ManagerSectionProfessorId { get; set; }
+        public int ManagerSectionCourseId { get; set; }
+
+        private Student managerStudent;
+        public int ManagerStudentId { get; set; }
+        public string ManagerStudentName { get; set; }
+        public int? ManagerStudentDepartmentId { get; set; }
+        public int? ManagerStudentAdvisoryId { get; set; }
+
+        private Tenure managerTenure;
+        public int ManagerTenureId { get; set; }
+        public int ManagerTenureSuccession { get; set; }
+        public int ManagerTenureProfessorId { get; set; }
+        public int ManagerTenureDepartmentId { get; set; }
 
         #endregion
 
 
-
-        private EntityEnums _checkEntityType(Type T)
+        private EntityEnum _checkEntityType(Type T)
         {
             if (T == typeof(Employee) || T == typeof(IEmployee))
-                return EntityEnums.Employee;
+                return EntityEnum.Employee;
             if (T == typeof(Maintenance) || T == typeof(IMaintenance))
-                return EntityEnums.Maintenance;
+                return EntityEnum.Maintenance;
             if (T == typeof(MaintenanceDetail) || T == typeof(IMaintenanceDetail))
-                return EntityEnums.MaintenanceDetail;
+                return EntityEnum.MaintenanceDetail;
             if (T == typeof(Part) || T == typeof(IPart))
-                return EntityEnums.Part;
+                return EntityEnum.Part;
             if (T == typeof(PartUsage) || T == typeof(IPartUsage))
-                return EntityEnums.PartUsage;
+                return EntityEnum.PartUsage;
             if (T == typeof(Report) || T == typeof(IReport))
-                return EntityEnums.Report;
+                return EntityEnum.Report;
             if (T == typeof(Reservation) || T == typeof(IReservation))
-                return EntityEnums.Reservation;
+                return EntityEnum.Reservation;
             if (T == typeof(ReservationForm) || T == typeof(IReservationForm))
-                return EntityEnums.ReservationForm;
+                return EntityEnum.ReservationForm;
             if (T == typeof(Vehicle) || T == typeof(IVehicle))
-                return EntityEnums.Vehicle;
+                return EntityEnum.Vehicle;
             if (T == typeof(Advisory) || T == typeof(IAdvisory))
-                return EntityEnums.Advisory;
+                return EntityEnum.Advisory;
             if (T == typeof(Contract) || T == typeof(IContract))
-                return EntityEnums.Contract;
+                return EntityEnum.Contract;
             if (T == typeof(Course) || T == typeof(ICourse))
-                return EntityEnums.Course;
+                return EntityEnum.Course;
             if (T == typeof(Department) || T == typeof(IDepartment))
-                return EntityEnums.Department;
+                return EntityEnum.Department;
             if (T == typeof(Enrollment) || T == typeof(IEnrollment))
-                return EntityEnums.Enrollment;
+                return EntityEnum.Enrollment;
             if (T == typeof(Professor) || T == typeof(IProfessor))
-                return EntityEnums.Professor;
+                return EntityEnum.Professor;
             if (T == typeof(ProfessorContract) || T == typeof(IProfessorContract))
-                return EntityEnums.ProfessorContract;
+                return EntityEnum.ProfessorContract;
             if (T == typeof(Professorship) || T == typeof(IProfessorship))
-                return EntityEnums.Professorship;
+                return EntityEnum.Professorship;
             if (T == typeof(Schedule) || T == typeof(ISchedule))
-                return EntityEnums.Schedule;
+                return EntityEnum.Schedule;
             if (T == typeof(School) || T == typeof(ISchool))
-                return EntityEnums.School;
+                return EntityEnum.School;
             if (T == typeof(Section) || T == typeof(ISection))
-                return EntityEnums.Section;
-            if (T == typeof(Student) || T== typeof(IStudent))
-                return EntityEnums.Student;
+                return EntityEnum.Section;
+            if (T == typeof(Student) || T == typeof(IStudent))
+                return EntityEnum.Student;
             if (T == typeof(Tenure) || T == typeof(ITenure))
-                return EntityEnums.Tenure;
+                return EntityEnum.Tenure;
             throw new Exception("Not within bounds of enums");
         }
 

@@ -13,9 +13,9 @@ namespace TinyCollege.Data.Models
         public int? DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public ICollection<Enrollment> Enrollments { get; set; }
-
         public int? AdvisoryId { get; set; }
         public Advisory Advisory { get; set; }
+
+        public ICollection<Enrollment> Enrollments { get; set; }
     }
 }

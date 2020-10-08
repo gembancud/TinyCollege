@@ -16,5 +16,12 @@ namespace TinyCollege.Service.Services.MotorPool
         {
             return _context.Employees;
         }
+
+        public IQueryable<Employee> CreateEmployee(Employee employee)
+        {
+            _context.Add(employee);
+            _context.SaveChanges();
+            return _context.Employees.Where(x => x.EmployeeId == employee.EmployeeId);
+        }
     }
 }

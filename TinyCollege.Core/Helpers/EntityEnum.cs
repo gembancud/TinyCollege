@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TinyCollege.Core.Helpers
 {
-    public enum EntityEnums
+    public enum EntityEnum
     {
         Employee,
         MaintenanceDetail,
