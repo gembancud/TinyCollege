@@ -100,13 +100,18 @@
                                                CanHide="False" 
                                                CanClose="False"
                                                AutoHideWidth="240">
-                            <GroupBox Padding="5" Margin="0" BorderThickness="3">
+                            <GroupBox Padding="5" Margin="0" BorderThickness="3" Header="{Binding }">
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>
-                                        <iconPacks:PackIconModern Kind="Eye"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <iconPacks:PackIconModern Kind="Eye"/>
+                                            <TextBlock Text=" "></TextBlock>
+                                            <TextBlock Text="{Binding BrowserHeader, Mode=OneWay}" ></TextBlock>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>
                                 <DataGrid ItemsSource="{Binding BrowserEnumerable}" 
+                                          SelectedItem="{Binding BrowserSelection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                           AutoGenerateColumns="True" 
                                           ColumnWidth="*" 
                                           EnableColumnVirtualization="True" 
@@ -114,6 +119,7 @@
                                           ScrollViewer.CanContentScroll="True" 
                                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                                           ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                          IsReadOnly="True"
                                 ></DataGrid>
                             </GroupBox>
                         </xcad:LayoutAnchorable>
@@ -126,12 +132,21 @@
                                                        Title="Inspector"  
                                                        CanHide="False" 
                                                        CanClose="False">
-                                    <GroupBox Padding="5" Margin="0" BorderThickness="3">
+                                    <GroupBox Padding="5" Margin="0" BorderThickness="3" Header="{Binding}">
                                         <GroupBox.HeaderTemplate>
                                             <DataTemplate>
-                                                <iconPacks:PackIconModern Kind="Magnify"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Kind="Magnify"/>
+                                                    <TextBlock Text=" "></TextBlock>
+                                                    <TextBlock Text="{Binding InspectorHeader, Mode=OneWay}" ></TextBlock>
+                                                </StackPanel>
                                             </DataTemplate>
                                         </GroupBox.HeaderTemplate>
+                                        <ScrollViewer>
+                                            <StackPanel Orientation="Vertical">
+
+                                            </StackPanel>
+                                        </ScrollViewer>
 
                                     </GroupBox>
                                 </xcad:LayoutAnchorable>
