@@ -9,9 +9,9 @@
                   xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                   xmlns:xcad ="http://schemas.xceed.com/wpf/xaml/avalondock"
                   xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                  xmlns:views1="clr-namespace:TinyCollege.Wpf.Views"
                   mc:Ignorable="d"
                   d:DesignHeight="600" d:DesignWidth="1000">
-
     <Grid>
         <xcad:DockingManager 
                            AllowMixedOrientation="True"
@@ -144,7 +144,72 @@
                                         </GroupBox.HeaderTemplate>
                                         <ScrollViewer>
                                             <StackPanel Orientation="Vertical">
-
+                                                <StackPanel Visibility="{Binding InspectorEmployeeVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Employee</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorMaintenanceVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Maintenance</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorMaintenanceDetailVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Maintenance Detail</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorPartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Part</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorPartUsageVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>PartUsage</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorReportVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Report</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorReservationVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Reservation</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorReservationFormVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>ReservationForm</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorVehicleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Vehicle</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorAdvisoryVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Advisory</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Contract</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorCourseVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Course</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorDepartmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Department</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorEnrollmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Enrollment</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorProfessorVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Professor</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorProfessorContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Professor Contract</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorProfessorshipVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Professorship</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorScheduleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Schedule</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorSchoolVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>School</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorSectionVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Section</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorStudentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Student</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding InspectorTenureVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Tenure</TextBlock>
+                                                </StackPanel>
                                             </StackPanel>
                                         </ScrollViewer>
 
@@ -160,12 +225,87 @@
                                                        CanHide="False" 
                                                        CanClose="False"
                                 >
-                                    <GroupBox Padding="5" Margin="0" BorderThickness="3">
+                                    <GroupBox Padding="5" Margin="0" BorderThickness="3" Header="{Binding}">
                                         <GroupBox.HeaderTemplate>
                                             <DataTemplate>
-                                                <iconPacks:PackIconModern Kind="ManSuitcase" />
+                                                <StackPanel Orientation="Horizontal">
+                                                    <iconPacks:PackIconModern Kind="Suitcase"/>
+                                                    <TextBlock Text=" "></TextBlock>
+                                                    <TextBlock Text="{Binding ManagerHeader, Mode=OneWay}" ></TextBlock>
+                                                </StackPanel>
                                             </DataTemplate>
                                         </GroupBox.HeaderTemplate>
+
+                                        <ScrollViewer>
+                                            <StackPanel Orientation="Vertical">
+                                                <StackPanel Visibility="{Binding ManagerEmployeeVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Employee</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerMaintenanceVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Maintenance</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerMaintenanceDetailVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Maintenance Detail</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerPartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Part</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerPartUsageVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>PartUsage</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerReportVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Report</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerReservationVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Reservation</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerReservationFormVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>ReservationForm</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerVehicleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Vehicle</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerAdvisoryVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Advisory</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Contract</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerCourseVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Course</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerDepartmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Department</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerEnrollmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Enrollment</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerProfessorVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Professor</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerProfessorContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Professor Contract</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerProfessorshipVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Professorship</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerScheduleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Schedule</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerSchoolVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>School</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerSectionVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Section</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerStudentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Student</TextBlock>
+                                                </StackPanel>
+                                                <StackPanel Visibility="{Binding ManagerTenureVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                    <TextBlock>Tenure</TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </ScrollViewer>
                                     </GroupBox>
                                 </xcad:LayoutAnchorable>
                             </xcad:LayoutAnchorablePane>

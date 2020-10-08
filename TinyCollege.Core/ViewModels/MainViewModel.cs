@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using MvvmCross.Commands;
 using MvvmCross.Core;
+using MvvmCross.UI;
 using MvvmCross.ViewModels;
 using TinyCollege.Core.Helpers;
 using TinyCollege.Data.Interfaces;
@@ -18,7 +19,6 @@ namespace TinyCollege.Core.ViewModels
 {
     public class MainViewModel : MvxViewModel
     {
-
         private readonly SuperService _superService;
 
         public MainViewModel()
@@ -64,14 +64,42 @@ namespace TinyCollege.Core.ViewModels
         }
 
         private IEnumerable<object> _browserEnumerable;
+        private EntityEnums _browserEnumerableType;
         public IEnumerable<object> BrowserEnumerable
         {
             get => _browserEnumerable;
             set
             {
                 SetProperty(ref _browserEnumerable, value);
-                SetProperty(ref _browserHeaderType, _checkEntityType(value.GetType().GetGenericArguments().First()));
+                SetProperty(ref _browserEnumerableType, _checkEntityType(value.GetType().GetGenericArguments().First()));
                 RaisePropertyChanged(() => BrowserHeader);
+                RaisePropertyChanged(() => ManagerHeader);
+
+                #region Manager Entities Visibility RaisePropertyChanged
+
+                RaisePropertyChanged(() => ManagerEmployeeVisibility);
+                RaisePropertyChanged(() => ManagerMaintenanceVisibility);
+                RaisePropertyChanged(() => ManagerMaintenanceDetailVisibility);
+                RaisePropertyChanged(() => ManagerPartVisibility);
+                RaisePropertyChanged(() => ManagerPartUsageVisibility);
+                RaisePropertyChanged(() => ManagerReportVisibility);
+                RaisePropertyChanged(() => ManagerReservationVisibility);
+                RaisePropertyChanged(() => ManagerReservationFormVisibility);
+                RaisePropertyChanged(() => ManagerVehicleVisibility);
+                RaisePropertyChanged(() => ManagerAdvisoryVisibility);
+                RaisePropertyChanged(() => ManagerContractVisibility);
+                RaisePropertyChanged(() => ManagerCourseVisibility);
+                RaisePropertyChanged(() => ManagerDepartmentVisibility);
+                RaisePropertyChanged(() => ManagerEnrollmentVisibility);
+                RaisePropertyChanged(() => ManagerProfessorVisibility);
+                RaisePropertyChanged(() => ManagerProfessorContractVisibility);
+                RaisePropertyChanged(() => ManagerProfessorshipVisibility);
+                RaisePropertyChanged(() => ManagerScheduleVisibility);
+                RaisePropertyChanged(() => ManagerSchoolVisibility);
+                RaisePropertyChanged(() => ManagerSectionVisibility);
+                RaisePropertyChanged(() => ManagerStudentVisibility);
+                RaisePropertyChanged(() => ManagerTenureVisibility);
+                #endregion
             }
         }
 
@@ -79,55 +107,54 @@ namespace TinyCollege.Core.ViewModels
         {
             get
             {
-                if (_browserHeaderType == EntityEnums.Employee)
+                if (_browserEnumerableType == EntityEnums.Employee)
                     return "Employee";
-                if (_browserHeaderType == EntityEnums.Maintenance)
+                if (_browserEnumerableType == EntityEnums.Maintenance)
                     return "Maintenance";
-                if (_browserHeaderType == EntityEnums.MaintenanceDetail)
+                if (_browserEnumerableType == EntityEnums.MaintenanceDetail)
                     return "Maintenance Detail";
-                if (_browserHeaderType == EntityEnums.Part)
+                if (_browserEnumerableType == EntityEnums.Part)
                     return "Part";
-                if (_browserHeaderType == EntityEnums.PartUsage)
+                if (_browserEnumerableType == EntityEnums.PartUsage)
                     return "Part Usage";
-                if (_browserHeaderType == EntityEnums.Report)
+                if (_browserEnumerableType == EntityEnums.Report)
                     return "Report";
-                if (_browserHeaderType == EntityEnums.Reservation)
+                if (_browserEnumerableType == EntityEnums.Reservation)
                     return "Reservation";
-                if (_browserHeaderType == EntityEnums.ReservationForm)
+                if (_browserEnumerableType == EntityEnums.ReservationForm)
                     return "Reservation Form";
-                if (_browserHeaderType == EntityEnums.Vehicle)
+                if (_browserEnumerableType == EntityEnums.Vehicle)
                     return "Vehicle";
-                if (_browserHeaderType == EntityEnums.Advisory)
+                if (_browserEnumerableType == EntityEnums.Advisory)
                     return "Advisory";
-                if (_browserHeaderType == EntityEnums.Contract)
+                if (_browserEnumerableType == EntityEnums.Contract)
                     return "Contract";
-                if (_browserHeaderType == EntityEnums.Course)
+                if (_browserEnumerableType == EntityEnums.Course)
                     return "Course";
-                if (_browserHeaderType == EntityEnums.Department)
+                if (_browserEnumerableType == EntityEnums.Department)
                     return "Department";
-                if (_browserHeaderType == EntityEnums.Enrollment)
+                if (_browserEnumerableType == EntityEnums.Enrollment)
                     return "Enrollment";
-                if (_browserHeaderType == EntityEnums.Professor)
+                if (_browserEnumerableType == EntityEnums.Professor)
                     return "Professor";
-                if (_browserHeaderType == EntityEnums.ProfessorContract)
+                if (_browserEnumerableType == EntityEnums.ProfessorContract)
                     return "Professor Contract";
-                if (_browserHeaderType == EntityEnums.Professorship)
+                if (_browserEnumerableType == EntityEnums.Professorship)
                     return "Professorship";
-                if (_browserHeaderType == EntityEnums.Schedule)
+                if (_browserEnumerableType == EntityEnums.Schedule)
                     return "Schedule";
-                if (_browserHeaderType == EntityEnums.School)
+                if (_browserEnumerableType == EntityEnums.School)
                     return "School";
-                if (_browserHeaderType == EntityEnums.Section)
+                if (_browserEnumerableType == EntityEnums.Section)
                     return "Section";
-                if (_browserHeaderType == EntityEnums.Student)
+                if (_browserEnumerableType == EntityEnums.Student)
                     return "Student";
-                if (_browserHeaderType == EntityEnums.Tenure)
+                if (_browserEnumerableType == EntityEnums.Tenure)
                     return "Tenure";
                 return "";
             }
 
         }
-        private EntityEnums _browserHeaderType;
 
         private dynamic _browserSelection;
         private EntityEnums _browserSelectionType;
@@ -141,9 +168,37 @@ namespace TinyCollege.Core.ViewModels
                     SetProperty(ref _browserSelectionType, _checkEntityType(value.GetType()));
                     SetProperty(ref _browserSelection, value);
                     RaisePropertyChanged(() => InspectorHeader);
+
+
+                    #region Inspector Entities Visibility RaisePropertyChanged
+
+                    RaisePropertyChanged(() => InspectorEmployeeVisibility);
+                    RaisePropertyChanged(() => InspectorMaintenanceVisibility);
+                    RaisePropertyChanged(() => InspectorMaintenanceDetailVisibility);
+                    RaisePropertyChanged(() => InspectorPartVisibility);
+                    RaisePropertyChanged(() => InspectorPartUsageVisibility);
+                    RaisePropertyChanged(() => InspectorReportVisibility);
+                    RaisePropertyChanged(() => InspectorReservationVisibility);
+                    RaisePropertyChanged(() => InspectorReservationFormVisibility);
+                    RaisePropertyChanged(() => InspectorVehicleVisibility);
+                    RaisePropertyChanged(() => InspectorAdvisoryVisibility);
+                    RaisePropertyChanged(() => InspectorContractVisibility);
+                    RaisePropertyChanged(() => InspectorCourseVisibility);
+                    RaisePropertyChanged(() => InspectorDepartmentVisibility);
+                    RaisePropertyChanged(() => InspectorEnrollmentVisibility);
+                    RaisePropertyChanged(() => InspectorProfessorVisibility);
+                    RaisePropertyChanged(() => InspectorProfessorContractVisibility);
+                    RaisePropertyChanged(() => InspectorProfessorshipVisibility);
+                    RaisePropertyChanged(() => InspectorScheduleVisibility);
+                    RaisePropertyChanged(() => InspectorSchoolVisibility);
+                    RaisePropertyChanged(() => InspectorSectionVisibility);
+                    RaisePropertyChanged(() => InspectorStudentVisibility);
+                    RaisePropertyChanged(() => InspectorTenureVisibility);
+                    #endregion
                 }
             }
         }
+
 
         public string InspectorHeader
         {
@@ -196,6 +251,111 @@ namespace TinyCollege.Core.ViewModels
                 return "";
             }
         }
+        #region Inspector Entities Visibility Properties
+        
+        public bool InspectorEmployeeVisibility => _browserSelectionType == EntityEnums.Employee;
+        public bool InspectorMaintenanceVisibility => _browserSelectionType == EntityEnums.Maintenance;
+        public bool InspectorMaintenanceDetailVisibility => _browserSelectionType == EntityEnums.MaintenanceDetail;
+        public bool InspectorPartVisibility => _browserSelectionType == EntityEnums.Part;
+        public bool InspectorPartUsageVisibility => _browserSelectionType == EntityEnums.PartUsage;
+        public bool InspectorReportVisibility => _browserSelectionType == EntityEnums.Report;
+        public bool InspectorReservationVisibility => _browserSelectionType == EntityEnums.Reservation;
+        public bool InspectorReservationFormVisibility => _browserSelectionType == EntityEnums.ReservationForm;
+        public bool InspectorVehicleVisibility => _browserSelectionType == EntityEnums.Vehicle;
+        public bool InspectorAdvisoryVisibility => _browserSelectionType == EntityEnums.Advisory;
+        public bool InspectorContractVisibility => _browserSelectionType == EntityEnums.Contract;
+        public bool InspectorCourseVisibility => _browserSelectionType == EntityEnums.Course;
+        public bool InspectorDepartmentVisibility => _browserSelectionType == EntityEnums.Department;
+        public bool InspectorEnrollmentVisibility => _browserSelectionType == EntityEnums.Enrollment;
+        public bool InspectorProfessorVisibility => _browserSelectionType == EntityEnums.Professor;
+        public bool InspectorProfessorContractVisibility => _browserSelectionType == EntityEnums.ProfessorContract;
+        public bool InspectorProfessorshipVisibility => _browserSelectionType == EntityEnums.Professorship;
+        public bool InspectorScheduleVisibility => _browserSelectionType == EntityEnums.Schedule;
+        public bool InspectorSchoolVisibility => _browserSelectionType == EntityEnums.School;
+        public bool InspectorSectionVisibility => _browserSelectionType == EntityEnums.Section;
+        public bool InspectorStudentVisibility => _browserSelectionType == EntityEnums.Student;
+        public bool InspectorTenureVisibility => _browserSelectionType == EntityEnums.Tenure;
+
+        #endregion
+
+        public string ManagerHeader
+        {
+            get
+            {
+                if (_browserEnumerableType == EntityEnums.Employee)
+                    return "Employee";
+                if (_browserEnumerableType == EntityEnums.Maintenance)
+                    return "Maintenance";
+                if (_browserEnumerableType == EntityEnums.MaintenanceDetail)
+                    return "Maintenance Detail";
+                if (_browserEnumerableType == EntityEnums.Part)
+                    return "Part";
+                if (_browserEnumerableType == EntityEnums.PartUsage)
+                    return "Part Usage";
+                if (_browserEnumerableType == EntityEnums.Report)
+                    return "Report";
+                if (_browserEnumerableType == EntityEnums.Reservation)
+                    return "Reservation";
+                if (_browserEnumerableType == EntityEnums.ReservationForm)
+                    return "Reservation Form";
+                if (_browserEnumerableType == EntityEnums.Vehicle)
+                    return "Vehicle";
+                if (_browserEnumerableType == EntityEnums.Advisory)
+                    return "Advisory";
+                if (_browserEnumerableType == EntityEnums.Contract)
+                    return "Contract";
+                if (_browserEnumerableType == EntityEnums.Course)
+                    return "Course";
+                if (_browserEnumerableType == EntityEnums.Department)
+                    return "Department";
+                if (_browserEnumerableType == EntityEnums.Enrollment)
+                    return "Enrollment";
+                if (_browserEnumerableType == EntityEnums.Professor)
+                    return "Professor";
+                if (_browserEnumerableType == EntityEnums.ProfessorContract)
+                    return "Professor Contract";
+                if (_browserEnumerableType == EntityEnums.Professorship)
+                    return "Professorship";
+                if (_browserEnumerableType == EntityEnums.Schedule)
+                    return "Schedule";
+                if (_browserEnumerableType == EntityEnums.School)
+                    return "School";
+                if (_browserEnumerableType == EntityEnums.Section)
+                    return "Section";
+                if (_browserEnumerableType == EntityEnums.Student)
+                    return "Student";
+                if (_browserEnumerableType == EntityEnums.Tenure)
+                    return "Tenure";
+                return "";
+            }
+        }
+        #region Manager Entities Visibility Properties
+
+        public bool ManagerEmployeeVisibility => _browserEnumerableType == EntityEnums.Employee;
+        public bool ManagerMaintenanceVisibility => _browserEnumerableType == EntityEnums.Maintenance;
+        public bool ManagerMaintenanceDetailVisibility => _browserEnumerableType == EntityEnums.MaintenanceDetail;
+        public bool ManagerPartVisibility => _browserEnumerableType == EntityEnums.Part;
+        public bool ManagerPartUsageVisibility => _browserEnumerableType == EntityEnums.PartUsage;
+        public bool ManagerReportVisibility => _browserEnumerableType == EntityEnums.Report;
+        public bool ManagerReservationVisibility => _browserEnumerableType == EntityEnums.Reservation;
+        public bool ManagerReservationFormVisibility => _browserEnumerableType == EntityEnums.ReservationForm;
+        public bool ManagerVehicleVisibility => _browserEnumerableType == EntityEnums.Vehicle;
+        public bool ManagerAdvisoryVisibility => _browserEnumerableType == EntityEnums.Advisory;
+        public bool ManagerContractVisibility => _browserEnumerableType == EntityEnums.Contract;
+        public bool ManagerCourseVisibility => _browserEnumerableType == EntityEnums.Course;
+        public bool ManagerDepartmentVisibility => _browserEnumerableType == EntityEnums.Department;
+        public bool ManagerEnrollmentVisibility => _browserEnumerableType == EntityEnums.Enrollment;
+        public bool ManagerProfessorVisibility => _browserEnumerableType == EntityEnums.Professor;
+        public bool ManagerProfessorContractVisibility => _browserEnumerableType == EntityEnums.ProfessorContract;
+        public bool ManagerProfessorshipVisibility => _browserEnumerableType == EntityEnums.Professorship;
+        public bool ManagerScheduleVisibility => _browserEnumerableType == EntityEnums.Schedule;
+        public bool ManagerSchoolVisibility => _browserEnumerableType == EntityEnums.School;
+        public bool ManagerSectionVisibility => _browserEnumerableType == EntityEnums.Section;
+        public bool ManagerStudentVisibility => _browserEnumerableType == EntityEnums.Student;
+        public bool ManagerTenureVisibility => _browserEnumerableType == EntityEnums.Tenure;
+
+        #endregion
+
 
 
         private EntityEnums _checkEntityType(Type T)
@@ -246,7 +406,6 @@ namespace TinyCollege.Core.ViewModels
                 return EntityEnums.Tenure;
             throw new Exception("Not within bounds of enums");
         }
-
 
         #region View_Entities_Commands_and_Methods
         public IMvxCommand ViewEmployeesCommand { get; set; }
