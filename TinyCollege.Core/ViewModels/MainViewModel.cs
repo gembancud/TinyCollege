@@ -171,66 +171,13 @@ namespace TinyCollege.Core.ViewModels
                     RaisePropertyChanged(() => InspectorHeader);
 
                     _fillInspectorFields(value);
-                    #region Inspector Entities Visibility RaisePropertyChanged
-
-                    RaisePropertyChanged(() => InspectorEmployeeVisibility);
-                    RaisePropertyChanged(() => InspectorMaintenanceVisibility);
-                    RaisePropertyChanged(() => InspectorMaintenanceDetailVisibility);
-                    RaisePropertyChanged(() => InspectorPartVisibility);
-                    RaisePropertyChanged(() => InspectorPartUsageVisibility);
-                    RaisePropertyChanged(() => InspectorReportVisibility);
-                    RaisePropertyChanged(() => InspectorReservationVisibility);
-                    RaisePropertyChanged(() => InspectorReservationFormVisibility);
-                    RaisePropertyChanged(() => InspectorVehicleVisibility);
-                    RaisePropertyChanged(() => InspectorAdvisoryVisibility);
-                    RaisePropertyChanged(() => InspectorContractVisibility);
-                    RaisePropertyChanged(() => InspectorCourseVisibility);
-                    RaisePropertyChanged(() => InspectorDepartmentVisibility);
-                    RaisePropertyChanged(() => InspectorEnrollmentVisibility);
-                    RaisePropertyChanged(() => InspectorProfessorVisibility);
-                    RaisePropertyChanged(() => InspectorProfessorContractVisibility);
-                    RaisePropertyChanged(() => InspectorProfessorshipVisibility);
-                    RaisePropertyChanged(() => InspectorScheduleVisibility);
-                    RaisePropertyChanged(() => InspectorSchoolVisibility);
-                    RaisePropertyChanged(() => InspectorSectionVisibility);
-                    RaisePropertyChanged(() => InspectorStudentVisibility);
-                    RaisePropertyChanged(() => InspectorTenureVisibility);
-                    #endregion
+                    _refreshInspectorVisibility();
 
 
                 }
             }
         }
 
-        private void _fillInspectorFields(dynamic value)
-        {
-            if (_browserSelectionType == EntityEnum.Employee)
-            {
-                InspectorEmployee = value;
-                RaisePropertyChanged(() => InspectorEmployee);
-                //InspectorEmployeeId = value.EmployeeId;
-                //InspectorEmployeeName = value.Name;
-                //InspectorEmployeeIsMechanic = value.IsMechanic;
-                //RaisePropertyChanged(() => InspectorEmployeeId);
-                //RaisePropertyChanged(() => InspectorEmployeeName);
-                //RaisePropertyChanged(() => InspectorEmployeeIsMechanic);
-            }
-            if (_browserSelectionType == EntityEnum.Maintenance)
-            {
-                InspectorMaintenance = value;
-                InspectorMaintenanceId = value.MaintenanceId;
-                InspectorMaintenanceType = value.Type;
-                InspectorMaintenanceCompletionDate = value.CompletionDate;
-                InspectorMaintenanceReleasingMechanicId = value.ReleasingMechanicId;
-                InspectorMaintenanceVehicleId = value.VehicleId;
-                InspectorMaintenanceReportId = value.ReportId;
-            }
-
-            if(_browserSelectionType == EntityEnum.MaintenanceDetail)
-            {
-                InspectorMaintenance = value;
-            }
-        }
 
 
         public string InspectorHeader
@@ -311,138 +258,149 @@ namespace TinyCollege.Core.ViewModels
 
         #endregion
 
+        private void _fillInspectorFields(dynamic value)
+        {
+            switch (_browserSelectionType)
+            {
+                case EntityEnum.Employee:
+                    InspectorEmployee = value;
+                    RaisePropertyChanged(() => InspectorEmployee);
+                    break;
+                case EntityEnum.Maintenance:
+                    InspectorMaintenance = value;
+                    RaisePropertyChanged(() => InspectorMaintenance);
+                    break;
+                case EntityEnum.MaintenanceDetail:
+                    InspectorMaintenanceDetail = value;
+                    RaisePropertyChanged(() => InspectorMaintenanceDetail);
+                    break;
+                case EntityEnum.Part:
+                    InspectorPart = value;
+                    RaisePropertyChanged(() => InspectorPart);
+                    break;
+                case EntityEnum.PartUsage:
+                    InspectorPartUsage = value;
+                    RaisePropertyChanged(() => InspectorPartUsage);
+                    break;
+                case EntityEnum.Report:
+                    InspectorReport = value;
+                    RaisePropertyChanged(() => InspectorReport);
+                    break;
+                case EntityEnum.Reservation:
+                    InspectorReservation = value;
+                    RaisePropertyChanged(() => InspectorReservation);
+                    break;
+                case EntityEnum.ReservationForm:
+                    InspectorReservationForm = value;
+                    RaisePropertyChanged(() => InspectorReservationForm);
+                    break;
+                case EntityEnum.Vehicle:
+                    InspectorVehicle = value;
+                    RaisePropertyChanged(() => InspectorVehicle);
+                    break;
+                case EntityEnum.Advisory:
+                    InspectorAdvisory = value;
+                    RaisePropertyChanged(() => InspectorAdvisory);
+                    break;
+                case EntityEnum.Contract:
+                    InspectorContract = value;
+                    RaisePropertyChanged(() => InspectorContract);
+                    break;
+                case EntityEnum.Course:
+                    InspectorCourse = value;
+                    RaisePropertyChanged(() => InspectorCourse);
+                    break;
+                case EntityEnum.Department:
+                    InspectorDepartment = value;
+                    RaisePropertyChanged(() => InspectorDepartment);
+                    break;
+                case EntityEnum.Enrollment:
+                    InspectorEnrollment = value;
+                    RaisePropertyChanged(() => InspectorEnrollment);
+                    break;
+                case EntityEnum.Professor:
+                    InspectorProfessor = value;
+                    RaisePropertyChanged(() => InspectorProfessor);
+                    break;
+                case EntityEnum.ProfessorContract:
+                    InspectorProfessorContract = value;
+                    RaisePropertyChanged(() => InspectorProfessorContract);
+                    break;
+                case EntityEnum.Professorship:
+                    InspectorProfessorship = value;
+                    RaisePropertyChanged(() => InspectorProfessorship);
+                    break;
+                case EntityEnum.Schedule:
+                    InspectorSchedule = value;
+                    RaisePropertyChanged(() => InspectorSchedule);
+                    break;
+                case EntityEnum.School:
+                    InspectorSchool = value;
+                    RaisePropertyChanged(() => InspectorSchool);
+                    break;
+                case EntityEnum.Section:
+                    InspectorSection = value;
+                    RaisePropertyChanged(() => InspectorSection);
+                    break;
+                case EntityEnum.Student:
+                    InspectorStudent = value;
+                    RaisePropertyChanged(() => InspectorStudent);
+                    break;
+                case EntityEnum.Tenure:
+                    InspectorTenure = value;
+                    RaisePropertyChanged(() => InspectorTenure);
+                    break;
+            }
+        }
+        private void _refreshInspectorVisibility()
+        {
+            RaisePropertyChanged(() => InspectorEmployeeVisibility);
+            RaisePropertyChanged(() => InspectorMaintenanceVisibility);
+            RaisePropertyChanged(() => InspectorMaintenanceDetailVisibility);
+            RaisePropertyChanged(() => InspectorPartVisibility);
+            RaisePropertyChanged(() => InspectorPartUsageVisibility);
+            RaisePropertyChanged(() => InspectorReportVisibility);
+            RaisePropertyChanged(() => InspectorReservationVisibility);
+            RaisePropertyChanged(() => InspectorReservationFormVisibility);
+            RaisePropertyChanged(() => InspectorVehicleVisibility);
+            RaisePropertyChanged(() => InspectorAdvisoryVisibility);
+            RaisePropertyChanged(() => InspectorContractVisibility);
+            RaisePropertyChanged(() => InspectorCourseVisibility);
+            RaisePropertyChanged(() => InspectorDepartmentVisibility);
+            RaisePropertyChanged(() => InspectorEnrollmentVisibility);
+            RaisePropertyChanged(() => InspectorProfessorVisibility);
+            RaisePropertyChanged(() => InspectorProfessorContractVisibility);
+            RaisePropertyChanged(() => InspectorProfessorshipVisibility);
+            RaisePropertyChanged(() => InspectorScheduleVisibility);
+            RaisePropertyChanged(() => InspectorSchoolVisibility);
+            RaisePropertyChanged(() => InspectorSectionVisibility);
+            RaisePropertyChanged(() => InspectorStudentVisibility);
+            RaisePropertyChanged(() => InspectorTenureVisibility);
+        }
         #region Inspector Entities Properties
 
         public Employee InspectorEmployee { get; set; }
-        public int InspectorEmployeeId { get; set; }
-        public string InspectorEmployeeName { get; set; }
-        public bool InspectorEmployeeIsMechanic { get; set; }
-
         public Maintenance InspectorMaintenance { get; set; }
-        public int InspectorMaintenanceId { get; set; }
-        public string InspectorMaintenanceType { get; set; }
-        public DateTime InspectorMaintenanceCompletionDate { get; set; }
-        public int InspectorMaintenanceReleasingMechanicId { get; set; }
-        public int InspectorMaintenanceVehicleId { get; set; }
-        public int InspectorMaintenanceReportId { get; set; }
-
         public MaintenanceDetail InspectorMaintenanceDetail { get; set; }
-        public int InspectorMaintenanceDetailId { get; set; }
-        public DateTime InspectorMaintenanceDetailProcessingDate { get; set; }
-        public int InspectorMaintenanceDetailMaintenanceId { get; set; }
-        public int InspectorMaintenanceDetailEmployeeId { get; set; }
-
         public Part InspectorPart { get; set; }
-        public int InspectorPartId { get; set; }
-        public string InspectorPartName { get; set; }
-        public int InspectorPartCurrentAmount { get; set; }
-        public int InspectorPartMinimumLevel { get; set; }
-
         public PartUsage InspectorPartUsage { get; set; }
-        public int InspectorPartUsageId { get; set; }
-        public int InspectorPartUsageCount { get; set; }
-        public int InspectorPartUsagePartId { get; set; }
-        public int InspectorPartUsageMaintenanceDetailId { get; set; }
-
         public Report InspectorReport { get; set; }
-        public int InspectorReportId { get; set; }
-        public DateTime InspectorReportMonth { get; set; }
-        public string InspectorReportType { get; set; }
-
         public Reservation InspectorReservation { get; set; }
-        public int InspectorReservationId { get; set; }
-        public DateTime InspectorReservationDepartureDate { get; set; }
-        public string InspectorReservationDestination { get; set; }
-        public int InspectorReservationBilling { get; set; }
-        public int InspectorReservationMileage { get; set; }
-        public int InspectorReservationProfessorId { get; set; }
-        public int InspectorReservationVehicleId { get; set; }
-        public int InspectorReservationReportId { get; set; }
-
         public ReservationForm InspectorReservationForm { get; set; }
-        public int InspectorReservationFormId { get; set; }
-        public string InspectorReservationFormType { get; set; }
-        public string InspectorReservationFormNotes { get; set; }
-        public DateTime InspectorReservationFormSubmissionDate { get; set; }
-        public int InspectorReservationFormReservationId { get; set; }
-        public int InspectorReservationFormEmployeeId { get; set; }
-
         public Vehicle InspectorVehicle { get; set; }
-        public int InspectorVehicleId { get; set; }
-        public string InspectorVehicleType { get; set; }
-        public int InspectorVehicleSeatingCapacity { get; set; }
-
         public Advisory InspectorAdvisory { get; set; }
-        public int InspectorAdvisoryId { get; set; }
-        public int InspectorAdvisoryDepartmentId { get; set; }
-        public int InspectorAdvisoryProfessorId { get; set; }
-        public int InspectorAdvisoryStudentId { get; set; }
-
         public Contract InspectorContract { get; set; }
-        public int InspectorContractId { get; set; }
-        public string InspectorContractType { get; set; }
-
         public Course InspectorCourse { get; set; }
-        public int InspectorCourseId { get; set; }
-        public string InspectorCourseName { get; set; }
-        public int InspectorCourseDepartmentId { get; set; }
-
         public Department InspectorDepartment { get; set; }
-        public int InspectorDepartmentId { get; set; }
-        public string InspectorDepartmentName { get; set; }
-        public int InspectorDepartmentSchoolId { get; set; }
-
         public Enrollment InspectorEnrollment { get; set; }
-        public int InspectorEnrollmentId { get; set; }
-        public int InspectorEnrollmentStudentId { get; set; }
-        public int InspectorEnrollmentSectionId { get; set; }
-
         public Professor InspectorProfessor { get; set; }
-        public int InspectorProfessorId { get; set; }
-        public string InspectorProfessorName { get; set; }
-
         public ProfessorContract InspectorProfessorContract { get; set; }
-        public int InspectorProfessorContractId { get; set; }
-        public bool InspectorProfessorContractisActive { get; set; }
-        public int InspectorProfessorContractProfessorId { get; set; }
-        public int InspectorProfessorContractContractId { get; set; }
-
         public Professorship InspectorProfessorship { get; set; }
-        public int InspectorProfessorShipId { get; set; }
-        public bool InspectorProfessorisActive { get; set; }
-        public int InspectorProfessorProfessorId { get; set; }
-        public int InspectorProfessorDepartmentId { get; set; }
-
         public Schedule InspectorSchedule { get; set; }
-        public int InspectorScheduleId { get; set; }
-        public string InspectorScheduleDay { get; set; }
-        public string InspectorScheduleRoomCode { get; set; }
-        public DateTime InspectorScheduleTime { get; set; }
-        public int? InspectorScheduleSectionId { get; set; }
-
         public School InspectorSchool { get; set; }
-        public int InspectorSchoolId { get; set; }
-        public string InspectorSchoolName { get; set; }
-        public int InspectorSchoolDeanId { get; set; }
-
         public Section InspectorSection { get; set; }
-        public int InspectorSectionId { get; set; }
-        public string InspectorSectionName { get; set; }
-        public int InspectorSectionScheduleId { get; set; }
-        public int InspectorSectionProfessorId { get; set; }
-        public int InspectorSectionCourseId { get; set; }
-
         public Student InspectorStudent { get; set; }
-        public int InspectorStudentId { get; set; }
-        public string InspectorStudentName { get; set; }
-        public int? InspectorStudentDepartmentId { get; set; }
-        public int? InspectorStudentAdvisoryId { get; set; }
-
         public Tenure InspectorTenure { get; set; }
-        public int InspectorTenureId { get; set; }
-        public int InspectorTenureSuccession { get; set; }
-        public int InspectorTenureProfessorId { get; set; }
-        public int InspectorTenureDepartmentId { get; set; }
 
         #endregion
 
@@ -530,137 +488,124 @@ namespace TinyCollege.Core.ViewModels
 
         #endregion
 
+        private void _fillManagerFields(dynamic value)
+        {
+            switch (_browserEnumerableType)
+            {
+                case EntityEnum.Employee:
+                    ManagerEmployee = value;
+                    RaisePropertyChanged(() => ManagerEmployee);
+                    break;
+                case EntityEnum.Maintenance:
+                    ManagerMaintenance = value;
+                    RaisePropertyChanged(() => ManagerMaintenance);
+                    break;
+                case EntityEnum.MaintenanceDetail:
+                    ManagerMaintenanceDetail = value;
+                    RaisePropertyChanged(() => ManagerMaintenanceDetail);
+                    break;
+                case EntityEnum.Part:
+                    ManagerPart = value;
+                    RaisePropertyChanged(() => ManagerPart);
+                    break;
+                case EntityEnum.PartUsage:
+                    ManagerPartUsage = value;
+                    RaisePropertyChanged(() => ManagerPartUsage);
+                    break;
+                case EntityEnum.Report:
+                    ManagerReport = value;
+                    RaisePropertyChanged(() => ManagerReport);
+                    break;
+                case EntityEnum.Reservation:
+                    ManagerReservation = value;
+                    RaisePropertyChanged(() => ManagerReservation);
+                    break;
+                case EntityEnum.ReservationForm:
+                    ManagerReservationForm = value;
+                    RaisePropertyChanged(() => ManagerReservationForm);
+                    break;
+                case EntityEnum.Vehicle:
+                    ManagerVehicle = value;
+                    RaisePropertyChanged(() => ManagerVehicle);
+                    break;
+                case EntityEnum.Advisory:
+                    ManagerAdvisory = value;
+                    RaisePropertyChanged(() => ManagerAdvisory);
+                    break;
+                case EntityEnum.Contract:
+                    ManagerContract = value;
+                    RaisePropertyChanged(() => ManagerContract);
+                    break;
+                case EntityEnum.Course:
+                    ManagerCourse = value;
+                    RaisePropertyChanged(() => ManagerCourse);
+                    break;
+                case EntityEnum.Department:
+                    ManagerDepartment = value;
+                    RaisePropertyChanged(() => ManagerDepartment);
+                    break;
+                case EntityEnum.Enrollment:
+                    ManagerEnrollment = value;
+                    RaisePropertyChanged(() => ManagerEnrollment);
+                    break;
+                case EntityEnum.Professor:
+                    ManagerProfessor = value;
+                    RaisePropertyChanged(() => ManagerProfessor);
+                    break;
+                case EntityEnum.ProfessorContract:
+                    ManagerProfessorContract = value;
+                    RaisePropertyChanged(() => ManagerProfessorContract);
+                    break;
+                case EntityEnum.Professorship:
+                    ManagerProfessorship = value;
+                    RaisePropertyChanged(() => ManagerProfessorship);
+                    break;
+                case EntityEnum.Schedule:
+                    ManagerSchedule = value;
+                    RaisePropertyChanged(() => ManagerSchedule);
+                    break;
+                case EntityEnum.School:
+                    ManagerSchool = value;
+                    RaisePropertyChanged(() => ManagerSchool);
+                    break;
+                case EntityEnum.Section:
+                    ManagerSection = value;
+                    RaisePropertyChanged(() => ManagerSection);
+                    break;
+                case EntityEnum.Student:
+                    ManagerStudent = value;
+                    RaisePropertyChanged(() => ManagerStudent);
+                    break;
+                case EntityEnum.Tenure:
+                    ManagerTenure = value;
+                    RaisePropertyChanged(() => ManagerTenure);
+                    break;
+            }
+        }
         #region Manager Entities Properties
 
-        private Employee managerEmployee;
-        public int ManagerEmployeeId { get; set; }
-        public string ManagerEmployeeName { get; set; }
-        public bool ManagerEmployeeIsMechanic { get; set; }
-
-        private Maintenance managerMaintenance;
-        public string ManagerMaintenanceType { get; set; }
-        public DateTime ManagerMaintenanceCompletionDate { get; set; }
-        public int ManagerMaintenanceReleasingMechanicId { get; set; }
-        public int ManagerMaintenanceVehicleId { get; set; }
-        public int ManagerMaintenanceReportId { get; set; }
-
-        private MaintenanceDetail managerMaintenanceDetail;
-        public int ManagerMaintenanceDetailId { get; set; }
-        public DateTime ManagerMaintenanceDetailProcessingDate { get; set; }
-        public int ManagerMaintenanceDetailMaintenanceId { get; set; }
-        public int ManagerMaintenanceDetailEmployeeId { get; set; }
-
-        private Part managerPart;
-        public int ManagerPartId { get; set; }
-        public string ManagerPartName { get; set; }
-        public int ManagerPartCurrentAmount { get; set; }
-        public int ManagerPartMinimumLevel { get; set; }
-
-        private PartUsage managerPartUsage;
-        public int ManagerPartUsageId { get; set; }
-        public int ManagerPartUsageCount { get; set; }
-        public int ManagerPartUsagePartId { get; set; }
-        public int ManagerPartUsageMaintenanceDetailId { get; set; }
-
-        private Report managerReport;
-        public int ManagerReportId { get; set; }
-        public DateTime ManagerReportMonth { get; set; }
-        public string ManagerReportType { get; set; }
-
-        private Reservation managerReservation;
-        public int ManagerReservationId { get; set; }
-        public DateTime ManagerReservationDepartureDate { get; set; }
-        public string ManagerReservationDestination { get; set; }
-        public int ManagerReservationBilling { get; set; }
-        public int ManagerReservationMileage { get; set; }
-        public int ManagerReservationProfessorId { get; set; }
-        public int ManagerReservationVehicleId { get; set; }
-        public int ManagerReservationReportId { get; set; }
-
-        private ReservationForm managerReservationForm;
-        public int ManagerReservationFormId { get; set; }
-        public string ManagerReservationFormType { get; set; }
-        public string ManagerReservationFormNotes { get; set; }
-        public DateTime ManagerReservationFormSubmissionDate { get; set; }
-        public int ManagerReservationFormReservationId { get; set; }
-        public int ManagerReservationFormEmployeeId { get; set; }
-
-        private Vehicle managerVehicle;
-        public int ManagerVehicleId { get; set; }
-        public string ManagerVehicleType { get; set; }
-        public int ManagerVehicleSeatingCapacity { get; set; }
-
-        private Advisory managerAdvisory;
-        public int ManagerAdvisoryId { get; set; }
-        public int ManagerAdvisoryDepartmentId { get; set; }
-        public int ManagerAdvisoryProfessorId { get; set; }
-        public int ManagerAdvisoryStudentId { get; set; }
-
-        private Contract managerContract;
-        public int ManagerContractId { get; set; }
-        public string ManagerContractType { get; set; }
-
-        private Course managerCourse;
-        public int ManagerCourseId { get; set; }
-        public string ManagerCourseName { get; set; }
-        public int ManagerCourseDepartmentId { get; set; }
-
-        private Department managerDepartment;
-        public int ManagerDepartmentId { get; set; }
-        public string ManagerDepartmentName { get; set; }
-        public int ManagerDepartmentSchoolId { get; set; }
-
-        private Enrollment managerEnrollment;
-        public int ManagerEnrollmentId { get; set; }
-        public int ManagerEnrollmentStudentId { get; set; }
-        public int ManagerEnrollmentSectionId { get; set; }
-
-        private Professor managerProfessor;
-        public int ManagerProfessorId { get; set; }
-        public string ManagerProfessorName { get; set; }
-
-        private ProfessorContract managerProfessorContract;
-        public int ManagerProfessorContractId { get; set; }
-        public bool ManagerProfessorContractisActive { get; set; }
-        public int ManagerProfessorContractProfessorId { get; set; }
-        public int ManagerProfessorContractContractId { get; set; }
-
-        private Professorship managerProfessorship;
-        public int ManagerProfessorShipId { get; set; }
-        public bool ManagerProfessorisActive { get; set; }
-        public int ManagerProfessorProfessorId { get; set; }
-        public int ManagerProfessorDepartmentId { get; set; }
-
-        private Schedule managerSchedule;
-        public int ManagerScheduleId { get; set; }
-        public string ManagerScheduleDay { get; set; }
-        public string ManagerScheduleRoomCode { get; set; }
-        public DateTime ManagerScheduleTime { get; set; }
-        public int? ManagerScheduleSectionId { get; set; }
-
-        private School managerSchool;
-        public int ManagerSchoolId { get; set; }
-        public string ManagerSchoolName { get; set; }
-        public int ManagerSchoolDeanId { get; set; }
-
-        private Section managerSection;
-        public int ManagerSectionId { get; set; }
-        public string ManagerSectionName { get; set; }
-        public int ManagerSectionScheduleId { get; set; }
-        public int ManagerSectionProfessorId { get; set; }
-        public int ManagerSectionCourseId { get; set; }
-
-        private Student managerStudent;
-        public int ManagerStudentId { get; set; }
-        public string ManagerStudentName { get; set; }
-        public int? ManagerStudentDepartmentId { get; set; }
-        public int? ManagerStudentAdvisoryId { get; set; }
-
-        private Tenure managerTenure;
-        public int ManagerTenureId { get; set; }
-        public int ManagerTenureSuccession { get; set; }
-        public int ManagerTenureProfessorId { get; set; }
-        public int ManagerTenureDepartmentId { get; set; }
+        public Employee ManagerEmployee;
+        public Maintenance ManagerMaintenance;
+        public MaintenanceDetail ManagerMaintenanceDetail;
+        public Part ManagerPart;
+        public PartUsage ManagerPartUsage;
+        public Report ManagerReport;
+        public Reservation ManagerReservation;
+        public ReservationForm ManagerReservationForm;
+        public Vehicle ManagerVehicle;
+        public Advisory ManagerAdvisory;
+        public Contract ManagerContract;
+        public Course ManagerCourse;
+        public Department ManagerDepartment;
+        public Enrollment ManagerEnrollment;
+        public Professor ManagerProfessor;
+        public ProfessorContract ManagerProfessorContract;
+        public Professorship ManagerProfessorship;
+        public Schedule ManagerSchedule;
+        public School ManagerSchool;
+        public Section ManagerSection;
+        public Student ManagerStudent;
+        public Tenure ManagerTenure;
 
         #endregion
 
@@ -715,6 +660,7 @@ namespace TinyCollege.Core.ViewModels
         }
 
         #region View_Entities_Commands_and_Methods
+
         public IMvxCommand ViewEmployeesCommand { get; set; }
         private void _ViewEmployees()
         {

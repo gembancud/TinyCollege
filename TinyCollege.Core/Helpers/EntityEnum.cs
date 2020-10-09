@@ -6,6 +6,7 @@ namespace TinyCollege.Core.Helpers
 {
     public enum EntityEnum
     {
+        Null,
         Employee,
         MaintenanceDetail,
         Maintenance,
