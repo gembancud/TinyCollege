@@ -16,5 +16,10 @@ namespace TinyCollege.Service.Services.MotorPool
         {
             return _context.Vehicles;
         }
+
+        public IQueryable<Reservation> GetVehicleReservations(int vehicleId)
+        {
+            return _context.Reservations.Where(x => x.VehicleId == vehicleId);
+        }
     }
 }

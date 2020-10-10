@@ -156,6 +156,7 @@
                                                                 <RowDefinition Height="*"></RowDefinition>
                                                                 <RowDefinition Height="*"></RowDefinition>
                                                                 <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
                                                             </Grid.RowDefinitions>
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -167,8 +168,11 @@
                                                             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorEmployee.Name}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,8">Is Mechanic</TextBlock>
                                                             <CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding InspectorEmployee.IsMechanic, Mode=TwoWay}" IsEnabled="False"></CheckBox>
-                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Forms</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="100" >View Forms</Button>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Reservation Forms</TextBlock>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="100"  Command="{Binding InspectorEmployeeViewReservationFormsCommand}">View Forms</Button>
+                                                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Maintenance Details</TextBlock>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="100"  Command="{Binding InspectorEmployeeViewMaintenanceDetailsCommand}">View Maintenance Details</Button>
+
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorMaintenanceVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -198,17 +202,17 @@
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReleasingMechanicId</TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorMaintenance.ReleasingMechanicId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReleasingMechanic</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View ReleasingMechanic</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorMaintenanceReleasingMechanicCommand}">View ReleasingMechanic</Button>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">VehicleId</TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorMaintenance.VehicleId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Vehicle</TextBlock>
-                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Vehicle</Button>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorMaintenanceVehicleCommand}" >View Vehicle</Button>
                                                             <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReportId</TextBlock>
                                                             <TextBlock Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorMaintenance.ReportId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Report</TextBlock>
-                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Report</Button>
-                                                            <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MaintenanceDetails</TextBlock>
-                                                            <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View MaintenanceDetails</Button>
+                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorMaintenanceReportCommand}" >View Report</Button>
+                                                            <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8" >MaintenanceDetails</TextBlock>
+                                                            <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorMaintenanceMaintenanceDetailsCommand}">View MaintenanceDetails</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorMaintenanceDetailVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -234,13 +238,13 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MaintenanceId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorMaintenanceDetail.MaintenanceId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Maintenance</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Maintenance</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorMaintenanceDetailMaintenanceCommand}">View Maintenance</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">PartUsages</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View PartUsages</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorMaintenanceDetailPartUsagesCommand}">View PartUsages</Button>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">EmployeeId</TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorMaintenanceDetail.EmployeeId}" MinWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Employee</TextBlock>
-                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Employee</Button>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorMaintenanceDetailEmployeeCommand}">View Employee</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorPartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -264,8 +268,8 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorPart.CurrentAmount}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MinimumLevel</TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorPart.MinimumLevel}" MaxWidth="100" ></TextBlock>
-                                                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">PartUsages</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View PartUsages</Button>
+                                                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8" >PartUsages</TextBlock>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorPartPartUsagesCommand}">View PartUsages</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorPartUsageVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -289,11 +293,11 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">PartId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorPartUsage.PartId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Part</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Part</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorPartUsagePartCommand}">View Part</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MaintenanceDetailId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorPartUsage.MaintenanceDetailId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MaintenanceDetail</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View MaintenanceDetail</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorPartUsageMaintenanceDetailCommand}">View MaintenanceDetail</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorReportVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -316,9 +320,9 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Type</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorReport.Type}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Maintenances</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Maintenances</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReportMaintenancesCommand}">View Maintenances</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Reservations</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Reservations</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReportReservationsCommand}">View Reservations</Button>
 
                                                         </Grid>
                                                     </StackPanel>
@@ -355,17 +359,17 @@
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorReservation.ProfessorId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
-                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReservationProfessorCommand}">View Professor</Button>
                                                             <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">VehicleId</TextBlock>
                                                             <TextBlock Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorReservation.VehicleId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Vehicle</TextBlock>
-                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Vehicle</Button>
+                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReservationVehicleCommand}">View Vehicle</Button>
                                                             <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReportId</TextBlock>
                                                             <TextBlock Grid.Row="9" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorReservation.ReportId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="10" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Report</TextBlock>
-                                                            <Button Grid.Row="10" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Report</Button>
+                                                            <Button Grid.Row="10" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReservationReportCommand}">View Report</Button>
                                                             <TextBlock Grid.Row="11" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReservationForms</TextBlock>
-                                                            <Button Grid.Row="11" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View ReservationForms</Button>
+                                                            <Button Grid.Row="11" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReservationReservationFormsCommand}">View ReservationForms</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorReservationFormVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -395,11 +399,11 @@
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReservationId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorReservationForm.ReservationId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Reservation</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Reservation</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReservationFormReservationCommand}">View Reservation</Button>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">EmployeeId</TextBlock>
                                                             <TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorReservationForm.EmployeeId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Employee</TextBlock>
-                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Employee</Button>
+                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorReservationFormEmployeeCommand}">View Employee</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorVehicleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -421,7 +425,7 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SeatingCapacity</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorVehicle.SeatingCapacity}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Reservations</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Reservations</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorVehicleReservationsCommand}">View Reservations</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorAdvisoryVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -435,24 +439,24 @@
                                                                 <RowDefinition Height="*"></RowDefinition>
                                                                 <RowDefinition Height="*"></RowDefinition>
                                                             </Grid.RowDefinitions>
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                                    <ColumnDefinition Width="6*"></ColumnDefinition>
-                                                                </Grid.ColumnDefinitions>
-                                                                <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Id</TextBlock>
-                                                                <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.AdvisoryId}" MinWidth="100" ></TextBlock>
-                                                                <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
-                                                                <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.DepartmentId}" MaxWidth="100" ></TextBlock>
-                                                                <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Department</TextBlock>
-                                                                <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Department</Button>
-                                                                <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
-                                                                <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.ProfessorId}" MaxWidth="100" ></TextBlock>
-                                                                <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
-                                                                <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
-                                                                <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">StudentId</TextBlock>
-                                                                <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.StudentId}" MaxWidth="100" ></TextBlock>
-                                                                <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Student</TextBlock>
-                                                                <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Student</Button>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Id</TextBlock>
+                                                            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.AdvisoryId}" MinWidth="100" ></TextBlock>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
+                                                            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.DepartmentId}" MaxWidth="100" ></TextBlock>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Department</TextBlock>
+                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Department</Button>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
+                                                            <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.ProfessorId}" MaxWidth="100" ></TextBlock>
+                                                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
+                                                            <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">StudentId</TextBlock>
+                                                            <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.StudentId}" MaxWidth="100" ></TextBlock>
+                                                            <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Student</TextBlock>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Student</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -735,8 +739,8 @@
                                                             <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">CourseId</TextBlock>
                                                             <TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorSection.CourseId}" MaxWidth="100" ></TextBlock>
-                                                            <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">CourseId</TextBlock>
-                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View CourseId</Button>
+                                                            <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Course</TextBlock>
+                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Course</Button>
                                                             <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Enrollments</TextBlock>
                                                             <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Enrollments</Button>
                                                         </Grid>
@@ -846,74 +850,420 @@
                                                                 <ColumnDefinition Width="3*"></ColumnDefinition>
                                                                 <ColumnDefinition Width="6*"></ColumnDefinition>
                                                             </Grid.ColumnDefinitions>
-                                                            <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
-                                                            <TextBox Grid.Column="1" HorizontalAlignment="Right" Text="{Binding ManagerEmployeeName, Mode=TwoWay}" MinWidth="100"></TextBox>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerEmployee.Name}" MinWidth="100" ></TextBox>
                                                             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,8">Is Mechanic</TextBlock>
-                                                            <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding ManagerEmployeeIsMechanic, Mode=TwoWay}"></CheckBox>
+                                                            <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding ManagerEmployee.IsMechanic, Mode=TwoWay}" IsEnabled="True"></CheckBox>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerMaintenanceVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Maintenance</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Type</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerMaintenance.Type}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">CompletionDate</TextBlock>
+                                                            <mah:DateTimePicker Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"  DisplayDate="{Binding ManagerMaintenance.CompletionDate, Mode=TwoWay}" MinWidth="100" ></mah:DateTimePicker>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReleasingMechanicId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerMaintenance.ReleasingMechanicId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">VehicleId</TextBlock>
+                                                            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerMaintenance.VehicleId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReportId</TextBlock>
+                                                            <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerMaintenance.ReportId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerMaintenanceDetailVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Maintenance Detail</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProcessingDate</TextBlock>
+                                                            <mah:DateTimePicker Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" DisplayDate="{Binding ManagerMaintenanceDetail.ProcessingDate, Mode=TwoWay}" MinWidth="100" ></mah:DateTimePicker>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MaintenanceId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerMaintenanceDetail.MaintenanceId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">EmployeeId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerMaintenanceDetail.EmployeeId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerPartVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Part</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerPart.Name}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">CurrentAmount</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerPart.CurrentAmount}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MinimumLevel</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerPart.MinimumLevel}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerPartUsageVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>PartUsage</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Count</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerPartUsage.Count}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">PartId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerPartUsage.PartId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">MaintenanceDetailId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerPartUsage.MaintenanceDetailId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerReportVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Report</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Month</TextBlock>
+                                                            <mah:DateTimePicker Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"  DisplayDate="{Binding ManagerReport.Month}" MinWidth="100" ></mah:DateTimePicker>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Type</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReport.Type}" MinWidth="100" ></TextBox>
+
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerReservationVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Reservation</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartureDate</TextBlock>
+                                                            <mah:DateTimePicker Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" DisplayDate="{Binding ManagerReservation.DepartureDate}" MinWidth="100" ></mah:DateTimePicker>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Destination</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservation.Destination}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Billing</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservation.Billing}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Mileage</TextBlock>
+                                                            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservation.Mileage}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
+                                                            <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservation.ProfessorId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">VehicleId</TextBlock>
+                                                            <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservation.VehicleId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReportId</TextBlock>
+                                                            <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservation.ReportId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerReservationFormVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>ReservationForm</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Type</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservationForm.Type}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Notes</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservationForm.Notes}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SubmissionDate</TextBlock>
+                                                            <mah:DateTimePicker Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" DisplayDate="{Binding ManagerReservationForm.SubmissionDate, Mode=TwoWay}" MinWidth="100" ></mah:DateTimePicker>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ReservationId</TextBlock>
+                                                            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservationForm.ReservationId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">EmployeeId</TextBlock>
+                                                            <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerReservationForm.EmployeeId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerVehicleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Vehicle</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Type</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerVehicle.Type}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SeatingCapacity</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerVehicle.SeatingCapacity}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerAdvisoryVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Advisory</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerAdvisory.DepartmentId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerAdvisory.ProfessorId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">StudentId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerAdvisory.StudentId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Contract</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Type</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerContract.Type}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerCourseVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Course</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerCourse.Name}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
+                                                            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerCourse.DepartmentId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerDepartmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Department</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerDepartment.Name}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SchoolId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerDepartment.SchoolId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerEnrollmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Enrollment</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">StudentId</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerEnrollment.StudentId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SectionId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerEnrollment.SectionId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerProfessorVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Professor</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerProfessor.Name}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerProfessorContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Professor Contract</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">isActive</TextBlock>
+                                                            <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding ManagerProfessorContract.isActive, Mode=TwoWay}" IsEnabled="True"></CheckBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerProfessorContract.ProfessorId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ContractId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerProfessorContract.ContractId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerProfessorshipVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Professorship</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">isActive</TextBlock>
+                                                            <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding ManagerProfessorship.isActive, Mode=TwoWay}" IsEnabled="True"></CheckBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerProfessorship.ProfessorId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerProfessorship.DepartmentId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerScheduleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Schedule</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Day</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSchedule.Day}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">RoomCode</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSchedule.RoomCode}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Time</TextBlock>
+                                                            <mah:DateTimePicker Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" DisplayDate="{Binding ManagerSchedule.Time}" MinWidth="100" ></mah:DateTimePicker>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SectionId</TextBlock>
+                                                            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSchedule.SectionId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerSchoolVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>School</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSchool.Name}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DeanId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSchool.DeanId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerSectionVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Section</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSection.Name}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ScheduleId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSection.ScheduleId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSection.ProfessorId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">CourseId</TextBlock>
+                                                            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerSection.CourseId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerStudentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Student</TextBlock>
+                                                        <Grid>
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerStudent.Name}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerStudent.DepartmentId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">AdvisoryId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerStudent.AdvisoryId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding ManagerTenureVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                                        <TextBlock>Tenure</TextBlock>
+                                                        <Grid >
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                                <RowDefinition Height="*"></RowDefinition>
+                                                            </Grid.RowDefinitions>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                                            </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Succession</TextBlock>
+                                                            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerTenure.Succession}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
+                                                            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerTenure.ProfessorId}" MinWidth="100" ></TextBox>
+                                                            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
+                                                            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding ManagerTenure.DepartmentId}" MinWidth="100" ></TextBox>
+                                                        </Grid>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </ScrollViewer>

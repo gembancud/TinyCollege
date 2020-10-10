@@ -23,5 +23,15 @@ namespace TinyCollege.Service.Services.MotorPool
             _context.SaveChanges();
             return _context.Employees.Where(x => x.EmployeeId == employee.EmployeeId);
         }
+
+        public IQueryable<ReservationForm> GetEmployeeReservationForms(int employeeId)
+        {
+            return _context.ReservationForms.Where(x => x.EmployeeId == employeeId);
+        }
+
+        public IQueryable<MaintenanceDetail> GetEmployeeMaintenanceDetails(int employeeId)
+        {
+            return _context.MaintenanceDetails.Where(x => x.EmployeeId == employeeId);
+        }
     }
 }

@@ -62,6 +62,42 @@ namespace TinyCollege.Core.ViewModels
             ViewStudentsCommand = new MvxCommand(_ViewStudents);
             ViewTenuresCommand = new MvxCommand(_ViewTenures);
             #endregion
+
+
+            #region Inspector Commands Initialization
+
+            InspectorEmployeeViewReservationFormsCommand = new MvxCommand(_InspectorEmployeeViewReservationForms);
+            InspectorEmployeeViewMaintenanceDetailsCommand = new MvxCommand(_InspectorEmployeeViewMaintenanceDetails);
+
+            InspectorMaintenanceReleasingMechanicCommand = new MvxCommand(_InspectorMaintenanceReleasingMechanic);
+            InspectorMaintenanceVehicleCommand = new MvxCommand(_InspectorMaintenanceVehicle);
+            InspectorMaintenanceReportCommand = new MvxCommand(_InspectorMaintenanceReport);
+
+            InspectorMaintenanceMaintenanceDetailsCommand = new MvxCommand(_InspectorMaintenanceMaintenanceDetails);
+            InspectorMaintenanceDetailMaintenanceCommand = new MvxCommand(_InspectorMaintenanceDetailMaintenance);
+            InspectorMaintenanceDetailPartUsagesCommand = new MvxCommand(_InspectorMaintenanceDetailPartUsages);
+            InspectorMaintenanceDetailEmployeeCommand = new MvxCommand(_InspectorMaintenanceDetailEmployee);
+
+            InspectorPartPartUsagesCommand = new MvxCommand(_InspectorPartPartUsages);
+
+            InspectorPartUsagePartCommand = new MvxCommand(_InspectorPartUsagePart);
+            InspectorPartUsageMaintenanceDetailCommand = new MvxCommand(_InspectorPartUsageMaintenanceDetail);
+
+            InspectorReportMaintenancesCommand = new MvxCommand(_InspectorReportMaintenances);
+            InspectorReportReservationsCommand = new MvxCommand(_InspectorReportReservations);
+
+            InspectorReservationProfessorCommand = new MvxCommand(_InspectorReservationProfessor);
+            InspectorReservationVehicleCommand = new MvxCommand(_InspectorReservationVehicle);
+            InspectorReservationReportCommand = new MvxCommand(_InspectorReservationReport);
+            InspectorReservationReservationFormsCommand = new MvxCommand(_InspectorReservationReservationForms);
+
+            InspectorReservationFormReservationCommand = new MvxCommand(_InspectorReservationFormReservation);
+            InspectorReservationFormEmployeeCommand = new MvxCommand(_InspectorReservationFormEmployee);
+
+            InspectorVehicleReservationsCommand = new MvxCommand(_InspectorVehicleReservations);
+
+            #endregion
+
         }
 
         private IEnumerable<object> _browserEnumerable;
@@ -76,31 +112,7 @@ namespace TinyCollege.Core.ViewModels
                 RaisePropertyChanged(() => BrowserHeader);
                 RaisePropertyChanged(() => ManagerHeader);
 
-                #region Manager Entities Visibility RaisePropertyChanged
-
-                RaisePropertyChanged(() => ManagerEmployeeVisibility);
-                RaisePropertyChanged(() => ManagerMaintenanceVisibility);
-                RaisePropertyChanged(() => ManagerMaintenanceDetailVisibility);
-                RaisePropertyChanged(() => ManagerPartVisibility);
-                RaisePropertyChanged(() => ManagerPartUsageVisibility);
-                RaisePropertyChanged(() => ManagerReportVisibility);
-                RaisePropertyChanged(() => ManagerReservationVisibility);
-                RaisePropertyChanged(() => ManagerReservationFormVisibility);
-                RaisePropertyChanged(() => ManagerVehicleVisibility);
-                RaisePropertyChanged(() => ManagerAdvisoryVisibility);
-                RaisePropertyChanged(() => ManagerContractVisibility);
-                RaisePropertyChanged(() => ManagerCourseVisibility);
-                RaisePropertyChanged(() => ManagerDepartmentVisibility);
-                RaisePropertyChanged(() => ManagerEnrollmentVisibility);
-                RaisePropertyChanged(() => ManagerProfessorVisibility);
-                RaisePropertyChanged(() => ManagerProfessorContractVisibility);
-                RaisePropertyChanged(() => ManagerProfessorshipVisibility);
-                RaisePropertyChanged(() => ManagerScheduleVisibility);
-                RaisePropertyChanged(() => ManagerSchoolVisibility);
-                RaisePropertyChanged(() => ManagerSectionVisibility);
-                RaisePropertyChanged(() => ManagerStudentVisibility);
-                RaisePropertyChanged(() => ManagerTenureVisibility);
-                #endregion
+                _refreshManagerVisibility();
             }
         }
 
@@ -172,8 +184,6 @@ namespace TinyCollege.Core.ViewModels
 
                     _fillInspectorFields(value);
                     _refreshInspectorVisibility();
-
-
                 }
             }
         }
@@ -406,6 +416,160 @@ namespace TinyCollege.Core.ViewModels
 
         #region Inspector Commands
 
+        public IMvxCommand InspectorEmployeeViewReservationFormsCommand { get; set; }
+        private void _InspectorEmployeeViewReservationForms()
+        {
+            var reservationForms = _superService.EmployeeService.GetEmployeeReservationForms(InspectorEmployee.EmployeeId).ToList();
+            BrowserEnumerable = new ObservableCollection<IReservationForm>(reservationForms);
+        }
+
+        public IMvxCommand InspectorEmployeeViewMaintenanceDetailsCommand { get; set; }
+        private void _InspectorEmployeeViewMaintenanceDetails()
+        {
+            var maintenanceDetails = _superService.EmployeeService.GetEmployeeMaintenanceDetails(InspectorEmployee.EmployeeId).ToList();
+            BrowserEnumerable = new ObservableCollection<IMaintenanceDetail>(maintenanceDetails);
+        }
+
+        public IMvxCommand InspectorMaintenanceReleasingMechanicCommand { get; set; }
+        private void _InspectorMaintenanceReleasingMechanic()
+        {
+            var releasingMechanicId = InspectorMaintenance.ReleasingMechanicId ?? 0;
+            if (releasingMechanicId == 0) return;
+            var maintenanceReleasingMechanic = _superService.MaintenanceService.GetMaintenanceReleasingMechanic(releasingMechanicId).ToList();
+            BrowserSelection = maintenanceReleasingMechanic.First();
+        }
+
+        public IMvxCommand InspectorMaintenanceVehicleCommand { get; set; }
+        private void _InspectorMaintenanceVehicle()
+        {
+            var maintenanceVehicle = _superService.MaintenanceService.GetMaintenanceVehicle(InspectorMaintenance.VehicleId).ToList();
+            BrowserSelection = maintenanceVehicle.First();
+        }
+
+        public IMvxCommand InspectorMaintenanceReportCommand { get; set; }
+        private void _InspectorMaintenanceReport()
+        {
+            var reportId = InspectorMaintenance.ReportId ?? 0;
+            if (reportId == 0) return;
+            var report = _superService.MaintenanceService.GetMaintenanceReport(reportId).ToList();
+            BrowserSelection = report.First();
+        }
+
+        public IMvxCommand InspectorMaintenanceMaintenanceDetailsCommand { get; set; }
+        private void _InspectorMaintenanceMaintenanceDetails()
+        {
+            var maintenanceDetails = _superService.MaintenanceService.GetMaintenanceMaintenanceDetails(InspectorMaintenance.MaintenanceId).ToList();
+            BrowserEnumerable = new ObservableCollection<IMaintenanceDetail>(maintenanceDetails);
+        }
+
+        public IMvxCommand InspectorMaintenanceDetailMaintenanceCommand { get; set; }
+        private void _InspectorMaintenanceDetailMaintenance()
+        {
+            var maintenance = _superService.MaintenanceDetailService.GetMaintenanceDetailMaintenance(InspectorMaintenanceDetail.MaintenanceId).ToList();
+            BrowserSelection = maintenance.First();
+        }
+
+        public IMvxCommand InspectorMaintenanceDetailPartUsagesCommand { get; set; }
+        private void _InspectorMaintenanceDetailPartUsages()
+        {
+            var partUsages = _superService.MaintenanceDetailService.GetMaintenanceDetailPartUsages(InspectorMaintenanceDetail.MaintenanceDetailId).ToList();
+            BrowserEnumerable = new ObservableCollection<IPartUsage>(partUsages);
+        }
+
+        public IMvxCommand InspectorMaintenanceDetailEmployeeCommand { get; set; }
+        private void _InspectorMaintenanceDetailEmployee()
+        {
+            var employee = _superService.MaintenanceDetailService.GetMaintenanceDetailEmployee(InspectorMaintenanceDetail.EmployeeId).ToList();
+            BrowserSelection = employee.First();
+        }
+
+        public IMvxCommand InspectorPartPartUsagesCommand { get; set; }
+        private void _InspectorPartPartUsages()
+        {
+            var partUsages = _superService.PartService.GetPartPartUsages(InspectorPart.PartId).ToList();
+            BrowserEnumerable = new ObservableCollection<IPartUsage>(partUsages);
+        }
+
+        public IMvxCommand InspectorPartUsagePartCommand { get; set; }
+        private void _InspectorPartUsagePart()
+        {
+            var part = _superService.PartUsageService.GetPartUsagePart(InspectorPartUsage.PartId).ToList();
+            BrowserSelection = part.First();
+        }
+
+        public IMvxCommand InspectorPartUsageMaintenanceDetailCommand { get; set; }
+        private void _InspectorPartUsageMaintenanceDetail()
+        {
+            var maintenanceDetail = _superService.PartUsageService.GetPartUsageMaintenanceDetail(InspectorPartUsage.MaintenanceDetailId).ToList();
+            BrowserSelection = maintenanceDetail.First();
+        }
+
+        public IMvxCommand InspectorReportMaintenancesCommand { get; set; }
+        private void _InspectorReportMaintenances()
+        {
+            var maintenances = _superService.ReportService.GetReportMaintenances(InspectorReport.ReportId).ToList();
+            BrowserEnumerable = new ObservableCollection<IMaintenance>(maintenances);
+        }
+
+        public IMvxCommand InspectorReportReservationsCommand { get; set; }
+        private void _InspectorReportReservations()
+        {
+            var reservations = _superService.ReportService.GetReportReservations(InspectorReport.ReportId).ToList();
+            BrowserEnumerable = new ObservableCollection<IReservation>(reservations);
+        }
+
+        public IMvxCommand InspectorReservationProfessorCommand { get; set; }
+        private void _InspectorReservationProfessor()
+        {
+            var professor = _superService.ReservationService.GetReservationProfessor(InspectorReservation.ProfessorId).ToList();
+            BrowserSelection = professor.First();
+        }
+
+        public IMvxCommand InspectorReservationVehicleCommand { get; set; }
+        private void _InspectorReservationVehicle()
+        {
+            var vehicle = _superService.ReservationService.GetReservationVehicle(InspectorReservation.VehicleId).ToList();
+            BrowserSelection = vehicle.First();
+        }
+
+        public IMvxCommand InspectorReservationReportCommand { get; set; }
+        private void _InspectorReservationReport()
+        {
+            var reportId = InspectorReservation.ReportId ?? 0;
+            if (reportId == 0) return;
+            var report = _superService.ReservationService.GetReservationReport(reportId).ToList();
+            BrowserSelection = report.First();
+        }
+
+        public IMvxCommand InspectorReservationReservationFormsCommand { get; set; }
+        private void _InspectorReservationReservationForms()
+        {
+            var reservationForms = _superService.ReservationService.GetReservationReservationForms(InspectorReservation.ReservationId).ToList();
+            BrowserEnumerable = new ObservableCollection<IReservationForm>(reservationForms);
+        }
+
+        public IMvxCommand InspectorReservationFormReservationCommand { get; set; }
+        private void _InspectorReservationFormReservation()
+        {
+            var reservation = _superService.ReservationFormService.GetReservationFormReservation(InspectorReservationForm.ReservationId).ToList();
+            BrowserSelection = reservation.First();
+        }
+
+        public IMvxCommand InspectorReservationFormEmployeeCommand { get; set; }
+        private void _InspectorReservationFormEmployee()
+        {
+            var employee = _superService.ReservationFormService.GetReservationFormEmployee(InspectorReservationForm.EmployeeId).ToList();
+            BrowserSelection = employee.First();
+        }
+
+        public IMvxCommand InspectorVehicleReservationsCommand { get; set; }
+        private void _InspectorVehicleReservations()
+        {
+            var reservations = _superService.VehicleService.GetVehicleReservations(InspectorVehicle.VehicleId).ToList();
+            BrowserEnumerable = new ObservableCollection<IReservation>(reservations);
+        }
+
+
         #endregion
 
 
@@ -581,6 +745,32 @@ namespace TinyCollege.Core.ViewModels
                     RaisePropertyChanged(() => ManagerTenure);
                     break;
             }
+        }
+        private void _refreshManagerVisibility()
+        {
+
+            RaisePropertyChanged(() => ManagerEmployeeVisibility);
+            RaisePropertyChanged(() => ManagerMaintenanceVisibility);
+            RaisePropertyChanged(() => ManagerMaintenanceDetailVisibility);
+            RaisePropertyChanged(() => ManagerPartVisibility);
+            RaisePropertyChanged(() => ManagerPartUsageVisibility);
+            RaisePropertyChanged(() => ManagerReportVisibility);
+            RaisePropertyChanged(() => ManagerReservationVisibility);
+            RaisePropertyChanged(() => ManagerReservationFormVisibility);
+            RaisePropertyChanged(() => ManagerVehicleVisibility);
+            RaisePropertyChanged(() => ManagerAdvisoryVisibility);
+            RaisePropertyChanged(() => ManagerContractVisibility);
+            RaisePropertyChanged(() => ManagerCourseVisibility);
+            RaisePropertyChanged(() => ManagerDepartmentVisibility);
+            RaisePropertyChanged(() => ManagerEnrollmentVisibility);
+            RaisePropertyChanged(() => ManagerProfessorVisibility);
+            RaisePropertyChanged(() => ManagerProfessorContractVisibility);
+            RaisePropertyChanged(() => ManagerProfessorshipVisibility);
+            RaisePropertyChanged(() => ManagerScheduleVisibility);
+            RaisePropertyChanged(() => ManagerSchoolVisibility);
+            RaisePropertyChanged(() => ManagerSectionVisibility);
+            RaisePropertyChanged(() => ManagerStudentVisibility);
+            RaisePropertyChanged(() => ManagerTenureVisibility);
         }
         #region Manager Entities Properties
 

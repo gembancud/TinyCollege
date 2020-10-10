@@ -16,5 +16,15 @@ namespace TinyCollege.Service.Services.MotorPool
         {
             return _context.PartUsages;
         }
+
+        public IQueryable<Part> GetPartUsagePart(int partUsagePartId)
+        {
+            return _context.Parts.Where(x => x.PartId == partUsagePartId);
+        }
+
+        public IQueryable<MaintenanceDetail> GetPartUsageMaintenanceDetail(int partUsageMaintenanceDetailId)
+        {
+            return _context.MaintenanceDetails.Where(x => x.MaintenanceDetailId == partUsageMaintenanceDetailId);
+        }
     }
 }
