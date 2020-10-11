@@ -16,5 +16,15 @@ namespace TinyCollege.Service.Services
         {
             return _context.Tenures;
         }
+
+        public IQueryable<Professor> GetTenureProfessor(int tenureProfessorId)
+        {
+            return _context.Professors.Where(x => x.ProfessorId == tenureProfessorId);
+        }
+
+        public IQueryable<Department> GetTenureDepartment(int tenureDepartmentId)
+        {
+            return _context.Departments.Where(x => x.DepartmentId == tenureDepartmentId);
+        }
     }
 }

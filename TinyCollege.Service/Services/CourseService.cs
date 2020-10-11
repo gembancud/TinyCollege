@@ -16,5 +16,15 @@ namespace TinyCollege.Service.Services
         {
             return _context.Courses;
         }
+
+        public IQueryable<Section> GetCourseSections(int courseId)
+        {
+            return _context.Sections.Where(x => x.CourseId == courseId);
+        }
+
+        public IQueryable<Department> GetCourseDepartment(int courseDepartmentId)
+        {
+            return _context.Departments.Where(x => x.DepartmentId == courseDepartmentId);
+        }
     }
 }

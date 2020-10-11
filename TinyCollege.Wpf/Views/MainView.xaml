@@ -448,15 +448,15 @@
                                                             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
                                                             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.DepartmentId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Department</TextBlock>
-                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Department</Button>
+                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorAdvisoryDepartmentCommand}">View Department</Button>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.ProfessorId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorAdvisoryProfessorCommand}">View Professor</Button>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">StudentId</TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorAdvisory.StudentId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Student</TextBlock>
-                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Student</Button>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorAdvisoryStudentCommand}">View Student</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -475,7 +475,7 @@
                                                             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Type</TextBlock>
                                                             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorContract.Type}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorContracts</TextBlock>
-                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View ProfessorContracts</Button>
+                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorContractProfessorContractsCommand}">View ProfessorContracts</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorCourseVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -496,11 +496,11 @@
                                                             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
                                                             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorCourse.Name}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Sections</TextBlock>
-                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Sections</Button>
+                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorCourseSectionsCommand}">View Sections</Button>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorCourse.DepartmentId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Department</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Department</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorCourseDepartmentCommand}">View Department</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorDepartmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -527,17 +527,17 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SchoolId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorDepartment.SchoolId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">School</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View School</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorDepartmentSchoolCommand}">View School</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Tenures</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Tenures</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorDepartmentTenuresCommand}">View Tenures</Button>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professorships</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professorships</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorDepartmentProfessorshipsCommand}">View Professorships</Button>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Courses</TextBlock>
-                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Courses</Button>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorDepartmentCoursesCommand}">View Courses</Button>
                                                             <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Students</TextBlock>
-                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Students</Button>
+                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorDepartmentStudentsCommand}">View Students</Button>
                                                             <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Advisories</TextBlock>
-                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Advisories</Button>
+                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorDepartmentAdvisoriesCommand}">View Advisories</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorEnrollmentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -558,11 +558,11 @@
                                                             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">StudentId</TextBlock>
                                                             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorEnrollment.StudentId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Student</TextBlock>
-                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Student</Button>
+                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorEnrollmentStudentCommand}">View Student</Button>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SectionId</TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorEnrollment.SectionId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Section</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Section</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorEnrollmentSectionCommand}">View Section</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorProfessorVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -586,17 +586,17 @@
                                                             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Name</TextBlock>
                                                             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorProfessor.Name}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professorships</TextBlock>
-                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professorships</Button>
+                                                            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorProfessorshipsCommand}">View Professorships</Button>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Sections</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Sections</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorSectionsCommand}">View Sections</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Advisories</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Advisories</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorAdvisoriesCommand}">View Advisories</Button>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Reservations</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Reservations</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorReservationsCommand}">View Reservations</Button>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Tenures</TextBlock>
-                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Tenures</Button>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorTenuresCommand}">View Tenures</Button>
                                                             <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorContracts</TextBlock>
-                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View ProfessorContracts</Button>
+                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorProfessorContractsCommand}">View ProfessorContracts</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorProfessorContractVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -620,11 +620,11 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorProfessorContract.ProfessorId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorContractProfessorCommand}">View Professor</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ContractId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorProfessorContract.ContractId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Contract</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Contract</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorContractContractCommand}">View Contract</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorProfessorshipVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -648,11 +648,11 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorProfessorship.ProfessorId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorshipProfessorCommand}">View Professor</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorProfessorship.DepartmentId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Department</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Department</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorProfessorshipDepartmentCommand}">View Department</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorScheduleVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -680,7 +680,7 @@
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">SectionId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorSchedule.SectionId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Section</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Section</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorScheduleSectionCommand}">View Section</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorSchoolVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -703,9 +703,9 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DeanId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorSchool.DeanId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Dean</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Dean</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorSchoolDeanCommand}">View Dean</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Departments</TextBlock>
-                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Departments</Button>
+                                                            <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorSchoolDepartmentsCommand}">View Departments</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorSectionVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -732,17 +732,17 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ScheduleId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorSection.ScheduleId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Schedule</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Schedule</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorSectionScheduleCommand}">View Schedule</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorSection.ProfessorId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorSectionProfessorCommand}">View Professor</Button>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">CourseId</TextBlock>
                                                             <TextBlock Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorSection.CourseId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Course</TextBlock>
-                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Course</Button>
+                                                            <Button Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorSectionCourseCommand}">View Course</Button>
                                                             <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Enrollments</TextBlock>
-                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Enrollments</Button>
+                                                            <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorSectionEnrollmentsCommand}">View Enrollments</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorStudentVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -767,13 +767,13 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorStudent.DepartmentId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Department</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Department</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorStudentDepartmentCommand}">View Department</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">AdvisoryId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorStudent.AdvisoryId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Advisory</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Advisory</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorStudentAdvisoryCommand}">View Advisory</Button>
                                                             <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Enrollments</TextBlock>
-                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Enrollments</Button>
+                                                            <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorStudentEnrollmentsCommand}">View Enrollments</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                     <StackPanel Visibility="{Binding InspectorTenureVisibility, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -797,11 +797,11 @@
                                                             <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">ProfessorId</TextBlock>
                                                             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorTenure.ProfessorId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Professor</TextBlock>
-                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Professor</Button>
+                                                            <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorTenureProfessorCommand}">View Professor</Button>
                                                             <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">DepartmentId</TextBlock>
                                                             <TextBlock Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding InspectorTenure.DepartmentId}" MaxWidth="100" ></TextBlock>
                                                             <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3, 8">Department</TextBlock>
-                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" >View Department</Button>
+                                                            <Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" MaxWidth="200" Command="{Binding InspectorTenureDepartmentCommand}">View Department</Button>
                                                         </Grid>
                                                     </StackPanel>
                                                 </StackPanel>

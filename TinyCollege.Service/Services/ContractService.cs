@@ -16,5 +16,10 @@ namespace TinyCollege.Service.Services
         {
             return _context.Contracts;
         }
+
+        public IQueryable<ProfessorContract> GetContractProfessorContracts(int contractId)
+        {
+            return _context.ProfessorContracts.Where(x => x.ContractId == contractId);
+        }
     }
 }
