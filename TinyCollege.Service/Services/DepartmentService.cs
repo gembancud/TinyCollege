@@ -53,5 +53,21 @@ namespace TinyCollege.Service.Services
         {
             return _context.Advisories.Where(x => x.DepartmentId == departmentId);
         }
+
+        public IQueryable<Department> DeleteDepartment(Department department)
+        {
+            try
+            {
+                _context.Departments.Attach(department);
+                _context.Departments.Remove(department);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.Departments;
+        }
     }
 }

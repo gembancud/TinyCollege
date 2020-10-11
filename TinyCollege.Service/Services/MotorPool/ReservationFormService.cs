@@ -33,5 +33,21 @@ namespace TinyCollege.Service.Services.MotorPool
         {
             return _context.Employees.Where(x => x.EmployeeId == reservationFormEmployeeId);
         }
+
+        public IQueryable<ReservationForm> DeleteReservationForm(ReservationForm reservationForm)
+        {
+            try
+            {
+                _context.ReservationForms.Attach(reservationForm);
+                _context.ReservationForms.Remove(reservationForm);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.ReservationForms;
+        }
     }
 }

@@ -28,5 +28,21 @@ namespace TinyCollege.Service.Services.MotorPool
         {
             return _context.PartUsages.Where(x => x.PartId == partId);
         }
+
+        public IQueryable<Part> DeletePart(Part part)
+        {
+            try
+            {
+                _context.Parts.Attach(part);
+                _context.Parts.Remove(part);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.Parts;
+        }
     }
 }

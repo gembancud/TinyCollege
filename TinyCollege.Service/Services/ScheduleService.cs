@@ -28,5 +28,21 @@ namespace TinyCollege.Service.Services
         {
             return _context.Sections.Where(x => x.SectionId == scheduleSectionId);
         }
+
+        public IQueryable<Schedule> DeleteSchedule(Schedule schedule)
+        {
+            try
+            {
+                _context.Schedules.Attach(schedule);
+                _context.Schedules.Remove(schedule);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.Schedules;
+        }
     }
 }

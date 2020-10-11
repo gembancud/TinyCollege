@@ -54,5 +54,21 @@ namespace TinyCollege.Service.Services
         {
             return _context.ProfessorContracts.Where(x => x.ProfessorId == professorId);
         }
+
+        public IQueryable<Professor> DeleteProfessor(Professor professor)
+        {
+            try
+            {
+                _context.Professors.Attach(professor);
+                _context.Professors.Remove(professor);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.Professors;
+        }
     }
 }

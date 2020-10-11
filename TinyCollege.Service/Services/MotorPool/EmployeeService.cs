@@ -34,15 +34,13 @@ namespace TinyCollege.Service.Services.MotorPool
             return _context.MaintenanceDetails.Where(x => x.EmployeeId == employeeId);
         }
 
-        public IQueryable<Employee> DeleteEmployee(int employeeId)
+        public IQueryable<Employee> DeleteEmployee(Employee employee)
         {
             try
             {
-                var employee = _context.Employees.First(x => x.EmployeeId == employeeId);
                 _context.Employees.Attach(employee);
                 _context.Employees.Remove(employee);
                 _context.SaveChanges();
-
             }
             catch (Exception e)
             {

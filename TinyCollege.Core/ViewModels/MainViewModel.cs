@@ -963,48 +963,70 @@ namespace TinyCollege.Core.ViewModels
             switch (_browserSelectionType)
             {
                 case EntityEnum.Employee:
+                    BrowserEnumerable = new ObservableCollection<Employee>(_superService.EmployeeService.DeleteEmployee(InspectorEmployee));
                     break;
                 case EntityEnum.Maintenance:
+                    BrowserEnumerable = new ObservableCollection<Maintenance>(_superService.MaintenanceService.DeleteMaintenance(InspectorMaintenance));
                     break;
                 case EntityEnum.MaintenanceDetail:
+                    BrowserEnumerable = new ObservableCollection<MaintenanceDetail>(_superService.MaintenanceDetailService.DeleteMaintenanceDetail(InspectorMaintenanceDetail));
                     break;
                 case EntityEnum.Part:
+                    BrowserEnumerable = new ObservableCollection<Part>(_superService.PartService.DeletePart(InspectorPart));
                     break;
                 case EntityEnum.PartUsage:
+                    BrowserEnumerable = new ObservableCollection<PartUsage>(_superService.PartUsageService.DeletePartUsage(InspectorPartUsage));
                     break;
                 case EntityEnum.Report:
+                    BrowserEnumerable = new ObservableCollection<Report>(_superService.ReportService.DeleteReport(InspectorReport));
                     break;
                 case EntityEnum.Reservation:
+                    BrowserEnumerable = new ObservableCollection<Reservation>(_superService.ReservationService.DeleteReservation(InspectorReservation));
                     break;
                 case EntityEnum.ReservationForm:
+                    BrowserEnumerable = new ObservableCollection<ReservationForm>(_superService.ReservationFormService.DeleteReservationForm(InspectorReservationForm));
                     break;
                 case EntityEnum.Vehicle:
+                    BrowserEnumerable = new ObservableCollection<Vehicle>(_superService.VehicleService.DeleteVehicle(InspectorVehicle));
                     break;
                 case EntityEnum.Advisory:
+                    BrowserEnumerable = new ObservableCollection<Advisory>(_superService.AdvisoryService.DeleteAdvisory(InspectorAdvisory));
                     break;
                 case EntityEnum.Contract:
+                    BrowserEnumerable = new ObservableCollection<Contract>(_superService.ContractService.DeleteContract(InspectorContract));
                     break;
                 case EntityEnum.Course:
+                    BrowserEnumerable = new ObservableCollection<Course>(_superService.CourseService.DeleteCourse(InspectorCourse));
                     break;
                 case EntityEnum.Department:
+                    BrowserEnumerable = new ObservableCollection<Department>(_superService.DepartmentService.DeleteDepartment(InspectorDepartment));
                     break;
                 case EntityEnum.Enrollment:
+                    BrowserEnumerable = new ObservableCollection<Enrollment>(_superService.EnrollmentService.DeleteEnrollment(InspectorEnrollment));
                     break;
                 case EntityEnum.Professor:
+                    BrowserEnumerable = new ObservableCollection<Professor>(_superService.ProfessorService.DeleteProfessor(InspectorProfessor));
                     break;
                 case EntityEnum.ProfessorContract:
+                    BrowserEnumerable = new ObservableCollection<ProfessorContract>(_superService.ProfessorContractService.DeleteProfessorContract(InspectorProfessorContract));
                     break;
                 case EntityEnum.Professorship:
+                    BrowserEnumerable = new ObservableCollection<Professorship>(_superService.ProfessorshipService.DeleteProfessorship(InspectorProfessorship));
                     break;
                 case EntityEnum.Schedule:
+                    BrowserEnumerable = new ObservableCollection<Schedule>(_superService.ScheduleService.DeleteSchedule(InspectorSchedule));
                     break;
                 case EntityEnum.School:
+                    BrowserEnumerable = new ObservableCollection<School>(_superService.SchoolService.DeleteSchool(InspectorSchool));
                     break;
                 case EntityEnum.Section:
+                    BrowserEnumerable = new ObservableCollection<Section>(_superService.SectionService.DeleteSection(InspectorSection));
                     break;
                 case EntityEnum.Student:
+                    BrowserEnumerable = new ObservableCollection<Student>(_superService.StudentService.DeleteStudent(InspectorStudent));
                     break;
                 case EntityEnum.Tenure:
+                    BrowserEnumerable = new ObservableCollection<Tenure>(_superService.TenureService.DeleteTenure(InspectorTenure));
                     break;
             }
 

@@ -38,5 +38,21 @@ namespace TinyCollege.Service.Services
         {
             return _context.Enrollments.Where(x => x.StudentId == studentId);
         }
+
+        public IQueryable<Student> DeleteStudent(Student student)
+        {
+            try
+            {
+                _context.Students.Attach(student);
+                _context.Students.Remove(student);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.Students;
+        }
     }
 }

@@ -34,5 +34,21 @@ namespace TinyCollege.Service.Services.MotorPool
             return _context.Reservations.Where(x => x.ReportId == reportId);
         }
 
+        public IQueryable<Report> DeleteReport(Report report)
+        {
+            try
+            {
+                _context.Reports.Attach(report);
+                _context.Reports.Remove(report);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.Reports;
+        }
+
     }
 }
