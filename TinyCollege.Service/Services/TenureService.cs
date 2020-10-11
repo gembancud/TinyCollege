@@ -12,30 +12,40 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Tenure> GetTenures()
+        public List<Tenure> GetTenures()
         {
-            return _context.Tenures;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Tenures.ToList();
         }
 
-        public IQueryable<Tenure> CreateTenure(Tenure tenure)
+        public List<Tenure> CreateTenure(Tenure tenure)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(tenure);
             _context.SaveChanges();
-            return _context.Tenures.Where(x => x.TenureId == _context.Tenures.Max(x => x.TenureId));
+            return _context.Tenures.Where(x => x.TenureId == _context.Tenures.Max(x => x.TenureId)).ToList();
         }
 
-        public IQueryable<Professor> GetTenureProfessor(int tenureProfessorId)
+        public List<Professor> GetTenureProfessor(int tenureProfessorId)
         {
-            return _context.Professors.Where(x => x.ProfessorId == tenureProfessorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professors.Where(x => x.ProfessorId == tenureProfessorId).ToList();
         }
 
-        public IQueryable<Department> GetTenureDepartment(int tenureDepartmentId)
+        public List<Department> GetTenureDepartment(int tenureDepartmentId)
         {
-            return _context.Departments.Where(x => x.DepartmentId == tenureDepartmentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Departments.Where(x => x.DepartmentId == tenureDepartmentId).ToList();
         }
 
-        public IQueryable<Tenure> DeleteTenure(Tenure tenure)
+        public List<Tenure> DeleteTenure(Tenure tenure)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Tenures.Attach(tenure);
@@ -47,7 +57,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Tenures;
+            return _context.Tenures.ToList();
+        }
+
+        public List<Tenure> EditTenure(Tenure tenure)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpTenure = _context.Tenures.First(x => x.TenureId == tenure.TenureId);
+            _context.Entry(tmpTenure).CurrentValues.SetValues(tenure);
+            _context.SaveChanges();
+            return _context.Tenures.Where(x => x.TenureId == tenure.TenureId).ToList();
         }
     }
 }

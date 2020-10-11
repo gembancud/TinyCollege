@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TinyCollege.Data.Models;
 using TinyCollege.Data.Models.MotorPool;
 
 namespace TinyCollege.Service.Services.MotorPool
@@ -12,30 +13,40 @@ namespace TinyCollege.Service.Services.MotorPool
         {
         }
 
-        public IQueryable<PartUsage> GetPartUsages()
+        public List<PartUsage> GetPartUsages()
         {
-            return _context.PartUsages;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.PartUsages.ToList();
         }
 
-        public IQueryable<PartUsage> CreatePartUsage(PartUsage partUsage)
+        public List<PartUsage> CreatePartUsage(PartUsage partUsage)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(partUsage);
             _context.SaveChanges();
-            return _context.PartUsages.Where(x => x.PartUsageId == _context.PartUsages.Max(x => x.PartUsageId));
+            return _context.PartUsages.Where(x => x.PartUsageId == _context.PartUsages.Max(x => x.PartUsageId)).ToList();
         }
 
-        public IQueryable<Part> GetPartUsagePart(int partUsagePartId)
+        public List<Part> GetPartUsagePart(int partUsagePartId)
         {
-            return _context.Parts.Where(x => x.PartId == partUsagePartId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Parts.Where(x => x.PartId == partUsagePartId).ToList();
         }
 
-        public IQueryable<MaintenanceDetail> GetPartUsageMaintenanceDetail(int partUsageMaintenanceDetailId)
+        public List<MaintenanceDetail> GetPartUsageMaintenanceDetail(int partUsageMaintenanceDetailId)
         {
-            return _context.MaintenanceDetails.Where(x => x.MaintenanceDetailId == partUsageMaintenanceDetailId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.MaintenanceDetails.Where(x => x.MaintenanceDetailId == partUsageMaintenanceDetailId).ToList();
         }
 
-        public IQueryable<PartUsage> DeletePartUsage(PartUsage partUsage)
+        public List<PartUsage> DeletePartUsage(PartUsage partUsage)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.PartUsages.Attach(partUsage);
@@ -47,7 +58,16 @@ namespace TinyCollege.Service.Services.MotorPool
                 // ignored
             }
 
-            return _context.PartUsages;
+            return _context.PartUsages.ToList();
+        }
+
+        public List<PartUsage> EditPartUsage(PartUsage partUsage)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpPartUsage = _context.PartUsages.First(x => x.PartUsageId == partUsage.PartUsageId);
+            _context.Entry(tmpPartUsage).CurrentValues.SetValues(partUsage);
+            _context.SaveChanges();
+            return _context.PartUsages.Where(x => x.PartUsageId == partUsage.PartUsageId).ToList();
         }
     }
 }

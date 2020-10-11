@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TinyCollege.Data.Models;
 using TinyCollege.Data.Models.MotorPool;
 
 namespace TinyCollege.Service.Services.MotorPool
@@ -12,30 +13,40 @@ namespace TinyCollege.Service.Services.MotorPool
         {
         }
 
-        public IQueryable<Report> GetReports()
+        public List<Report> GetReports()
         {
-            return _context.Reports;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Reports.ToList();
         }
 
-        public IQueryable<Report> CreateReport(Report report)
+        public List<Report> CreateReport(Report report)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(report);
             _context.SaveChanges();
-            return _context.Reports.Where(x => x.ReportId == _context.Reports.Max(x => x.ReportId));
+            return _context.Reports.Where(x => x.ReportId == _context.Reports.Max(x => x.ReportId)).ToList();
         }
 
-        public IQueryable<Maintenance> GetReportMaintenances(int reportId)
+        public List<Maintenance> GetReportMaintenances(int reportId)
         {
-            return _context.Maintenances.Where(x => x.ReportId == reportId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Maintenances.Where(x => x.ReportId == reportId).ToList();
         }
 
-        public IQueryable<Reservation> GetReportReservations(int reportId)
+        public List<Reservation> GetReportReservations(int reportId)
         {
-            return _context.Reservations.Where(x => x.ReportId == reportId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Reservations.Where(x => x.ReportId == reportId).ToList();
         }
 
-        public IQueryable<Report> DeleteReport(Report report)
+        public List<Report> DeleteReport(Report report)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Reports.Attach(report);
@@ -47,7 +58,16 @@ namespace TinyCollege.Service.Services.MotorPool
                 // ignored
             }
 
-            return _context.Reports;
+            return _context.Reports.ToList();
+        }
+
+        public List<Report> EditReport(Report report)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpReport = _context.Reports.First(x => x.ReportId == report.ReportId);
+            _context.Entry(tmpReport).CurrentValues.SetValues(report);
+            _context.SaveChanges();
+            return _context.Reports.Where(x => x.ReportId == report.ReportId).ToList();
         }
 
     }

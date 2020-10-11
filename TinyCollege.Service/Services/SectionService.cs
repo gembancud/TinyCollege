@@ -12,40 +12,54 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Section> GetSections()
+        public List<Section> GetSections()
         {
-            return _context.Sections;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Sections.ToList();
         }
 
-        public IQueryable<Section> CreateSection(Section section)
+        public List<Section> CreateSection(Section section)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(section);
             _context.SaveChanges();
-            return _context.Sections.Where(x => x.SectionId == _context.Sections.Max(x => x.SectionId));
+            return _context.Sections.Where(x => x.SectionId == _context.Sections.Max(x => x.SectionId)).ToList();
         }
 
-        public IQueryable<Schedule> GetSectionSchedule(int sectionScheduleId)
+        public List<Schedule> GetSectionSchedule(int sectionScheduleId)
         {
-            return _context.Schedules.Where(x => x.ScheduleId == sectionScheduleId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Schedules.Where(x => x.ScheduleId == sectionScheduleId).ToList();
         }
 
-        public IQueryable<Professor> GetSectionProfessor(int sectionProfessorId)
+        public List<Professor> GetSectionProfessor(int sectionProfessorId)
         {
-            return _context.Professors.Where(x => x.ProfessorId == sectionProfessorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professors.Where(x => x.ProfessorId == sectionProfessorId).ToList();
         }
 
-        public IQueryable<Course> GetSectionCourse(int sectionCourseId)
+        public List<Course> GetSectionCourse(int sectionCourseId)
         {
-            return _context.Courses.Where(x => x.CourseId == sectionCourseId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Courses.Where(x => x.CourseId == sectionCourseId).ToList();
         }
 
-        public IQueryable<Enrollment> GetSectionEnrollments(int sectionId)
+        public List<Enrollment> GetSectionEnrollments(int sectionId)
         {
-            return _context.Enrollments.Where(x => x.SectionId == sectionId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Enrollments.Where(x => x.SectionId == sectionId).ToList();
         }
 
-        public IQueryable<Section> DeleteSection(Section section)
+        public List<Section> DeleteSection(Section section)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Sections.Attach(section);
@@ -57,7 +71,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Sections;
+            return _context.Sections.ToList();
+        }
+
+        public List<Section> EditSection(Section section)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpSection = _context.Sections.First(x => x.SectionId == section.SectionId);
+            _context.Entry(tmpSection).CurrentValues.SetValues(section);
+            _context.SaveChanges();
+            return _context.Sections.Where(x => x.SectionId == section.SectionId).ToList();
         }
     }
 }

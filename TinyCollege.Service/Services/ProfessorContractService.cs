@@ -12,30 +12,40 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<ProfessorContract> GetProfessorContracts()
+        public List<ProfessorContract> GetProfessorContracts()
         {
-            return _context.ProfessorContracts;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.ProfessorContracts.ToList();
         }
 
-        public IQueryable<ProfessorContract> CreateProfessorContract(ProfessorContract professorContract)
+        public List<ProfessorContract> CreateProfessorContract(ProfessorContract professorContract)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(professorContract);
             _context.SaveChanges();
-            return _context.ProfessorContracts.Where(x => x.ProfessorContractId == _context.ProfessorContracts.Max(x => x.ProfessorContractId));
+            return _context.ProfessorContracts.Where(x => x.ProfessorContractId == _context.ProfessorContracts.Max(x => x.ProfessorContractId)).ToList();
         }
 
-        public IQueryable<Professor> GetProfessorContractProfessor(int professorContractProfessorId)
+        public List<Professor> GetProfessorContractProfessor(int professorContractProfessorId)
         {
-            return _context.Professors.Where(x => x.ProfessorId == professorContractProfessorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professors.Where(x => x.ProfessorId == professorContractProfessorId).ToList();
         }
 
-        public IQueryable<Contract> GetContractContractContract(int professorContractContractId)
+        public List<Contract> GetContractContractContract(int professorContractContractId)
         {
-            return _context.Contracts.Where(x => x.ContractId == professorContractContractId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Contracts.Where(x => x.ContractId == professorContractContractId).ToList();
         }
 
-        public IQueryable<ProfessorContract> DeleteProfessorContract(ProfessorContract professorContract)
+        public List<ProfessorContract> DeleteProfessorContract(ProfessorContract professorContract)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.ProfessorContracts.Attach(professorContract);
@@ -47,7 +57,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.ProfessorContracts;
+            return _context.ProfessorContracts.ToList();
+        }
+
+        public List<ProfessorContract> EditProfessorContract(ProfessorContract professorContract)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpProfessorContract = _context.ProfessorContracts.First(x => x.ProfessorContractId == professorContract.ProfessorContractId);
+            _context.Entry(tmpProfessorContract).CurrentValues.SetValues(professorContract);
+            _context.SaveChanges();
+            return _context.ProfessorContracts.Where(x => x.ProfessorContractId == professorContract.ProfessorContractId).ToList();
         }
     }
 }

@@ -12,50 +12,68 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Department> GetDepartments()
+        public List<Department> GetDepartments()
         {
-            return _context.Departments;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Departments.ToList();
         }
 
-        public IQueryable<Department> CreateDepartment(Department department)
+        public List<Department> CreateDepartment(Department department)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(department);
             _context.SaveChanges();
-            return _context.Departments.Where(x => x.DepartmentId == _context.Departments.Max(x => x.DepartmentId));
+            return _context.Departments.Where(x => x.DepartmentId == _context.Departments.Max(x => x.DepartmentId)).ToList();
         }
 
-        public IQueryable<School> GetDepartmentSchool(int departmentSchoolId)
+        public List<School> GetDepartmentSchool(int departmentSchoolId)
         {
-            return _context.Schools.Where(x => x.SchoolId == departmentSchoolId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Schools.Where(x => x.SchoolId == departmentSchoolId).ToList();
         }
 
-        public IQueryable<Tenure> GetDepartmentTenures(int departmentId)
+        public List<Tenure> GetDepartmentTenures(int departmentId)
         {
-            return _context.Tenures.Where(x => x.DepartmentId == departmentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Tenures.Where(x => x.DepartmentId == departmentId).ToList();
         }
 
-        public IQueryable<Professorship> GetDepartmentProfessorships(int departmentId)
+        public List<Professorship> GetDepartmentProfessorships(int departmentId)
         {
-            return _context.Professorships.Where(x => x.DepartmentId == departmentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professorships.Where(x => x.DepartmentId == departmentId).ToList();
         }
 
-        public IQueryable<Course> GetDepartmentCourses(int departmentId)
+        public List<Course> GetDepartmentCourses(int departmentId)
         {
-            return _context.Courses.Where(x => x.DepartmentId == departmentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Courses.Where(x => x.DepartmentId == departmentId).ToList();
         }
 
-        public IQueryable<Student> GetDepartmentStudents(int departmentId)
+        public List<Student> GetDepartmentStudents(int departmentId)
         {
-            return _context.Students.Where(x => x.DepartmentId == departmentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Students.Where(x => x.DepartmentId == departmentId).ToList();
         }
 
-        public IQueryable<Advisory> GetDepartmentAdvisoriess(int departmentId)
+        public List<Advisory> GetDepartmentAdvisoriess(int departmentId)
         {
-            return _context.Advisories.Where(x => x.DepartmentId == departmentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Advisories.Where(x => x.DepartmentId == departmentId).ToList();
         }
 
-        public IQueryable<Department> DeleteDepartment(Department department)
+        public List<Department> DeleteDepartment(Department department)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Departments.Attach(department);
@@ -67,7 +85,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Departments;
+            return _context.Departments.ToList();
+        }
+
+        public List<Department> EditDepartment(Department department)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpDepartment = _context.Departments.First(x => x.DepartmentId == department.DepartmentId);
+            _context.Entry(tmpDepartment).CurrentValues.SetValues(department);
+            _context.SaveChanges();
+            return _context.Departments.Where(x => x.DepartmentId == department.DepartmentId).ToList();
         }
     }
 }

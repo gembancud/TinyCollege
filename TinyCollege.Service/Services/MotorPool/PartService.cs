@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TinyCollege.Data.Models;
 using TinyCollege.Data.Models.MotorPool;
 
 namespace TinyCollege.Service.Services.MotorPool
@@ -12,25 +13,33 @@ namespace TinyCollege.Service.Services.MotorPool
         {
         }
 
-        public IQueryable<Part> GetParts()
+        public List<Part> GetParts()
         {
-            return _context.Parts;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Parts.ToList();
         }
 
-        public IQueryable<Part> CreatePart(Part part)
+        public List<Part> CreatePart(Part part)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(part);
             _context.SaveChanges();
-            return _context.Parts.Where(x => x.PartId == _context.Parts.Max(x => x.PartId));
+            return _context.Parts.Where(x => x.PartId == _context.Parts.Max(x => x.PartId)).ToList();
         }
 
-        public IQueryable<PartUsage> GetPartPartUsages(int partId)
+        public List<PartUsage> GetPartPartUsages(int partId)
         {
-            return _context.PartUsages.Where(x => x.PartId == partId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.PartUsages.Where(x => x.PartId == partId).ToList();
         }
 
-        public IQueryable<Part> DeletePart(Part part)
+        public List<Part> DeletePart(Part part)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Parts.Attach(part);
@@ -42,7 +51,16 @@ namespace TinyCollege.Service.Services.MotorPool
                 // ignored
             }
 
-            return _context.Parts;
+            return _context.Parts.ToList();
+        }
+
+        public List<Part> EditPart(Part part)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpPart = _context.Parts.First(x => x.PartId == part.PartId);
+            _context.Entry(tmpPart).CurrentValues.SetValues(part);
+            _context.SaveChanges();
+            return _context.Parts.Where(x => x.PartId == part.PartId).ToList();
         }
     }
 }

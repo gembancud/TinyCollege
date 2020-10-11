@@ -13,35 +13,47 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Advisory> GetAdvisories()
+        public List<Advisory> GetAdvisories()
         {
-            return _context.Advisories;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Advisories.ToList();
         }
 
-        public IQueryable<Advisory> CreateAdvisory(Advisory advisory)
+        public List<Advisory> CreateAdvisory(Advisory advisory)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(advisory);
             _context.SaveChanges();
-            return _context.Advisories.Where(x => x.AdvisoryId == _context.Advisories.Max(x => x.AdvisoryId));
+            return _context.Advisories.Where(x => x.AdvisoryId == _context.Advisories.Max(x => x.AdvisoryId)).ToList();
         }
 
-        public IQueryable<Department> GetAdvisoryDepartment(int advisoryDepartmentId)
+        public List<Department> GetAdvisoryDepartment(int advisoryDepartmentId)
         {
-            return _context.Departments.Where(x => x.DepartmentId == advisoryDepartmentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Departments.Where(x => x.DepartmentId == advisoryDepartmentId).ToList();
         }
 
-        public IQueryable<Professor> GetAdvisoryProfessor(int advisoryProfessorId)
+        public List<Professor> GetAdvisoryProfessor(int advisoryProfessorId)
         {
-            return _context.Professors.Where(x => x.ProfessorId == advisoryProfessorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professors.Where(x => x.ProfessorId == advisoryProfessorId).ToList();
         }
 
-        public IQueryable<Student> GetAdvisoryStudent(int advisoryStudentId)
+        public List<Student> GetAdvisoryStudent(int advisoryStudentId)
         {
-            return _context.Students.Where(x => x.StudentId == advisoryStudentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Students.Where(x => x.StudentId == advisoryStudentId).ToList();
         }
 
-        public IQueryable<Advisory> DeleteAdvisory(Advisory advisory)
+        public List<Advisory> DeleteAdvisory(Advisory advisory)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Advisories.Attach(advisory);
@@ -53,7 +65,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Advisories;
+            return _context.Advisories.ToList();
+        }
+
+        public List<Advisory> EditAdvisory(Advisory advisory)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpAdvisory = _context.Advisories.First(x => x.AdvisoryId == advisory.AdvisoryId);
+            _context.Entry(tmpAdvisory).CurrentValues.SetValues(advisory);
+            _context.SaveChanges();
+            return _context.Advisories.Where(x => x.AdvisoryId == advisory.AdvisoryId).ToList();
         }
     }
 }

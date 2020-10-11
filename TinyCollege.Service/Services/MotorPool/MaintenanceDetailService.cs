@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using TinyCollege.Data.Models;
 using TinyCollege.Data.Models.MotorPool;
 
 namespace TinyCollege.Service.Services.MotorPool
@@ -13,35 +14,47 @@ namespace TinyCollege.Service.Services.MotorPool
         {
         }
 
-        public IQueryable<MaintenanceDetail> GetMaintenanceDetails()
+        public List<MaintenanceDetail> GetMaintenanceDetails()
         {
-            return _context.MaintenanceDetails;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.MaintenanceDetails.ToList();
         }
 
-        public IQueryable<MaintenanceDetail> CreateMaintenanceDetail(MaintenanceDetail maintenanceDetail)
+        public List<MaintenanceDetail> CreateMaintenanceDetail(MaintenanceDetail maintenanceDetail)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(maintenanceDetail);
             _context.SaveChanges();
-            return _context.MaintenanceDetails.Where(x => x.MaintenanceDetailId == _context.MaintenanceDetails.Max(x => x.MaintenanceDetailId));
+            return _context.MaintenanceDetails.Where(x => x.MaintenanceDetailId == _context.MaintenanceDetails.Max(x => x.MaintenanceDetailId)).ToList();
         }
 
-        public IQueryable<Maintenance> GetMaintenanceDetailMaintenance(int maintenanceId)
+        public List<Maintenance> GetMaintenanceDetailMaintenance(int maintenanceId)
         {
-            return _context.Maintenances.Where(x => x.MaintenanceId== maintenanceId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Maintenances.Where(x => x.MaintenanceId== maintenanceId).ToList();
         }
 
-        public IQueryable<PartUsage> GetMaintenanceDetailPartUsages(int maintenanceDetailId)
+        public List<PartUsage> GetMaintenanceDetailPartUsages(int maintenanceDetailId)
         {
-            return _context.PartUsages.Where(x => x.MaintenanceDetailId == maintenanceDetailId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.PartUsages.Where(x => x.MaintenanceDetailId == maintenanceDetailId).ToList();
         }
 
-        public IQueryable<Employee> GetMaintenanceDetailEmployee(int employeeId)
+        public List<Employee> GetMaintenanceDetailEmployee(int employeeId)
         {
-            return _context.Employees.Where(x => x.EmployeeId == employeeId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Employees.Where(x => x.EmployeeId == employeeId).ToList();
         }
 
-        public IQueryable<MaintenanceDetail> DeleteMaintenanceDetail(MaintenanceDetail maintenanceDetail)
+        public List<MaintenanceDetail> DeleteMaintenanceDetail(MaintenanceDetail maintenanceDetail)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.MaintenanceDetails.Attach(maintenanceDetail);
@@ -53,7 +66,16 @@ namespace TinyCollege.Service.Services.MotorPool
                 // ignored
             }
 
-            return _context.MaintenanceDetails;
+            return _context.MaintenanceDetails.ToList();
+        }
+
+        public List<MaintenanceDetail> EditMaintenanceDetail(MaintenanceDetail maintenanceDetail)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpMaintenanceDetail = _context.MaintenanceDetails.First(x => x.MaintenanceDetailId == maintenanceDetail.MaintenanceDetailId);
+            _context.Entry(tmpMaintenanceDetail).CurrentValues.SetValues(maintenanceDetail);
+            _context.SaveChanges();
+            return _context.MaintenanceDetails.Where(x => x.MaintenanceDetailId == maintenanceDetail.MaintenanceDetailId).ToList();
         }
     }
 }

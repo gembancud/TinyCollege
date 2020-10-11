@@ -12,30 +12,40 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Enrollment> GetEnrollments()
+        public List<Enrollment> GetEnrollments()
         {
-            return _context.Enrollments;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Enrollments.ToList();
         }
 
-        public IQueryable<Enrollment> CreateEnrollment(Enrollment enrollment)
+        public List<Enrollment> CreateEnrollment(Enrollment enrollment)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(enrollment);
             _context.SaveChanges();
-            return _context.Enrollments.Where(x => x.EnrollmentId == _context.Enrollments.Max(x => x.EnrollmentId));
+            return _context.Enrollments.Where(x => x.EnrollmentId == _context.Enrollments.Max(x => x.EnrollmentId)).ToList();
         }
 
-        public IQueryable<Student> GetEnrollmentStudent(int enrollmentStudentId)
+        public List<Student> GetEnrollmentStudent(int enrollmentStudentId)
         {
-            return _context.Students.Where(x => x.StudentId == enrollmentStudentId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Students.Where(x => x.StudentId == enrollmentStudentId).ToList();
         }
 
-        public IQueryable<Section> GetEnrollmentSection(int enrollmentSectionId)
+        public List<Section> GetEnrollmentSection(int enrollmentSectionId)
         {
-            return _context.Sections.Where(x => x.SectionId == enrollmentSectionId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Sections.Where(x => x.SectionId == enrollmentSectionId).ToList();
         }
 
-        public IQueryable<Enrollment> DeleteEnrollment(Enrollment enrollment)
+        public List<Enrollment> DeleteEnrollment(Enrollment enrollment)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Enrollments.Attach(enrollment);
@@ -47,7 +57,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Enrollments;
+            return _context.Enrollments.ToList();
+        }
+
+        public List<Enrollment> EditEnrollment(Enrollment enrollment)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpEnrollment = _context.Enrollments.First(x => x.EnrollmentId == enrollment.EnrollmentId);
+            _context.Entry(tmpEnrollment).CurrentValues.SetValues(enrollment);
+            _context.SaveChanges();
+            return _context.Enrollments.Where(x => x.EnrollmentId == enrollment.EnrollmentId).ToList();
         }
     }
 }

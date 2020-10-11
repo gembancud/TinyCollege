@@ -13,50 +13,68 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Professor> GetProfessors()
+        public List<Professor> GetProfessors()
         {
-            return _context.Professors;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professors.ToList();
         }
 
-        public IQueryable<Professor> CreateProfessor(Professor professor)
+        public List<Professor> CreateProfessor(Professor professor)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(professor);
             _context.SaveChanges();
-            return _context.Professors.Where(x => x.ProfessorId == _context.Professors.Max(x => x.ProfessorId));
+            return _context.Professors.Where(x => x.ProfessorId == _context.Professors.Max(x => x.ProfessorId)).ToList();
         }
 
-        public IQueryable<Professorship> GetProfessorProfessorships(int professorId)
+        public List<Professorship> GetProfessorProfessorships(int professorId)
         {
-            return _context.Professorships.Where(x => x.ProfessorId == professorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professorships.Where(x => x.ProfessorId == professorId).ToList();
         }
 
-        public IQueryable<Section> GetProfessorSections(int professorId)
+        public List<Section> GetProfessorSections(int professorId)
         {
-            return _context.Sections.Where(x => x.ProfessorId == professorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Sections.Where(x => x.ProfessorId == professorId).ToList();
         }
 
-        public IQueryable<Advisory> GetProfessorAdvisories(int professorId)
+        public List<Advisory> GetProfessorAdvisories(int professorId)
         {
-            return _context.Advisories.Where(x => x.ProfessorId == professorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Advisories.Where(x => x.ProfessorId == professorId).ToList();
         }
 
-        public IQueryable<Reservation> GetProfessorReservations(int professorId)
+        public List<Reservation> GetProfessorReservations(int professorId)
         {
-            return _context.Reservations.Where(x => x.ProfessorId == professorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Reservations.Where(x => x.ProfessorId == professorId).ToList();
         }
 
-        public IQueryable<Tenure> GetProfessorTenures(int professorId)
+        public List<Tenure> GetProfessorTenures(int professorId)
         {
-            return _context.Tenures.Where(x => x.ProfessorId == professorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Tenures.Where(x => x.ProfessorId == professorId).ToList();
         }
 
-        public IQueryable<ProfessorContract> GetProfessorProfessorContracts(int professorId)
+        public List<ProfessorContract> GetProfessorProfessorContracts(int professorId)
         {
-            return _context.ProfessorContracts.Where(x => x.ProfessorId == professorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.ProfessorContracts.Where(x => x.ProfessorId == professorId).ToList();
         }
 
-        public IQueryable<Professor> DeleteProfessor(Professor professor)
+        public List<Professor> DeleteProfessor(Professor professor)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Professors.Attach(professor);
@@ -68,7 +86,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Professors;
+            return _context.Professors.ToList();
+        }
+
+        public List<Professor> EditProfessor(Professor professor)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpProfessor = _context.Professors.First(x => x.ProfessorId == professor.ProfessorId);
+            _context.Entry(tmpProfessor).CurrentValues.SetValues(professor);
+            _context.SaveChanges();
+            return _context.Professors.Where(x => x.ProfessorId == professor.ProfessorId).ToList();
         }
     }
 }

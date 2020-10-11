@@ -32,7 +32,7 @@ namespace TinyCollege.Core.ViewModels
 
         private void _Initialize()
         {
-            var students = _superService.StudentService.GetStudents().ToList();
+            var students = _superService.StudentService.GetStudents();
             BrowserEnumerable = new ObservableCollection<IStudent>(students);
         }
 
@@ -483,14 +483,14 @@ namespace TinyCollege.Core.ViewModels
         public IMvxCommand InspectorEmployeeViewReservationFormsCommand { get; set; }
         private void _InspectorEmployeeViewReservationForms()
         {
-            var reservationForms = _superService.EmployeeService.GetEmployeeReservationForms(InspectorEmployee.EmployeeId).ToList();
+            var reservationForms = _superService.EmployeeService.GetEmployeeReservationForms(InspectorEmployee.EmployeeId);
             BrowserEnumerable = new ObservableCollection<IReservationForm>(reservationForms);
         }
 
         public IMvxCommand InspectorEmployeeViewMaintenanceDetailsCommand { get; set; }
         private void _InspectorEmployeeViewMaintenanceDetails()
         {
-            var maintenanceDetails = _superService.EmployeeService.GetEmployeeMaintenanceDetails(InspectorEmployee.EmployeeId).ToList();
+            var maintenanceDetails = _superService.EmployeeService.GetEmployeeMaintenanceDetails(InspectorEmployee.EmployeeId);
             BrowserEnumerable = new ObservableCollection<IMaintenanceDetail>(maintenanceDetails);
         }
 
@@ -499,14 +499,14 @@ namespace TinyCollege.Core.ViewModels
         {
             var releasingMechanicId = InspectorMaintenance.ReleasingMechanicId ?? 0;
             if (releasingMechanicId == 0) return;
-            var maintenanceReleasingMechanic = _superService.MaintenanceService.GetMaintenanceReleasingMechanic(releasingMechanicId).ToList();
+            var maintenanceReleasingMechanic = _superService.MaintenanceService.GetMaintenanceReleasingMechanic(releasingMechanicId);
             BrowserSelection = maintenanceReleasingMechanic.First();
         }
 
         public IMvxCommand InspectorMaintenanceVehicleCommand { get; set; }
         private void _InspectorMaintenanceVehicle()
         {
-            var maintenanceVehicle = _superService.MaintenanceService.GetMaintenanceVehicle(InspectorMaintenance.VehicleId).ToList();
+            var maintenanceVehicle = _superService.MaintenanceService.GetMaintenanceVehicle(InspectorMaintenance.VehicleId);
             BrowserSelection = maintenanceVehicle.First();
         }
 
@@ -515,84 +515,84 @@ namespace TinyCollege.Core.ViewModels
         {
             var reportId = InspectorMaintenance.ReportId ?? 0;
             if (reportId == 0) return;
-            var report = _superService.MaintenanceService.GetMaintenanceReport(reportId).ToList();
+            var report = _superService.MaintenanceService.GetMaintenanceReport(reportId);
             BrowserSelection = report.First();
         }
 
         public IMvxCommand InspectorMaintenanceMaintenanceDetailsCommand { get; set; }
         private void _InspectorMaintenanceMaintenanceDetails()
         {
-            var maintenanceDetails = _superService.MaintenanceService.GetMaintenanceMaintenanceDetails(InspectorMaintenance.MaintenanceId).ToList();
+            var maintenanceDetails = _superService.MaintenanceService.GetMaintenanceMaintenanceDetails(InspectorMaintenance.MaintenanceId);
             BrowserEnumerable = new ObservableCollection<IMaintenanceDetail>(maintenanceDetails);
         }
 
         public IMvxCommand InspectorMaintenanceDetailMaintenanceCommand { get; set; }
         private void _InspectorMaintenanceDetailMaintenance()
         {
-            var maintenance = _superService.MaintenanceDetailService.GetMaintenanceDetailMaintenance(InspectorMaintenanceDetail.MaintenanceId).ToList();
+            var maintenance = _superService.MaintenanceDetailService.GetMaintenanceDetailMaintenance(InspectorMaintenanceDetail.MaintenanceId);
             BrowserSelection = maintenance.First();
         }
 
         public IMvxCommand InspectorMaintenanceDetailPartUsagesCommand { get; set; }
         private void _InspectorMaintenanceDetailPartUsages()
         {
-            var partUsages = _superService.MaintenanceDetailService.GetMaintenanceDetailPartUsages(InspectorMaintenanceDetail.MaintenanceDetailId).ToList();
+            var partUsages = _superService.MaintenanceDetailService.GetMaintenanceDetailPartUsages(InspectorMaintenanceDetail.MaintenanceDetailId);
             BrowserEnumerable = new ObservableCollection<IPartUsage>(partUsages);
         }
 
         public IMvxCommand InspectorMaintenanceDetailEmployeeCommand { get; set; }
         private void _InspectorMaintenanceDetailEmployee()
         {
-            var employee = _superService.MaintenanceDetailService.GetMaintenanceDetailEmployee(InspectorMaintenanceDetail.EmployeeId).ToList();
+            var employee = _superService.MaintenanceDetailService.GetMaintenanceDetailEmployee(InspectorMaintenanceDetail.EmployeeId);
             BrowserSelection = employee.First();
         }
 
         public IMvxCommand InspectorPartPartUsagesCommand { get; set; }
         private void _InspectorPartPartUsages()
         {
-            var partUsages = _superService.PartService.GetPartPartUsages(InspectorPart.PartId).ToList();
+            var partUsages = _superService.PartService.GetPartPartUsages(InspectorPart.PartId);
             BrowserEnumerable = new ObservableCollection<IPartUsage>(partUsages);
         }
 
         public IMvxCommand InspectorPartUsagePartCommand { get; set; }
         private void _InspectorPartUsagePart()
         {
-            var part = _superService.PartUsageService.GetPartUsagePart(InspectorPartUsage.PartId).ToList();
+            var part = _superService.PartUsageService.GetPartUsagePart(InspectorPartUsage.PartId);
             BrowserSelection = part.First();
         }
 
         public IMvxCommand InspectorPartUsageMaintenanceDetailCommand { get; set; }
         private void _InspectorPartUsageMaintenanceDetail()
         {
-            var maintenanceDetail = _superService.PartUsageService.GetPartUsageMaintenanceDetail(InspectorPartUsage.MaintenanceDetailId).ToList();
+            var maintenanceDetail = _superService.PartUsageService.GetPartUsageMaintenanceDetail(InspectorPartUsage.MaintenanceDetailId);
             BrowserSelection = maintenanceDetail.First();
         }
 
         public IMvxCommand InspectorReportMaintenancesCommand { get; set; }
         private void _InspectorReportMaintenances()
         {
-            var maintenances = _superService.ReportService.GetReportMaintenances(InspectorReport.ReportId).ToList();
+            var maintenances = _superService.ReportService.GetReportMaintenances(InspectorReport.ReportId);
             BrowserEnumerable = new ObservableCollection<IMaintenance>(maintenances);
         }
 
         public IMvxCommand InspectorReportReservationsCommand { get; set; }
         private void _InspectorReportReservations()
         {
-            var reservations = _superService.ReportService.GetReportReservations(InspectorReport.ReportId).ToList();
+            var reservations = _superService.ReportService.GetReportReservations(InspectorReport.ReportId);
             BrowserEnumerable = new ObservableCollection<IReservation>(reservations);
         }
 
         public IMvxCommand InspectorReservationProfessorCommand { get; set; }
         private void _InspectorReservationProfessor()
         {
-            var professor = _superService.ReservationService.GetReservationProfessor(InspectorReservation.ProfessorId).ToList();
+            var professor = _superService.ReservationService.GetReservationProfessor(InspectorReservation.ProfessorId);
             BrowserSelection = professor.First();
         }
 
         public IMvxCommand InspectorReservationVehicleCommand { get; set; }
         private void _InspectorReservationVehicle()
         {
-            var vehicle = _superService.ReservationService.GetReservationVehicle(InspectorReservation.VehicleId).ToList();
+            var vehicle = _superService.ReservationService.GetReservationVehicle(InspectorReservation.VehicleId);
             BrowserSelection = vehicle.First();
         }
 
@@ -601,203 +601,203 @@ namespace TinyCollege.Core.ViewModels
         {
             var reportId = InspectorReservation.ReportId ?? 0;
             if (reportId == 0) return;
-            var report = _superService.ReservationService.GetReservationReport(reportId).ToList();
+            var report = _superService.ReservationService.GetReservationReport(reportId);
             BrowserSelection = report.First();
         }
 
         public IMvxCommand InspectorReservationReservationFormsCommand { get; set; }
         private void _InspectorReservationReservationForms()
         {
-            var reservationForms = _superService.ReservationService.GetReservationReservationForms(InspectorReservation.ReservationId).ToList();
+            var reservationForms = _superService.ReservationService.GetReservationReservationForms(InspectorReservation.ReservationId);
             BrowserEnumerable = new ObservableCollection<IReservationForm>(reservationForms);
         }
 
         public IMvxCommand InspectorReservationFormReservationCommand { get; set; }
         private void _InspectorReservationFormReservation()
         {
-            var reservation = _superService.ReservationFormService.GetReservationFormReservation(InspectorReservationForm.ReservationId).ToList();
+            var reservation = _superService.ReservationFormService.GetReservationFormReservation(InspectorReservationForm.ReservationId);
             BrowserSelection = reservation.First();
         }
 
         public IMvxCommand InspectorReservationFormEmployeeCommand { get; set; }
         private void _InspectorReservationFormEmployee()
         {
-            var employee = _superService.ReservationFormService.GetReservationFormEmployee(InspectorReservationForm.EmployeeId).ToList();
+            var employee = _superService.ReservationFormService.GetReservationFormEmployee(InspectorReservationForm.EmployeeId);
             BrowserSelection = employee.First();
         }
 
         public IMvxCommand InspectorVehicleReservationsCommand { get; set; }
         private void _InspectorVehicleReservations()
         {
-            var reservations = _superService.VehicleService.GetVehicleReservations(InspectorVehicle.VehicleId).ToList();
+            var reservations = _superService.VehicleService.GetVehicleReservations(InspectorVehicle.VehicleId);
             BrowserEnumerable = new ObservableCollection<IReservation>(reservations);
         }
 
         public IMvxCommand InspectorAdvisoryDepartmentCommand { get; set; }
         private void _InspectorAdvisoryDepartment()
         {
-            var department = _superService.AdvisoryService.GetAdvisoryDepartment(InspectorAdvisory.DepartmentId).ToList();
+            var department = _superService.AdvisoryService.GetAdvisoryDepartment(InspectorAdvisory.DepartmentId);
             BrowserSelection = department.First();
         }
 
         public IMvxCommand InspectorAdvisoryProfessorCommand { get; set; }
         private void _InspectorAdvisoryProfessor()
         {
-            var professor = _superService.AdvisoryService.GetAdvisoryProfessor(InspectorAdvisory.ProfessorId).ToList();
+            var professor = _superService.AdvisoryService.GetAdvisoryProfessor(InspectorAdvisory.ProfessorId);
             BrowserSelection = professor.First();
         }
 
         public IMvxCommand InspectorAdvisoryStudentCommand { get; set; }
         private void _InspectorAdvisoryStudent()
         {
-            var student = _superService.AdvisoryService.GetAdvisoryStudent(InspectorAdvisory.StudentId).ToList();
+            var student = _superService.AdvisoryService.GetAdvisoryStudent(InspectorAdvisory.StudentId);
             BrowserSelection = student.First();
         }
 
         public IMvxCommand InspectorContractProfessorContractsCommand { get; set; }
         private void _InspectorContractProfessorContracts()
         {
-            var professorContracts = _superService.ContractService.GetContractProfessorContracts(InspectorContract.ContractId).ToList();
+            var professorContracts = _superService.ContractService.GetContractProfessorContracts(InspectorContract.ContractId);
             BrowserEnumerable = new ObservableCollection<IProfessorContract>(professorContracts);
         }
 
         public IMvxCommand InspectorCourseSectionsCommand { get; set; }
         private void _InspectorCourseSections()
         {
-            var sections = _superService.CourseService.GetCourseSections(InspectorCourse.CourseId).ToList();
+            var sections = _superService.CourseService.GetCourseSections(InspectorCourse.CourseId);
             BrowserEnumerable = new ObservableCollection<ISection>(sections);
         }
 
         public IMvxCommand InspectorCourseDepartmentCommand { get; set; }
         private void _InspectorCourseDepartment()
         {
-            var department = _superService.CourseService.GetCourseDepartment(InspectorCourse.DepartmentId).ToList();
+            var department = _superService.CourseService.GetCourseDepartment(InspectorCourse.DepartmentId);
             BrowserSelection = department.First();
         }
 
         public IMvxCommand InspectorDepartmentSchoolCommand { get; set; }
         private void _InspectorDepartmentSchool()
         {
-            var school = _superService.DepartmentService.GetDepartmentSchool(InspectorDepartment.SchoolId).ToList();
+            var school = _superService.DepartmentService.GetDepartmentSchool(InspectorDepartment.SchoolId);
             BrowserSelection = school.First();
         }
 
         public IMvxCommand InspectorDepartmentTenuresCommand { get; set; }
         private void _InspectorDepartmentTenures()
         {
-            var tenures = _superService.DepartmentService.GetDepartmentTenures(InspectorDepartment.DepartmentId).ToList();
+            var tenures = _superService.DepartmentService.GetDepartmentTenures(InspectorDepartment.DepartmentId);
             BrowserEnumerable = new ObservableCollection<ITenure>(tenures);
         }
 
         public IMvxCommand InspectorDepartmentProfessorshipsCommand { get; set; }
         private void _InspectorDepartmentProfessorships()
         {
-            var professorships = _superService.DepartmentService.GetDepartmentProfessorships(InspectorDepartment.DepartmentId).ToList();
+            var professorships = _superService.DepartmentService.GetDepartmentProfessorships(InspectorDepartment.DepartmentId);
             BrowserEnumerable = new ObservableCollection<IProfessorship>(professorships);
         }
 
         public IMvxCommand InspectorDepartmentCoursesCommand { get; set; }
         private void _InspectorDepartmentCourses()
         {
-            var courses = _superService.DepartmentService.GetDepartmentCourses(InspectorDepartment.DepartmentId).ToList();
+            var courses = _superService.DepartmentService.GetDepartmentCourses(InspectorDepartment.DepartmentId);
             BrowserEnumerable = new ObservableCollection<ICourse>(courses);
         }
 
         public IMvxCommand InspectorDepartmentStudentsCommand { get; set; }
         private void _InspectorDepartmentStudents()
         {
-            var students = _superService.DepartmentService.GetDepartmentStudents(InspectorDepartment.DepartmentId).ToList();
+            var students = _superService.DepartmentService.GetDepartmentStudents(InspectorDepartment.DepartmentId);
             BrowserEnumerable = new ObservableCollection<IStudent>(students);
         }
 
         public IMvxCommand InspectorDepartmentAdvisoriesCommand { get; set; }
         private void _InspectorDepartmentAdvisories()
         {
-            var advisories = _superService.DepartmentService.GetDepartmentAdvisoriess(InspectorDepartment.DepartmentId).ToList();
+            var advisories = _superService.DepartmentService.GetDepartmentAdvisoriess(InspectorDepartment.DepartmentId);
             BrowserEnumerable = new ObservableCollection<IAdvisory>(advisories);
         }
 
         public IMvxCommand InspectorEnrollmentStudentCommand { get; set; }
         private void _InspectorEnrollmentStudent()
         {
-            var student = _superService.EnrollmentService.GetEnrollmentStudent(InspectorEnrollment.StudentId).ToList();
+            var student = _superService.EnrollmentService.GetEnrollmentStudent(InspectorEnrollment.StudentId);
             BrowserSelection = student.First();
         }
 
         public IMvxCommand InspectorEnrollmentSectionCommand { get; set; }
         private void _InspectorEnrollmentSection()
         {
-            var section = _superService.EnrollmentService.GetEnrollmentSection(InspectorEnrollment.SectionId).ToList();
+            var section = _superService.EnrollmentService.GetEnrollmentSection(InspectorEnrollment.SectionId);
             BrowserSelection = section.First();
         }
 
         public IMvxCommand InspectorProfessorProfessorshipsCommand { get; set; }
         private void _InspectorProfessorProfessorships()
         {
-            var professorships = _superService.ProfessorService.GetProfessorProfessorships(InspectorProfessor.ProfessorId).ToList();
+            var professorships = _superService.ProfessorService.GetProfessorProfessorships(InspectorProfessor.ProfessorId);
             BrowserEnumerable = new ObservableCollection<IProfessorship>(professorships);
         }
 
         public IMvxCommand InspectorProfessorSectionsCommand { get; set; }
         private void _InspectorProfessorSections()
         {
-            var sections = _superService.ProfessorService.GetProfessorSections(InspectorProfessor.ProfessorId).ToList();
+            var sections = _superService.ProfessorService.GetProfessorSections(InspectorProfessor.ProfessorId);
             BrowserEnumerable = new ObservableCollection<ISection>(sections);
         }
 
         public IMvxCommand InspectorProfessorAdvisoriesCommand { get; set; }
         private void _InspectorProfessorAdvisories()
         {
-            var advisories = _superService.ProfessorService.GetProfessorAdvisories(InspectorProfessor.ProfessorId).ToList();
+            var advisories = _superService.ProfessorService.GetProfessorAdvisories(InspectorProfessor.ProfessorId);
             BrowserEnumerable = new ObservableCollection<IAdvisory>(advisories);
         }
 
         public IMvxCommand InspectorProfessorReservationsCommand { get; set; }
         private void _InspectorProfessorReservations()
         {
-            var reservations = _superService.ProfessorService.GetProfessorReservations(InspectorProfessor.ProfessorId).ToList();
+            var reservations = _superService.ProfessorService.GetProfessorReservations(InspectorProfessor.ProfessorId);
             BrowserEnumerable = new ObservableCollection<IReservation>(reservations);
         }
 
         public IMvxCommand InspectorProfessorTenuresCommand { get; set; }
         private void _InspectorProfessorTenures()
         {
-            var tenures = _superService.ProfessorService.GetProfessorTenures(InspectorProfessor.ProfessorId).ToList();
+            var tenures = _superService.ProfessorService.GetProfessorTenures(InspectorProfessor.ProfessorId);
             BrowserEnumerable = new ObservableCollection<ITenure>(tenures);
         }
 
         public IMvxCommand InspectorProfessorProfessorContractsCommand { get; set; }
         private void _InspectorProfessorProfessorContracts()
         {
-            var professorContracts = _superService.ProfessorService.GetProfessorProfessorContracts(InspectorProfessor.ProfessorId).ToList();
+            var professorContracts = _superService.ProfessorService.GetProfessorProfessorContracts(InspectorProfessor.ProfessorId);
             BrowserEnumerable = new ObservableCollection<IProfessorContract>(professorContracts);
         }
 
         public IMvxCommand InspectorProfessorContractProfessorCommand { get; set; }
         private void _InspectorProfessorContractProfessor()
         {
-            var professor = _superService.ProfessorContractService.GetProfessorContractProfessor(InspectorProfessorContract.ProfessorId).ToList();
+            var professor = _superService.ProfessorContractService.GetProfessorContractProfessor(InspectorProfessorContract.ProfessorId);
             BrowserSelection = professor.First();
         }
 
         public IMvxCommand InspectorProfessorContractContractCommand { get; set; }
         private void _InspectorProfessorContractContract()
         {
-            var contract = _superService.ProfessorContractService.GetContractContractContract(InspectorProfessorContract.ContractId).ToList();
+            var contract = _superService.ProfessorContractService.GetContractContractContract(InspectorProfessorContract.ContractId);
             BrowserSelection = contract.First();
         }
 
         public IMvxCommand InspectorProfessorshipProfessorCommand { get; set; }
         private void _InspectorProfessorshipProfessor()
         {
-            var professor = _superService.ProfessorshipService.GetProfessorshipProfessor(InspectorProfessorship.ProfessorId).ToList();
+            var professor = _superService.ProfessorshipService.GetProfessorshipProfessor(InspectorProfessorship.ProfessorId);
             BrowserSelection = professor.First();
         }
 
         public IMvxCommand InspectorProfessorshipDepartmentCommand { get; set; }
         private void _InspectorProfessorshipDepartment()
         {
-            var department = _superService.ProfessorshipService.GetProfessorshipDepartment(InspectorProfessorship.DepartmentId).ToList();
+            var department = _superService.ProfessorshipService.GetProfessorshipDepartment(InspectorProfessorship.DepartmentId);
             BrowserSelection = department.First();
         }
 
@@ -806,28 +806,28 @@ namespace TinyCollege.Core.ViewModels
         {
             var sectionId = InspectorSchedule.SectionId ?? 0;
             if (sectionId == 0) return;
-            var section = _superService.ScheduleService.GetScheduleSection(sectionId).ToList();
+            var section = _superService.ScheduleService.GetScheduleSection(sectionId);
             BrowserSelection = section.First();
         }
 
         public IMvxCommand InspectorSchoolDeanCommand { get; set; }
         private void _InspectorSchoolDean()
         {
-            var professor = _superService.SchoolService.GetSchoolDean(InspectorSchool.DeanId).ToList();
+            var professor = _superService.SchoolService.GetSchoolDean(InspectorSchool.DeanId);
             BrowserSelection = professor.First();
         }
 
         public IMvxCommand InspectorSchoolDepartmentsCommand { get; set; }
         private void _InspectorSchoolDepartments()
         {
-            var departments = _superService.SchoolService.GetSchoolDepartments(InspectorSchool.SchoolId).ToList();
+            var departments = _superService.SchoolService.GetSchoolDepartments(InspectorSchool.SchoolId);
             BrowserEnumerable = new ObservableCollection<IDepartment>(departments);
         }
 
         public IMvxCommand InspectorSectionScheduleCommand { get; set; }
         private void _InspectorSectionSchedule()
         {
-            var schedule = _superService.SectionService.GetSectionSchedule(InspectorSection.ScheduleId).ToList();
+            var schedule = _superService.SectionService.GetSectionSchedule(InspectorSection.ScheduleId);
             if (schedule.Count == 0) return;
             BrowserSelection = schedule.First();
         }
@@ -835,21 +835,21 @@ namespace TinyCollege.Core.ViewModels
         public IMvxCommand InspectorSectionProfessorCommand { get; set; }
         private void _InspectorSectionProfessor()
         {
-            var professor = _superService.SectionService.GetSectionProfessor(InspectorSection.ProfessorId).ToList();
+            var professor = _superService.SectionService.GetSectionProfessor(InspectorSection.ProfessorId);
             BrowserSelection = professor.First();
         }
 
         public IMvxCommand InspectorSectionCourseCommand { get; set; }
         private void _InspectorSectionCourse()
         {
-            var course = _superService.SectionService.GetSectionCourse(InspectorSection.CourseId).ToList();
+            var course = _superService.SectionService.GetSectionCourse(InspectorSection.CourseId);
             BrowserSelection = course.First();
         }
 
         public IMvxCommand InspectorSectionEnrollmentsCommand { get; set; }
         private void _InspectorSectionEnrollments()
         {
-            var enrollments = _superService.SectionService.GetSectionEnrollments(InspectorSection.SectionId).ToList();
+            var enrollments = _superService.SectionService.GetSectionEnrollments(InspectorSection.SectionId);
             BrowserEnumerable = new ObservableCollection<IEnrollment>(enrollments);
         }
 
@@ -858,7 +858,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var departmentId = InspectorStudent.DepartmentId ?? 0;
             if (departmentId == 0) return;
-            var course = _superService.StudentService.GetStudentDepartment(departmentId).ToList();
+            var course = _superService.StudentService.GetStudentDepartment(departmentId);
             BrowserSelection = course.First();
         }
 
@@ -867,28 +867,28 @@ namespace TinyCollege.Core.ViewModels
         {
             var advisoryId = InspectorStudent.AdvisoryId ?? 0;
             if (advisoryId == 0) return;
-            var advisory = _superService.StudentService.GetStudentAdvisory(advisoryId).ToList();
+            var advisory = _superService.StudentService.GetStudentAdvisory(advisoryId);
             BrowserSelection = advisory.First();
         }
 
         public IMvxCommand InspectorStudentEnrollmentsCommand { get; set; }
         private void _InspectorStudentEnrollments()
         {
-            var enrollments = _superService.StudentService.GetStudentEnrollments(InspectorStudent.StudentId).ToList();
+            var enrollments = _superService.StudentService.GetStudentEnrollments(InspectorStudent.StudentId);
             BrowserEnumerable = new ObservableCollection<IEnrollment>(enrollments);
         }
 
         public IMvxCommand InspectorTenureProfessorCommand { get; set; }
         private void _InspectorTenureProfessor()
         {
-            var professor = _superService.TenureService.GetTenureProfessor(InspectorTenure.ProfessorId).ToList();
+            var professor = _superService.TenureService.GetTenureProfessor(InspectorTenure.ProfessorId);
             BrowserSelection = professor.First();
         }
 
         public IMvxCommand InspectorTenureDepartmentCommand { get; set; }
         private void _InspectorTenureDepartment()
         {
-            var department = _superService.TenureService.GetTenureDepartment(InspectorTenure.DepartmentId).ToList();
+            var department = _superService.TenureService.GetTenureDepartment(InspectorTenure.DepartmentId);
             BrowserSelection = department.First();
         }
 
@@ -1367,7 +1367,75 @@ namespace TinyCollege.Core.ViewModels
         public IMvxCommand ManagerEditCommand { get; set; }
         private void _ManagerEdit()
         {
-
+            switch (_browserEnumerableType)
+            {
+                case EntityEnum.Employee:
+                    BrowserSelection = _superService.EmployeeService.EditEmployee(ManagerEmployee).First();
+                    break;
+                case EntityEnum.Maintenance:
+                    BrowserSelection = _superService.MaintenanceService.EditMaintenance(ManagerMaintenance).First();
+                    break;
+                case EntityEnum.MaintenanceDetail:
+                    BrowserSelection = _superService.MaintenanceDetailService.EditMaintenanceDetail(ManagerMaintenanceDetail).First();
+                    break;
+                case EntityEnum.Part:
+                    BrowserSelection = _superService.PartService.EditPart(ManagerPart).First();
+                    break;
+                case EntityEnum.PartUsage:
+                    BrowserSelection = _superService.PartUsageService.EditPartUsage(ManagerPartUsage).First();
+                    break;
+                case EntityEnum.Report:
+                    BrowserSelection = _superService.ReportService.EditReport(ManagerReport).First();
+                    break;
+                case EntityEnum.Reservation:
+                    BrowserSelection = _superService.ReservationService.EditReservation(ManagerReservation).First();
+                    break;
+                case EntityEnum.ReservationForm:
+                    BrowserSelection = _superService.ReservationFormService.EditReservationForm(ManagerReservationForm).First();
+                    break;
+                case EntityEnum.Vehicle:
+                    BrowserSelection = _superService.VehicleService.EditVehicle(ManagerVehicle).First();
+                    break;
+                case EntityEnum.Advisory:
+                    BrowserSelection = _superService.AdvisoryService.EditAdvisory(ManagerAdvisory).First();
+                    break;
+                case EntityEnum.Contract:
+                    BrowserSelection = _superService.ContractService.EditContract(ManagerContract).First();
+                    break;
+                case EntityEnum.Course:
+                    BrowserSelection = _superService.CourseService.EditCourse(ManagerCourse).First();
+                    break;
+                case EntityEnum.Department:
+                    BrowserSelection = _superService.DepartmentService.EditDepartment(ManagerDepartment).First();
+                    break;
+                case EntityEnum.Enrollment:
+                    BrowserSelection = _superService.EnrollmentService.EditEnrollment(ManagerEnrollment).First();
+                    break;
+                case EntityEnum.Professor:
+                    BrowserSelection = _superService.ProfessorService.EditProfessor(ManagerProfessor).First();
+                    break;
+                case EntityEnum.ProfessorContract:
+                    BrowserSelection = _superService.ProfessorContractService.EditProfessorContract(ManagerProfessorContract).First();
+                    break;
+                case EntityEnum.Professorship:
+                    BrowserSelection = _superService.ProfessorshipService.EditProfessorship(ManagerProfessorship).First();
+                    break;
+                case EntityEnum.Schedule:
+                    BrowserSelection = _superService.ScheduleService.EditSchedule(ManagerSchedule).First();
+                    break;
+                case EntityEnum.School:
+                    BrowserSelection = _superService.SchoolService.EditSchool(ManagerSchool).First();
+                    break;
+                case EntityEnum.Section:
+                    BrowserSelection = _superService.SectionService.EditSection(ManagerSection).First();
+                    break;
+                case EntityEnum.Student:
+                    BrowserSelection = _superService.StudentService.EditStudent(ManagerStudent).First();
+                    break;
+                case EntityEnum.Tenure:
+                    BrowserSelection = _superService.TenureService.EditTenure(ManagerTenure).First();
+                    break;
+            }
         }
 
 
@@ -1454,154 +1522,154 @@ namespace TinyCollege.Core.ViewModels
         public IMvxCommand ViewEmployeesCommand { get; set; }
         private void _ViewEmployees()
         {
-            var employees = _superService.EmployeeService.GetEmployees().ToList();
+            var employees = _superService.EmployeeService.GetEmployees();
             BrowserEnumerable = new ObservableCollection<IEmployee>(employees);
         }
 
         public IMvxCommand ViewMaintenancesCommand { get; set; }
         private void _ViewMaintenances()
         {
-            var maintenances = _superService.MaintenanceService.GetMaintenances().ToList();
+            var maintenances = _superService.MaintenanceService.GetMaintenances();
             BrowserEnumerable = new ObservableCollection<IMaintenance>(maintenances);
         }
 
         public IMvxCommand ViewMaintenanceDetailsCommand { get; set; }
         private void _ViewMaintenanceDetails()
         {
-            var maintenanceDetails = _superService.MaintenanceDetailService.GetMaintenanceDetails().ToList();
+            var maintenanceDetails = _superService.MaintenanceDetailService.GetMaintenanceDetails();
             BrowserEnumerable = new ObservableCollection<IMaintenanceDetail>(maintenanceDetails);
         }
 
         public IMvxCommand ViewPartsCommand { get; set; }
         private void _ViewParts()
         {
-            var parts = _superService.PartService.GetParts().ToList();
+            var parts = _superService.PartService.GetParts();
             BrowserEnumerable = new ObservableCollection<IPart>(parts);
         }
 
         public IMvxCommand ViewPartUsagesCommand { get; set; }
         private void _ViewPartUsages()
         {
-            var partUsages = _superService.PartUsageService.GetPartUsages().ToList();
+            var partUsages = _superService.PartUsageService.GetPartUsages();
             BrowserEnumerable = new ObservableCollection<IPartUsage>(partUsages);
         }
 
         public IMvxCommand ViewReportsCommand { get; set; }
         private void _ViewReports()
         {
-            var reports = _superService.ReportService.GetReports().ToList();
+            var reports = _superService.ReportService.GetReports();
             BrowserEnumerable = new ObservableCollection<IReport>(reports);
         }
 
         public IMvxCommand ViewReservationsCommand { get; set; }
         private void _ViewReservations()
         {
-            var reservations = _superService.ReservationService.GetReservations().ToList();
+            var reservations = _superService.ReservationService.GetReservations();
             BrowserEnumerable = new ObservableCollection<IReservation>(reservations);
         }
 
         public IMvxCommand ViewReservationFormsCommand { get; set; }
         private void _ViewReservationForms()
         {
-            var reservationForms = _superService.ReservationFormService.GetReservationForms().ToList();
+            var reservationForms = _superService.ReservationFormService.GetReservationForms();
             BrowserEnumerable = new ObservableCollection<IReservationForm>(reservationForms);
         }
 
         public IMvxCommand ViewVehiclesCommand { get; set; }
         private void _ViewVehicles()
         {
-            var vehicles = _superService.VehicleService.GetVehicles().ToList();
+            var vehicles = _superService.VehicleService.GetVehicles();
             BrowserEnumerable = new ObservableCollection<IVehicle>(vehicles);
         }
 
         public IMvxCommand ViewAdvisoriesCommand { get; set; }
         private void _ViewAdvisories()
         {
-            var advisories = _superService.AdvisoryService.GetAdvisories().ToList();
+            var advisories = _superService.AdvisoryService.GetAdvisories();
             BrowserEnumerable = new ObservableCollection<IAdvisory>(advisories);
         }
 
         public IMvxCommand ViewContractsCommand { get; set; }
         private void _ViewContracts()
         {
-            var contracts = _superService.ContractService.GetContracts().ToList();
+            var contracts = _superService.ContractService.GetContracts();
             BrowserEnumerable = new ObservableCollection<IContract>(contracts);
         }
 
         public IMvxCommand ViewCoursesCommand { get; set; }
         private void _ViewCourses()
         {
-            var courses = _superService.CourseService.GetCourses().ToList();
+            var courses = _superService.CourseService.GetCourses();
             BrowserEnumerable = new ObservableCollection<ICourse>(courses);
         }
 
         public IMvxCommand ViewDepartmentsCommand { get; set; }
         private void _ViewDepartments()
         {
-            var departments = _superService.DepartmentService.GetDepartments().ToList();
+            var departments = _superService.DepartmentService.GetDepartments();
             BrowserEnumerable = new ObservableCollection<IDepartment>(departments);
         }
 
         public IMvxCommand ViewEnrollmentsCommand { get; set; }
         private void _ViewEnrollments()
         {
-            var enrollments = _superService.EnrollmentService.GetEnrollments().ToList();
+            var enrollments = _superService.EnrollmentService.GetEnrollments();
             BrowserEnumerable = new ObservableCollection<IEnrollment>(enrollments);
         }
 
         public IMvxCommand ViewProfessorsCommand { get; set; }
         private void _ViewProfessors()
         {
-            var professors = _superService.ProfessorService.GetProfessors().ToList();
+            var professors = _superService.ProfessorService.GetProfessors();
             BrowserEnumerable = new ObservableCollection<IProfessor>(professors);
         }
 
         public IMvxCommand ViewProfessorContractsCommand { get; set; }
         private void _ViewProfessorContract()
         {
-            var professorContracts = _superService.ProfessorContractService.GetProfessorContracts().ToList();
+            var professorContracts = _superService.ProfessorContractService.GetProfessorContracts();
             BrowserEnumerable = new ObservableCollection<IProfessorContract>(professorContracts);
         }
 
         public IMvxCommand ViewProfessorshipsCommand { get; set; }
         private void _ViewProfessorships()
         {
-            var professorships = _superService.ProfessorshipService.GetProfessorships().ToList();
+            var professorships = _superService.ProfessorshipService.GetProfessorships();
             BrowserEnumerable = new ObservableCollection<IProfessorship>(professorships);
         }
 
         public IMvxCommand ViewSchedulesCommand { get; set; }
         private void _ViewSchedules()
         {
-            var schedules = _superService.ScheduleService.GetSchedules().ToList();
+            var schedules = _superService.ScheduleService.GetSchedules();
             BrowserEnumerable = new ObservableCollection<ISchedule>(schedules);
         }
 
         public IMvxCommand ViewSchoolsCommand { get; set; }
         private void _ViewSchools()
         {
-            var schools = _superService.SchoolService.GetSchools().ToList();
+            var schools = _superService.SchoolService.GetSchools();
             BrowserEnumerable = new ObservableCollection<ISchool>(schools);
         }
 
         public IMvxCommand ViewSectionsCommand { get; set; }
         private void _ViewSections()
         {
-            var sections = _superService.SectionService.GetSections().ToList();
+            var sections = _superService.SectionService.GetSections();
             BrowserEnumerable = new ObservableCollection<ISection>(sections);
         }
 
         public IMvxCommand ViewStudentsCommand { get; set; }
         private void _ViewStudents()
         {
-            var students = _superService.StudentService.GetStudents().ToList();
+            var students = _superService.StudentService.GetStudents();
             BrowserEnumerable = new ObservableCollection<IStudent>(students);
         }
 
         public IMvxCommand ViewTenuresCommand { get; set; }
         private void _ViewTenures()
         {
-            var tenures = _superService.TenureService.GetTenures().ToList();
+            var tenures = _superService.TenureService.GetTenures();
             BrowserEnumerable = new ObservableCollection<ITenure>(tenures);
         }
         #endregion

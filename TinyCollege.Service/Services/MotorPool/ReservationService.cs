@@ -13,40 +13,54 @@ namespace TinyCollege.Service.Services.MotorPool
         {
         }
 
-        public IQueryable<Reservation> GetReservations()
+        public List<Reservation> GetReservations()
         {
-            return _context.Reservations;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Reservations.ToList();
         }
 
-        public IQueryable<Reservation> CreateReservation(Reservation reservation)
+        public List<Reservation> CreateReservation(Reservation reservation)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(reservation);
             _context.SaveChanges();
-            return _context.Reservations.Where(x => x.ReservationId == _context.Reservations.Max(x => x.ReservationId));
+            return _context.Reservations.Where(x => x.ReservationId == _context.Reservations.Max(x => x.ReservationId)).ToList();
         }
 
-        public IQueryable<Professor> GetReservationProfessor(int reservationProfessorId)
+        public List<Professor> GetReservationProfessor(int reservationProfessorId)
         {
-            return _context.Professors.Where(x => x.ProfessorId == reservationProfessorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professors.Where(x => x.ProfessorId == reservationProfessorId).ToList();
         }
 
-        public IQueryable<Vehicle> GetReservationVehicle(int reservationVehicleId)
+        public List<Vehicle> GetReservationVehicle(int reservationVehicleId)
         {
-            return _context.Vehicles.Where(x => x.VehicleId == reservationVehicleId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Vehicles.Where(x => x.VehicleId == reservationVehicleId).ToList();
         }
 
-        public IQueryable<Report> GetReservationReport(int reservationReportId)
+        public List<Report> GetReservationReport(int reservationReportId)
         {
-            return _context.Reports.Where(x => x.ReportId == reservationReportId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Reports.Where(x => x.ReportId == reservationReportId).ToList();
         }
 
-        public IQueryable<ReservationForm> GetReservationReservationForms(int reservationId)
+        public List<ReservationForm> GetReservationReservationForms(int reservationId)
         {
-            return _context.ReservationForms.Where(x => x.ReservationId==reservationId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.ReservationForms.Where(x => x.ReservationId==reservationId).ToList();
         }
 
-        public IQueryable<Reservation> DeleteReservation(Reservation reservation)
+        public List<Reservation> DeleteReservation(Reservation reservation)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Reservations.Attach(reservation);
@@ -58,7 +72,16 @@ namespace TinyCollege.Service.Services.MotorPool
                 // ignored
             }
 
-            return _context.Reservations;
+            return _context.Reservations.ToList();
+        }
+
+        public List<Reservation> EditReservation(Reservation reservation)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpReservation = _context.Reservations.First(x => x.ReservationId == reservation.ReservationId);
+            _context.Entry(tmpReservation).CurrentValues.SetValues(reservation);
+            _context.SaveChanges();
+            return _context.Reservations.Where(x => x.ReservationId == reservation.ReservationId).ToList();
         }
     }
 }

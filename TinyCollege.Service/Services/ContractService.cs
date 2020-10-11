@@ -12,25 +12,33 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Contract> GetContracts()
+        public List<Contract> GetContracts()
         {
-            return _context.Contracts;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Contracts.ToList();
         }
 
-        public IQueryable<Contract> CreateContract(Contract contract)
+        public List<Contract> CreateContract(Contract contract)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(contract);
             _context.SaveChanges();
-            return _context.Contracts.Where(x => x.ContractId == _context.Contracts.Max(x => x.ContractId));
+            return _context.Contracts.Where(x => x.ContractId == _context.Contracts.Max(x => x.ContractId)).ToList();
         }
 
-        public IQueryable<ProfessorContract> GetContractProfessorContracts(int contractId)
+        public List<ProfessorContract> GetContractProfessorContracts(int contractId)
         {
-            return _context.ProfessorContracts.Where(x => x.ContractId == contractId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.ProfessorContracts.Where(x => x.ContractId == contractId).ToList();
         }
 
-        public IQueryable<Contract> DeleteContract(Contract contract)
+        public List<Contract> DeleteContract(Contract contract)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Contracts.Attach(contract);
@@ -42,7 +50,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Contracts;
+            return _context.Contracts.ToList();
+        }
+
+        public List<Contract> EditContract(Contract contract)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpContract = _context.Contracts.First(x => x.ContractId == contract.ContractId);
+            _context.Entry(tmpContract).CurrentValues.SetValues(contract);
+            _context.SaveChanges();
+            return _context.Contracts.Where(x => x.ContractId == contract.ContractId).ToList();
         }
     }
 }

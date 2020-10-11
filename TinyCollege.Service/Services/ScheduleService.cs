@@ -12,25 +12,33 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<Schedule> GetSchedules()
+        public List<Schedule> GetSchedules()
         {
-            return _context.Schedules;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Schedules.ToList();
         }
 
-        public IQueryable<Schedule> CreateSchedule(Schedule schedule)
+        public List<Schedule> CreateSchedule(Schedule schedule)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(schedule);
             _context.SaveChanges();
-            return _context.Schedules.Where(x => x.ScheduleId == _context.Schedules.Max(x => x.ScheduleId));
+            return _context.Schedules.Where(x => x.ScheduleId == _context.Schedules.Max(x => x.ScheduleId)).ToList();
         }
 
-        public IQueryable<Section> GetScheduleSection(int scheduleSectionId)
+        public List<Section> GetScheduleSection(int scheduleSectionId)
         {
-            return _context.Sections.Where(x => x.SectionId == scheduleSectionId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Sections.Where(x => x.SectionId == scheduleSectionId).ToList();
         }
 
-        public IQueryable<Schedule> DeleteSchedule(Schedule schedule)
+        public List<Schedule> DeleteSchedule(Schedule schedule)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Schedules.Attach(schedule);
@@ -42,7 +50,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Schedules;
+            return _context.Schedules.ToList();
+        }
+
+        public List<Schedule> EditSchedule(Schedule schedule)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpSchedule = _context.Schedules.First(x => x.ScheduleId == schedule.ScheduleId);
+            _context.Entry(tmpSchedule).CurrentValues.SetValues(schedule);
+            _context.SaveChanges();
+            return _context.Schedules.Where(x => x.ScheduleId == schedule.ScheduleId).ToList();
         }
     }
 }

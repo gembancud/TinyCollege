@@ -13,10 +13,11 @@ namespace TinyCollege.Service.Services
             var builder = new DbContextOptionsBuilder<TinyCollegeContext>();
             var connectionString = "Server=localhost\\DEV;Database=TinyCollegeTest;Trusted_Connection=true;";
             builder.UseSqlServer(connectionString);
-
-            _context = new TinyCollegeContext(builder.Options);
+            _builder = builder;
+            //_context = new TinyCollegeContext(builder.Options);
         }
 
-        protected TinyCollegeContext _context { get; set; }
+        //protected TinyCollegeContext _context { get; set; }
+        protected DbContextOptionsBuilder<TinyCollegeContext> _builder { get; set; }
     }
 }

@@ -12,30 +12,40 @@ namespace TinyCollege.Service.Services
         {
         }
 
-        public IQueryable<School> GetSchools()
+        public List<School> GetSchools()
         {
-            return _context.Schools;
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Schools.ToList();
         }
 
-        public IQueryable<School> CreateSchool(School school)
+        public List<School> CreateSchool(School school)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             _context.Add(school);
             _context.SaveChanges();
-            return _context.Schools.Where(x => x.SchoolId == _context.Schools.Max(x => x.SchoolId));
+            return _context.Schools.Where(x => x.SchoolId == _context.Schools.Max(x => x.SchoolId)).ToList();
         }
 
-        public IQueryable<Professor> GetSchoolDean(int schoolProfessorId)
+        public List<Professor> GetSchoolDean(int schoolProfessorId)
         {
-            return _context.Professors.Where(x => x.ProfessorId == schoolProfessorId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Professors.Where(x => x.ProfessorId == schoolProfessorId).ToList();
         }
 
-        public IQueryable<Department> GetSchoolDepartments(int schoolId)
+        public List<Department> GetSchoolDepartments(int schoolId)
         {
-            return _context.Departments.Where(x => x.SchoolId == schoolId);
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Departments.Where(x => x.SchoolId == schoolId).ToList();
         }
 
-        public IQueryable<School> DeleteSchool(School school)
+        public List<School> DeleteSchool(School school)
         {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
             try
             {
                 _context.Schools.Attach(school);
@@ -47,7 +57,16 @@ namespace TinyCollege.Service.Services
                 // ignored
             }
 
-            return _context.Schools;
+            return _context.Schools.ToList();
+        }
+
+        public List<School> EditSchool(School school)
+        {
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+            var tmpSchool = _context.Schools.First(x => x.SchoolId == school.SchoolId);
+            _context.Entry(tmpSchool).CurrentValues.SetValues(school);
+            _context.SaveChanges();
+            return _context.Schools.Where(x => x.SchoolId == school.SchoolId).ToList();
         }
     }
 }
