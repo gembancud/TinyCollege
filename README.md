@@ -5,6 +5,13 @@ C#/WPF/MvvmCross/EntityFramework/SQL/AvalonDock/MahApps.Metro
 
 Using the techstack, TinyCollege is an example of a Desktop CRUD App
 
+## Preview
+
+![](misc/wpf.jpg)
+
+
+![](misc/wpfgif.gif)
+
 ## How to run
 1. build TinyCollege.Data in Vscode
 2. Configure context connectionstring in TinyCollege.Data/Models/TinyCollegeContext.cs and TinyCollege.Service/BaseService.cs with your SQLServer
