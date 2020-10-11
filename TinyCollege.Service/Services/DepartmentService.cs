@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services
             return _context.Departments;
         }
 
+        public IQueryable<Department> CreateDepartment(Department department)
+        {
+            _context.Add(department);
+            _context.SaveChanges();
+            return _context.Departments.Where(x => x.DepartmentId == _context.Departments.Max(x => x.DepartmentId));
+        }
+
         public IQueryable<School> GetDepartmentSchool(int departmentSchoolId)
         {
             return _context.Schools.Where(x => x.SchoolId == departmentSchoolId);

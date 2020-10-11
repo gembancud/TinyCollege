@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services.MotorPool
             return _context.Maintenances;
         }
 
+        public IQueryable<Maintenance> CreateMaintenance(Maintenance maintenance)
+        {
+            _context.Add(maintenance);
+            _context.SaveChanges();
+            return _context.Maintenances.Where(x => x.MaintenanceId == _context.Maintenances.Max(x => x.MaintenanceId));
+        }
+
         public IQueryable<Employee> GetMaintenanceReleasingMechanic(int maintenanceEmployeeId)
         {
             return _context.Employees.Where(x => x.EmployeeId == maintenanceEmployeeId);

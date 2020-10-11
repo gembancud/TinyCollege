@@ -21,7 +21,7 @@ namespace TinyCollege.Service.Services.MotorPool
         {
             _context.Add(employee);
             _context.SaveChanges();
-            return _context.Employees.Where(x => x.EmployeeId == employee.EmployeeId);
+            return _context.Employees.Where(x => x.EmployeeId == _context.Employees.Max(x => x.EmployeeId));
         }
 
         public IQueryable<ReservationForm> GetEmployeeReservationForms(int employeeId)
@@ -32,6 +32,24 @@ namespace TinyCollege.Service.Services.MotorPool
         public IQueryable<MaintenanceDetail> GetEmployeeMaintenanceDetails(int employeeId)
         {
             return _context.MaintenanceDetails.Where(x => x.EmployeeId == employeeId);
+        }
+
+        public IQueryable<Employee> DeleteEmployee(int employeeId)
+        {
+            try
+            {
+                var employee = _context.Employees.First(x => x.EmployeeId == employeeId);
+                _context.Employees.Attach(employee);
+                _context.Employees.Remove(employee);
+                _context.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+
+            return _context.Employees;
         }
     }
 }

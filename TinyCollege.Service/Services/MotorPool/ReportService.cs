@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services.MotorPool
             return _context.Reports;
         }
 
+        public IQueryable<Report> CreateReport(Report report)
+        {
+            _context.Add(report);
+            _context.SaveChanges();
+            return _context.Reports.Where(x => x.ReportId == _context.Reports.Max(x => x.ReportId));
+        }
+
         public IQueryable<Maintenance> GetReportMaintenances(int reportId)
         {
             return _context.Maintenances.Where(x => x.ReportId == reportId);

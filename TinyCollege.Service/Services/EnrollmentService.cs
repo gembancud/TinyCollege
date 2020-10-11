@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services
             return _context.Enrollments;
         }
 
+        public IQueryable<Enrollment> CreateEnrollment(Enrollment enrollment)
+        {
+            _context.Add(enrollment);
+            _context.SaveChanges();
+            return _context.Enrollments.Where(x => x.EnrollmentId == _context.Enrollments.Max(x => x.EnrollmentId));
+        }
+
         public IQueryable<Student> GetEnrollmentStudent(int enrollmentStudentId)
         {
             return _context.Students.Where(x => x.StudentId == enrollmentStudentId);

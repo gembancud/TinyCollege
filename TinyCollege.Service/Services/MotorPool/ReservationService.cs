@@ -18,6 +18,13 @@ namespace TinyCollege.Service.Services.MotorPool
             return _context.Reservations;
         }
 
+        public IQueryable<Reservation> CreateReservation(Reservation reservation)
+        {
+            _context.Add(reservation);
+            _context.SaveChanges();
+            return _context.Reservations.Where(x => x.ReservationId == _context.Reservations.Max(x => x.ReservationId));
+        }
+
         public IQueryable<Professor> GetReservationProfessor(int reservationProfessorId)
         {
             return _context.Professors.Where(x => x.ProfessorId == reservationProfessorId);

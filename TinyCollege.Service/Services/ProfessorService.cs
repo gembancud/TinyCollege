@@ -18,6 +18,13 @@ namespace TinyCollege.Service.Services
             return _context.Professors;
         }
 
+        public IQueryable<Professor> CreateProfessor(Professor professor)
+        {
+            _context.Add(professor);
+            _context.SaveChanges();
+            return _context.Professors.Where(x => x.ProfessorId == _context.Professors.Max(x => x.ProfessorId));
+        }
+
         public IQueryable<Professorship> GetProfessorProfessorships(int professorId)
         {
             return _context.Professorships.Where(x => x.ProfessorId == professorId);

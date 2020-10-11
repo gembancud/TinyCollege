@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using MvvmCross.Commands;
@@ -62,7 +63,6 @@ namespace TinyCollege.Core.ViewModels
             ViewStudentsCommand = new MvxCommand(_ViewStudents);
             ViewTenuresCommand = new MvxCommand(_ViewTenures);
             #endregion
-
 
             #region Inspector Commands Initialization
 
@@ -145,6 +145,15 @@ namespace TinyCollege.Core.ViewModels
             InspectorTenureProfessorCommand = new MvxCommand(_InspectorTenureProfessor);
             InspectorTenureDepartmentCommand = new MvxCommand(_InspectorTenureDepartment);
 
+            InspectorEditCommand = new MvxCommand(_InspectorEdit);
+            InspectorDeleteCommand = new MvxCommand(_InspectorDelete);
+            #endregion
+
+            #region Manager Commands Initialization
+
+            ManagerCreateCommand = new MvxCommand(_ManagerCreate);
+            ManagerEditCommand = new MvxCommand(_ManagerEdit);
+
             #endregion
 
         }
@@ -159,9 +168,13 @@ namespace TinyCollege.Core.ViewModels
                 SetProperty(ref _browserEnumerable, value);
                 SetProperty(ref _browserEnumerableType, _checkEntityType(value.GetType().GetGenericArguments().First()));
                 RaisePropertyChanged(() => BrowserHeader);
-                RaisePropertyChanged(() => ManagerHeader);
 
+                RaisePropertyChanged(() => ManagerHeader);
                 _refreshManagerVisibility();
+                SetProperty(ref _ManagerMode, ManagerModeEnum.Create);
+                RaisePropertyChanged(() => ManagerShowCreateButton);
+                RaisePropertyChanged(() => ManagerShowEditButton);
+                _clearManagerFields();
             }
         }
 
@@ -233,7 +246,9 @@ namespace TinyCollege.Core.ViewModels
 
                     _fillInspectorFields(value);
                     _refreshInspectorVisibility();
+                    RaisePropertyChanged(() => InspectorShowButtons);
                 }
+
             }
         }
 
@@ -877,10 +892,130 @@ namespace TinyCollege.Core.ViewModels
             BrowserSelection = department.First();
         }
 
-
         #endregion
 
+        public IMvxCommand InspectorEditCommand { get; set; }
+        private void _InspectorEdit()
+        {
+            var entity = _InspectorGetEditEntity();
+            SetProperty(ref _browserEnumerableType, _checkEntityType(entity.GetType()));
+            _fillManagerFields(entity);
+            _refreshManagerVisibility();
+            SetProperty(ref _ManagerMode, ManagerModeEnum.Update);
+            RaisePropertyChanged(() => ManagerShowCreateButton);
+            RaisePropertyChanged(() => ManagerShowEditButton);
+        }
+        private dynamic _InspectorGetEditEntity()
+        {
+            switch (_browserSelectionType)
+            {
+                case EntityEnum.Employee:
+                    return InspectorEmployee;
+                case EntityEnum.Maintenance:
+                    return InspectorMaintenance;
+                case EntityEnum.MaintenanceDetail:
+                    return InspectorMaintenanceDetail;
+                case EntityEnum.Part:
+                    return InspectorPart;
+                case EntityEnum.PartUsage:
+                    return InspectorPartUsage;
+                case EntityEnum.Report:
+                    return InspectorReport;
+                case EntityEnum.Reservation:
+                    return InspectorReservation;
+                case EntityEnum.ReservationForm:
+                    return InspectorReservationForm;
+                case EntityEnum.Vehicle:
+                    return InspectorVehicle;
+                case EntityEnum.Advisory:
+                    return InspectorAdvisory;
+                case EntityEnum.Contract:
+                    return InspectorContract;
+                case EntityEnum.Course:
+                    return InspectorCourse;
+                case EntityEnum.Department:
+                    return InspectorDepartment;
+                case EntityEnum.Enrollment:
+                    return InspectorEnrollment;
+                case EntityEnum.Professor:
+                    return InspectorProfessor;
+                case EntityEnum.ProfessorContract:
+                    return InspectorProfessorContract;
+                case EntityEnum.Professorship:
+                    return InspectorProfessorship;
+                case EntityEnum.Schedule:
+                    return InspectorSchedule;
+                case EntityEnum.School:
+                    return InspectorSchool;
+                case EntityEnum.Section:
+                    return InspectorSection;
+                case EntityEnum.Student:
+                    return InspectorStudent;
+                case EntityEnum.Tenure:
+                    return InspectorTenure;
+            }
+            throw new Exception("Entity Enum Error");
+        }
 
+        public IMvxCommand InspectorDeleteCommand { get; set; }
+        private void _InspectorDelete()
+        {
+            switch (_browserSelectionType)
+            {
+                case EntityEnum.Employee:
+                    break;
+                case EntityEnum.Maintenance:
+                    break;
+                case EntityEnum.MaintenanceDetail:
+                    break;
+                case EntityEnum.Part:
+                    break;
+                case EntityEnum.PartUsage:
+                    break;
+                case EntityEnum.Report:
+                    break;
+                case EntityEnum.Reservation:
+                    break;
+                case EntityEnum.ReservationForm:
+                    break;
+                case EntityEnum.Vehicle:
+                    break;
+                case EntityEnum.Advisory:
+                    break;
+                case EntityEnum.Contract:
+                    break;
+                case EntityEnum.Course:
+                    break;
+                case EntityEnum.Department:
+                    break;
+                case EntityEnum.Enrollment:
+                    break;
+                case EntityEnum.Professor:
+                    break;
+                case EntityEnum.ProfessorContract:
+                    break;
+                case EntityEnum.Professorship:
+                    break;
+                case EntityEnum.Schedule:
+                    break;
+                case EntityEnum.School:
+                    break;
+                case EntityEnum.Section:
+                    break;
+                case EntityEnum.Student:
+                    break;
+                case EntityEnum.Tenure:
+                    break;
+            }
+
+            //Clear Inspector
+            SetProperty(ref _browserSelectionType, EntityEnum.Null);
+            SetProperty(ref _browserSelection, null);
+            RaisePropertyChanged(() => InspectorHeader);
+            _refreshInspectorVisibility();
+        }
+
+        public bool InspectorShowButtons => BrowserSelection != null;
 
         public string ManagerHeader
         {
@@ -1080,30 +1215,165 @@ namespace TinyCollege.Core.ViewModels
             RaisePropertyChanged(() => ManagerStudentVisibility);
             RaisePropertyChanged(() => ManagerTenureVisibility);
         }
+        private void _clearManagerFields()
+        {
+            ManagerEmployee = new Employee();
+            ManagerMaintenance = new Maintenance();
+            ManagerMaintenanceDetail = new MaintenanceDetail();
+            ManagerPart = new Part();
+            ManagerPartUsage = new PartUsage();
+            ManagerReport = new Report();
+            ManagerReservation = new Reservation();
+            ManagerReservationForm = new ReservationForm();
+            ManagerVehicle = new Vehicle();
+            ManagerAdvisory = new Advisory();
+            ManagerContract = new Contract();
+            ManagerCourse = new Course();
+            ManagerDepartment = new Department();
+            ManagerEnrollment = new Enrollment();
+            ManagerProfessor = new Professor();
+            ManagerProfessorContract = new ProfessorContract();
+            ManagerProfessorship = new Professorship();
+            ManagerSchedule = new Schedule();
+            ManagerSchool = new School();
+            ManagerSection = new Section();
+            ManagerStudent = new Student();
+            ManagerTenure = new Tenure();
+
+            RaisePropertyChanged(() => ManagerEmployee);
+            RaisePropertyChanged(() => ManagerMaintenance);
+            RaisePropertyChanged(() => ManagerMaintenanceDetail);
+            RaisePropertyChanged(() => ManagerPart);
+            RaisePropertyChanged(() => ManagerPartUsage);
+            RaisePropertyChanged(() => ManagerReport);
+            RaisePropertyChanged(() => ManagerReservation);
+            RaisePropertyChanged(() => ManagerReservationForm);
+            RaisePropertyChanged(() => ManagerVehicle);
+            RaisePropertyChanged(() => ManagerAdvisory);
+            RaisePropertyChanged(() => ManagerContract);
+            RaisePropertyChanged(() => ManagerCourse);
+            RaisePropertyChanged(() => ManagerDepartment);
+            RaisePropertyChanged(() => ManagerEnrollment);
+            RaisePropertyChanged(() => ManagerProfessor);
+            RaisePropertyChanged(() => ManagerProfessorContract);
+            RaisePropertyChanged(() => ManagerProfessorship);
+            RaisePropertyChanged(() => ManagerSchedule);
+            RaisePropertyChanged(() => ManagerSchool);
+            RaisePropertyChanged(() => ManagerSection);
+            RaisePropertyChanged(() => ManagerStudent);
+            RaisePropertyChanged(() => ManagerTenure);
+        }
+
+        private ManagerModeEnum _ManagerMode = ManagerModeEnum.Create;
+        public bool ManagerShowCreateButton => _ManagerMode == ManagerModeEnum.Create;
+        public bool ManagerShowEditButton => _ManagerMode == ManagerModeEnum.Update;
+
+        public IMvxCommand ManagerCreateCommand { get; set; }
+        private void _ManagerCreate()
+        {
+            switch (_browserEnumerableType)
+            {
+                case EntityEnum.Employee:
+                    BrowserEnumerable = new ObservableCollection<Employee>(_superService.EmployeeService.CreateEmployee(ManagerEmployee));
+                    break;
+                case EntityEnum.Maintenance:
+                    BrowserEnumerable = new ObservableCollection<Maintenance>(_superService.MaintenanceService.CreateMaintenance(ManagerMaintenance));
+                    break;
+                case EntityEnum.MaintenanceDetail:
+                    BrowserEnumerable = new ObservableCollection<MaintenanceDetail>(_superService.MaintenanceDetailService.CreateMaintenanceDetail(ManagerMaintenanceDetail));
+                    break;
+                case EntityEnum.Part:
+                    BrowserEnumerable = new ObservableCollection<Part>(_superService.PartService.CreatePart(ManagerPart));
+                    break;
+                case EntityEnum.PartUsage:
+                    BrowserEnumerable = new ObservableCollection<PartUsage>(_superService.PartUsageService.CreatePartUsage(ManagerPartUsage));
+                    break;
+                case EntityEnum.Report:
+                    BrowserEnumerable = new ObservableCollection<Report>(_superService.ReportService.CreateReport(ManagerReport));
+                    break;
+                case EntityEnum.Reservation:
+                    BrowserEnumerable = new ObservableCollection<Reservation>(_superService.ReservationService.CreateReservation(ManagerReservation));
+                    break;
+                case EntityEnum.ReservationForm:
+                    BrowserEnumerable = new ObservableCollection<ReservationForm>(_superService.ReservationFormService.CreateReservationForm(ManagerReservationForm));
+                    break;
+                case EntityEnum.Vehicle:
+                    BrowserEnumerable = new ObservableCollection<Vehicle>(_superService.VehicleService.CreateVehicle(ManagerVehicle));
+                    break;
+                case EntityEnum.Advisory:
+                    BrowserEnumerable = new ObservableCollection<Advisory>(_superService.AdvisoryService.CreateAdvisory(ManagerAdvisory));
+                    break;
+                case EntityEnum.Contract:
+                    BrowserEnumerable = new ObservableCollection<Contract>(_superService.ContractService.CreateContract(ManagerContract));
+                    break;
+                case EntityEnum.Course:
+                    BrowserEnumerable = new ObservableCollection<Course>(_superService.CourseService.CreateCourse(ManagerCourse));
+                    break;
+                case EntityEnum.Department:
+                    BrowserEnumerable = new ObservableCollection<Department>(_superService.DepartmentService.CreateDepartment(ManagerDepartment));
+                    break;
+                case EntityEnum.Enrollment:
+                    BrowserEnumerable = new ObservableCollection<Enrollment>(_superService.EnrollmentService.CreateEnrollment(ManagerEnrollment));
+                    break;
+                case EntityEnum.Professor:
+                    BrowserEnumerable = new ObservableCollection<Professor>(_superService.ProfessorService.CreateProfessor(ManagerProfessor));
+                    break;
+                case EntityEnum.ProfessorContract:
+                    BrowserEnumerable = new ObservableCollection<ProfessorContract>(_superService.ProfessorContractService.CreateProfessorContract(ManagerProfessorContract));
+                    break;
+                case EntityEnum.Professorship:
+                    BrowserEnumerable = new ObservableCollection<Professorship>(_superService.ProfessorshipService.CreateProfessorship(ManagerProfessorship));
+                    break;
+                case EntityEnum.Schedule:
+                    BrowserEnumerable = new ObservableCollection<Schedule>(_superService.ScheduleService.CreateSchedule(ManagerSchedule));
+                    break;
+                case EntityEnum.School:
+                    BrowserEnumerable = new ObservableCollection<School>(_superService.SchoolService.CreateSchool(ManagerSchool));
+                    break;
+                case EntityEnum.Section:
+                    BrowserEnumerable = new ObservableCollection<Section>(_superService.SectionService.CreateSection(ManagerSection));
+                    break;
+                case EntityEnum.Student:
+                    BrowserEnumerable = new ObservableCollection<Student>(_superService.StudentService.CreateStudent(ManagerStudent));
+                    break;
+                case EntityEnum.Tenure:
+                    BrowserEnumerable = new ObservableCollection<Tenure>(_superService.TenureService.CreateTenure(ManagerTenure));
+                    break;
+            }
+        }
+
+        public IMvxCommand ManagerEditCommand { get; set; }
+        private void _ManagerEdit()
+        {
+
+        }
+
+
+
         #region Manager Entities Properties
 
-        public Employee ManagerEmployee;
-        public Maintenance ManagerMaintenance;
-        public MaintenanceDetail ManagerMaintenanceDetail;
-        public Part ManagerPart;
-        public PartUsage ManagerPartUsage;
-        public Report ManagerReport;
-        public Reservation ManagerReservation;
-        public ReservationForm ManagerReservationForm;
-        public Vehicle ManagerVehicle;
-        public Advisory ManagerAdvisory;
-        public Contract ManagerContract;
-        public Course ManagerCourse;
-        public Department ManagerDepartment;
-        public Enrollment ManagerEnrollment;
-        public Professor ManagerProfessor;
-        public ProfessorContract ManagerProfessorContract;
-        public Professorship ManagerProfessorship;
-        public Schedule ManagerSchedule;
-        public School ManagerSchool;
-        public Section ManagerSection;
-        public Student ManagerStudent;
-        public Tenure ManagerTenure;
+        public Employee ManagerEmployee { get; set; } = new Employee();
+        public Maintenance ManagerMaintenance { get; set; } = new Maintenance();
+        public MaintenanceDetail ManagerMaintenanceDetail { get; set; } = new MaintenanceDetail();
+        public Part ManagerPart { get; set; } = new Part();
+        public PartUsage ManagerPartUsage { get; set; } = new PartUsage();
+        public Report ManagerReport { get; set; } = new Report();
+        public Reservation ManagerReservation { get; set; } = new Reservation();
+        public ReservationForm ManagerReservationForm { get; set; } = new ReservationForm();
+        public Vehicle ManagerVehicle { get; set; } = new Vehicle();
+        public Advisory ManagerAdvisory { get; set; } = new Advisory();
+        public Contract ManagerContract { get; set; } = new Contract();
+        public Course ManagerCourse { get; set; } = new Course();
+        public Department ManagerDepartment { get; set; } = new Department();
+        public Enrollment ManagerEnrollment { get; set; } = new Enrollment();
+        public Professor ManagerProfessor { get; set; } = new Professor();
+        public ProfessorContract ManagerProfessorContract { get; set; } = new ProfessorContract();
+        public Professorship ManagerProfessorship { get; set; } = new Professorship();
+        public Schedule ManagerSchedule { get; set; } = new Schedule();
+        public School ManagerSchool { get; set; } = new School();
+        public Section ManagerSection { get; set; } = new Section();
+        public Student ManagerStudent { get; set; } = new Student();
+        public Tenure ManagerTenure { get; set; } = new Tenure();
 
         #endregion
 

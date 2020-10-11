@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services
             return _context.Contracts;
         }
 
+        public IQueryable<Contract> CreateContract(Contract contract)
+        {
+            _context.Add(contract);
+            _context.SaveChanges();
+            return _context.Contracts.Where(x => x.ContractId == _context.Contracts.Max(x => x.ContractId));
+        }
+
         public IQueryable<ProfessorContract> GetContractProfessorContracts(int contractId)
         {
             return _context.ProfessorContracts.Where(x => x.ContractId == contractId);

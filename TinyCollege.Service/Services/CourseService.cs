@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services
             return _context.Courses;
         }
 
+        public IQueryable<Course> CreateCourse(Course course)
+        {
+            _context.Add(course);
+            _context.SaveChanges();
+            return _context.Courses.Where(x => x.CourseId == _context.Courses.Max(x => x.CourseId));
+        }
+
         public IQueryable<Section> GetCourseSections(int courseId)
         {
             return _context.Sections.Where(x => x.CourseId == courseId);

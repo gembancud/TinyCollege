@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services
             return _context.Sections;
         }
 
+        public IQueryable<Section> CreateSection(Section section)
+        {
+            _context.Add(section);
+            _context.SaveChanges();
+            return _context.Sections.Where(x => x.SectionId == _context.Sections.Max(x => x.SectionId));
+        }
+
         public IQueryable<Schedule> GetSectionSchedule(int sectionScheduleId)
         {
             return _context.Schedules.Where(x => x.ScheduleId == sectionScheduleId);

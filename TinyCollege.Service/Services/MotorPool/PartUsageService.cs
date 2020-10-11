@@ -17,6 +17,13 @@ namespace TinyCollege.Service.Services.MotorPool
             return _context.PartUsages;
         }
 
+        public IQueryable<PartUsage> CreatePartUsage(PartUsage partUsage)
+        {
+            _context.Add(partUsage);
+            _context.SaveChanges();
+            return _context.PartUsages.Where(x => x.PartUsageId == _context.PartUsages.Max(x => x.PartUsageId));
+        }
+
         public IQueryable<Part> GetPartUsagePart(int partUsagePartId)
         {
             return _context.Parts.Where(x => x.PartId == partUsagePartId);
