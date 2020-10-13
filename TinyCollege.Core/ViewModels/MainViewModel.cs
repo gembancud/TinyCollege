@@ -169,12 +169,6 @@ namespace TinyCollege.Core.ViewModels
                 SetProperty(ref _browserEnumerableType, _checkEntityType(value.GetType().GetGenericArguments().First()));
                 RaisePropertyChanged(() => BrowserHeader);
 
-                RaisePropertyChanged(() => ManagerHeader);
-                _refreshManagerVisibility();
-                SetProperty(ref _ManagerMode, ManagerModeEnum.Create);
-                RaisePropertyChanged(() => ManagerShowCreateButton);
-                RaisePropertyChanged(() => ManagerShowEditButton);
-                _clearManagerFields();
             }
         }
 
@@ -230,6 +224,114 @@ namespace TinyCollege.Core.ViewModels
             }
 
         }
+
+        private string _browserSearch;
+
+        public string BrowserSearch
+        {
+            get => _browserSearch;
+            set
+            {
+                SetProperty(ref _browserSearch, value);
+               _doSearch(_browserSearch);
+
+            }
+        }
+        private void _doSearch(string value)
+        {
+            switch (_browserEnumerableType)
+            {
+                case EntityEnum.Employee:
+                    var _Employee = _superService.EmployeeService.GetEmployees(value);
+                    BrowserEnumerable = new ObservableCollection<IEmployee>(_Employee);
+                    break;
+                case EntityEnum.Maintenance:
+                    var _Maintenance = _superService.MaintenanceService.GetMaintenances(value);
+                    BrowserEnumerable = new ObservableCollection<IMaintenance>(_Maintenance);
+                    break;
+                case EntityEnum.MaintenanceDetail:
+                    var _MaintenanceDetail = _superService.MaintenanceDetailService.GetMaintenanceDetails(value);
+                    BrowserEnumerable = new ObservableCollection<IMaintenanceDetail>(_MaintenanceDetail);
+                    break;
+                case EntityEnum.Part:
+                    var _Part = _superService.PartService.GetParts(value);
+                    BrowserEnumerable = new ObservableCollection<IPart>(_Part);
+                    break;
+                case EntityEnum.PartUsage:
+                    var _PartUsage = _superService.PartUsageService.GetPartUsages(value);
+                    BrowserEnumerable = new ObservableCollection<IPartUsage>(_PartUsage);
+                    break;
+                case EntityEnum.Report:
+                    var _Report = _superService.ReportService.GetReports(value);
+                    BrowserEnumerable = new ObservableCollection<IReport>(_Report);
+                    break;
+                case EntityEnum.Reservation:
+                    var _Reservation = _superService.ReservationService.GetReservations(value);
+                    BrowserEnumerable = new ObservableCollection<IReservation>(_Reservation);
+                    break;
+                case EntityEnum.ReservationForm:
+                    var _ReservationForm = _superService.ReservationFormService.GetReservationForms(value);
+                    BrowserEnumerable = new ObservableCollection<IReservationForm>(_ReservationForm);
+                    break;
+                case EntityEnum.Vehicle:
+                    var _Vehicle = _superService.VehicleService.GetVehicles(value);
+                    BrowserEnumerable = new ObservableCollection<IVehicle>(_Vehicle);
+                    break;
+                case EntityEnum.Advisory:
+                    var _Advisory = _superService.AdvisoryService.GetAdvisories(value);
+                    BrowserEnumerable = new ObservableCollection<IAdvisory>(_Advisory);
+                    break;
+                case EntityEnum.Contract:
+                    var _Contract = _superService.ContractService.GetContracts(value);
+                    BrowserEnumerable = new ObservableCollection<IContract>(_Contract);
+                    break;
+                case EntityEnum.Course:
+                    var _Course = _superService.CourseService.GetCourses(value);
+                    BrowserEnumerable = new ObservableCollection<ICourse>(_Course);
+                    break;
+                case EntityEnum.Department:
+                    var _Department = _superService.DepartmentService.GetDepartments(value);
+                    BrowserEnumerable = new ObservableCollection<IDepartment>(_Department);
+                    break;
+                case EntityEnum.Enrollment:
+                    var _Enrollment = _superService.EnrollmentService.GetEnrollments(value);
+                    BrowserEnumerable = new ObservableCollection<IEnrollment>(_Enrollment);
+                    break;
+                case EntityEnum.Professor:
+                    var _Professor = _superService.ProfessorService.GetProfessors(value);
+                    BrowserEnumerable = new ObservableCollection<IProfessor>(_Professor);
+                    break;
+                case EntityEnum.ProfessorContract:
+                    var _ProfessorContract = _superService.ProfessorContractService.GetProfessorContracts(value);
+                    BrowserEnumerable = new ObservableCollection<IProfessorContract>(_ProfessorContract);
+                    break;
+                case EntityEnum.Professorship:
+                    var _Professorship = _superService.ProfessorshipService.GetProfessorships(value);
+                    BrowserEnumerable = new ObservableCollection<IProfessorship>(_Professorship);
+                    break;
+                case EntityEnum.Schedule:
+                    var _Schedule = _superService.ScheduleService.GetSchedules(value);
+                    BrowserEnumerable = new ObservableCollection<ISchedule>(_Schedule);
+                    break;
+                case EntityEnum.School:
+                    var _School = _superService.SchoolService.GetSchools(value);
+                    BrowserEnumerable = new ObservableCollection<ISchool>(_School);
+                    break;
+                case EntityEnum.Section:
+                    var _Section = _superService.SectionService.GetSections(value);
+                    BrowserEnumerable = new ObservableCollection<ISection>(_Section);
+                    break;
+                case EntityEnum.Student:
+                    var _Student = _superService.StudentService.GetStudents(value);
+                    BrowserEnumerable = new ObservableCollection<IStudent>(_Student);
+                    break;
+                case EntityEnum.Tenure:
+                    var _Tenure = _superService.TenureService.GetTenures(value);
+                    BrowserEnumerable = new ObservableCollection<ITenure>(_Tenure);
+                    break;
+            }
+        }
+
 
         private dynamic _browserSelection;
         private EntityEnum _browserSelectionType;
@@ -898,7 +1000,7 @@ namespace TinyCollege.Core.ViewModels
         private void _InspectorEdit()
         {
             var entity = _InspectorGetEditEntity();
-            SetProperty(ref _browserEnumerableType, _checkEntityType(entity.GetType()));
+            SetProperty(ref _managerType, _checkEntityType(entity.GetType()));
             _fillManagerFields(entity);
             _refreshManagerVisibility();
             SetProperty(ref _ManagerMode, ManagerModeEnum.Update);
@@ -1039,87 +1141,103 @@ namespace TinyCollege.Core.ViewModels
 
         public bool InspectorShowButtons => BrowserSelection != null;
 
+        private EntityEnum _managerType = EntityEnum.Null;
+        public EntityEnum ManagerType
+        {
+            get => _managerType;
+            set
+            {
+                SetProperty(ref _managerType, value);
+                RaisePropertyChanged(() => ManagerHeader);
+                _refreshManagerVisibility();
+                SetProperty(ref _ManagerMode, ManagerModeEnum.Create);
+                RaisePropertyChanged(() => ManagerShowCreateButton);
+                RaisePropertyChanged(() => ManagerShowEditButton);
+                _clearManagerFields();
+            }
+
+        }
         public string ManagerHeader
         {
             get
             {
-                if (_browserEnumerableType == EntityEnum.Employee)
+                if (_managerType == EntityEnum.Employee)
                     return "Employee";
-                if (_browserEnumerableType == EntityEnum.Maintenance)
+                if (_managerType == EntityEnum.Maintenance)
                     return "Maintenance";
-                if (_browserEnumerableType == EntityEnum.MaintenanceDetail)
+                if (_managerType == EntityEnum.MaintenanceDetail)
                     return "Maintenance Detail";
-                if (_browserEnumerableType == EntityEnum.Part)
+                if (_managerType == EntityEnum.Part)
                     return "Part";
-                if (_browserEnumerableType == EntityEnum.PartUsage)
+                if (_managerType == EntityEnum.PartUsage)
                     return "Part Usage";
-                if (_browserEnumerableType == EntityEnum.Report)
+                if (_managerType == EntityEnum.Report)
                     return "Report";
-                if (_browserEnumerableType == EntityEnum.Reservation)
+                if (_managerType == EntityEnum.Reservation)
                     return "Reservation";
-                if (_browserEnumerableType == EntityEnum.ReservationForm)
+                if (_managerType == EntityEnum.ReservationForm)
                     return "Reservation Form";
-                if (_browserEnumerableType == EntityEnum.Vehicle)
+                if (_managerType == EntityEnum.Vehicle)
                     return "Vehicle";
-                if (_browserEnumerableType == EntityEnum.Advisory)
+                if (_managerType == EntityEnum.Advisory)
                     return "Advisory";
-                if (_browserEnumerableType == EntityEnum.Contract)
+                if (_managerType == EntityEnum.Contract)
                     return "Contract";
-                if (_browserEnumerableType == EntityEnum.Course)
+                if (_managerType == EntityEnum.Course)
                     return "Course";
-                if (_browserEnumerableType == EntityEnum.Department)
+                if (_managerType == EntityEnum.Department)
                     return "Department";
-                if (_browserEnumerableType == EntityEnum.Enrollment)
+                if (_managerType == EntityEnum.Enrollment)
                     return "Enrollment";
-                if (_browserEnumerableType == EntityEnum.Professor)
+                if (_managerType == EntityEnum.Professor)
                     return "Professor";
-                if (_browserEnumerableType == EntityEnum.ProfessorContract)
+                if (_managerType == EntityEnum.ProfessorContract)
                     return "Professor Contract";
-                if (_browserEnumerableType == EntityEnum.Professorship)
+                if (_managerType == EntityEnum.Professorship)
                     return "Professorship";
-                if (_browserEnumerableType == EntityEnum.Schedule)
+                if (_managerType == EntityEnum.Schedule)
                     return "Schedule";
-                if (_browserEnumerableType == EntityEnum.School)
+                if (_managerType == EntityEnum.School)
                     return "School";
-                if (_browserEnumerableType == EntityEnum.Section)
+                if (_managerType == EntityEnum.Section)
                     return "Section";
-                if (_browserEnumerableType == EntityEnum.Student)
+                if (_managerType == EntityEnum.Student)
                     return "Student";
-                if (_browserEnumerableType == EntityEnum.Tenure)
+                if (_managerType == EntityEnum.Tenure)
                     return "Tenure";
                 return "";
             }
         }
         #region Manager Entities Visibility Properties
 
-        public bool ManagerEmployeeVisibility => _browserEnumerableType == EntityEnum.Employee;
-        public bool ManagerMaintenanceVisibility => _browserEnumerableType == EntityEnum.Maintenance;
-        public bool ManagerMaintenanceDetailVisibility => _browserEnumerableType == EntityEnum.MaintenanceDetail;
-        public bool ManagerPartVisibility => _browserEnumerableType == EntityEnum.Part;
-        public bool ManagerPartUsageVisibility => _browserEnumerableType == EntityEnum.PartUsage;
-        public bool ManagerReportVisibility => _browserEnumerableType == EntityEnum.Report;
-        public bool ManagerReservationVisibility => _browserEnumerableType == EntityEnum.Reservation;
-        public bool ManagerReservationFormVisibility => _browserEnumerableType == EntityEnum.ReservationForm;
-        public bool ManagerVehicleVisibility => _browserEnumerableType == EntityEnum.Vehicle;
-        public bool ManagerAdvisoryVisibility => _browserEnumerableType == EntityEnum.Advisory;
-        public bool ManagerContractVisibility => _browserEnumerableType == EntityEnum.Contract;
-        public bool ManagerCourseVisibility => _browserEnumerableType == EntityEnum.Course;
-        public bool ManagerDepartmentVisibility => _browserEnumerableType == EntityEnum.Department;
-        public bool ManagerEnrollmentVisibility => _browserEnumerableType == EntityEnum.Enrollment;
-        public bool ManagerProfessorVisibility => _browserEnumerableType == EntityEnum.Professor;
-        public bool ManagerProfessorContractVisibility => _browserEnumerableType == EntityEnum.ProfessorContract;
-        public bool ManagerProfessorshipVisibility => _browserEnumerableType == EntityEnum.Professorship;
-        public bool ManagerScheduleVisibility => _browserEnumerableType == EntityEnum.Schedule;
-        public bool ManagerSchoolVisibility => _browserEnumerableType == EntityEnum.School;
-        public bool ManagerSectionVisibility => _browserEnumerableType == EntityEnum.Section;
-        public bool ManagerStudentVisibility => _browserEnumerableType == EntityEnum.Student;
-        public bool ManagerTenureVisibility => _browserEnumerableType == EntityEnum.Tenure;
+        public bool ManagerEmployeeVisibility => _managerType == EntityEnum.Employee;
+        public bool ManagerMaintenanceVisibility => _managerType == EntityEnum.Maintenance;
+        public bool ManagerMaintenanceDetailVisibility => _managerType == EntityEnum.MaintenanceDetail;
+        public bool ManagerPartVisibility => _managerType == EntityEnum.Part;
+        public bool ManagerPartUsageVisibility => _managerType == EntityEnum.PartUsage;
+        public bool ManagerReportVisibility => _managerType == EntityEnum.Report;
+        public bool ManagerReservationVisibility => _managerType == EntityEnum.Reservation;
+        public bool ManagerReservationFormVisibility => _managerType == EntityEnum.ReservationForm;
+        public bool ManagerVehicleVisibility => _managerType == EntityEnum.Vehicle;
+        public bool ManagerAdvisoryVisibility => _managerType == EntityEnum.Advisory;
+        public bool ManagerContractVisibility => _managerType == EntityEnum.Contract;
+        public bool ManagerCourseVisibility => _managerType == EntityEnum.Course;
+        public bool ManagerDepartmentVisibility => _managerType == EntityEnum.Department;
+        public bool ManagerEnrollmentVisibility => _managerType == EntityEnum.Enrollment;
+        public bool ManagerProfessorVisibility => _managerType == EntityEnum.Professor;
+        public bool ManagerProfessorContractVisibility => _managerType == EntityEnum.ProfessorContract;
+        public bool ManagerProfessorshipVisibility => _managerType == EntityEnum.Professorship;
+        public bool ManagerScheduleVisibility => _managerType == EntityEnum.Schedule;
+        public bool ManagerSchoolVisibility => _managerType == EntityEnum.School;
+        public bool ManagerSectionVisibility => _managerType == EntityEnum.Section;
+        public bool ManagerStudentVisibility => _managerType == EntityEnum.Student;
+        public bool ManagerTenureVisibility => _managerType == EntityEnum.Tenure;
 
         #endregion
 
         private void _fillManagerFields(dynamic value)
         {
-            switch (_browserEnumerableType)
+            switch (_managerType)
             {
                 case EntityEnum.Employee:
                     ManagerEmployee = value;
@@ -1524,6 +1642,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var employees = _superService.EmployeeService.GetEmployees();
             BrowserEnumerable = new ObservableCollection<IEmployee>(employees);
+            ManagerType = EntityEnum.Employee;
         }
 
         public IMvxCommand ViewMaintenancesCommand { get; set; }
@@ -1531,6 +1650,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var maintenances = _superService.MaintenanceService.GetMaintenances();
             BrowserEnumerable = new ObservableCollection<IMaintenance>(maintenances);
+            ManagerType = EntityEnum.Maintenance;
         }
 
         public IMvxCommand ViewMaintenanceDetailsCommand { get; set; }
@@ -1538,6 +1658,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var maintenanceDetails = _superService.MaintenanceDetailService.GetMaintenanceDetails();
             BrowserEnumerable = new ObservableCollection<IMaintenanceDetail>(maintenanceDetails);
+            ManagerType = EntityEnum.MaintenanceDetail;
         }
 
         public IMvxCommand ViewPartsCommand { get; set; }
@@ -1545,6 +1666,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var parts = _superService.PartService.GetParts();
             BrowserEnumerable = new ObservableCollection<IPart>(parts);
+            ManagerType = EntityEnum.Part;
         }
 
         public IMvxCommand ViewPartUsagesCommand { get; set; }
@@ -1552,6 +1674,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var partUsages = _superService.PartUsageService.GetPartUsages();
             BrowserEnumerable = new ObservableCollection<IPartUsage>(partUsages);
+            ManagerType = EntityEnum.PartUsage;
         }
 
         public IMvxCommand ViewReportsCommand { get; set; }
@@ -1559,6 +1682,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var reports = _superService.ReportService.GetReports();
             BrowserEnumerable = new ObservableCollection<IReport>(reports);
+            ManagerType = EntityEnum.Report;
         }
 
         public IMvxCommand ViewReservationsCommand { get; set; }
@@ -1566,6 +1690,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var reservations = _superService.ReservationService.GetReservations();
             BrowserEnumerable = new ObservableCollection<IReservation>(reservations);
+            ManagerType = EntityEnum.Reservation;
         }
 
         public IMvxCommand ViewReservationFormsCommand { get; set; }
@@ -1573,6 +1698,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var reservationForms = _superService.ReservationFormService.GetReservationForms();
             BrowserEnumerable = new ObservableCollection<IReservationForm>(reservationForms);
+            ManagerType = EntityEnum.ReservationForm;
         }
 
         public IMvxCommand ViewVehiclesCommand { get; set; }
@@ -1580,6 +1706,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var vehicles = _superService.VehicleService.GetVehicles();
             BrowserEnumerable = new ObservableCollection<IVehicle>(vehicles);
+            ManagerType = EntityEnum.Vehicle;
         }
 
         public IMvxCommand ViewAdvisoriesCommand { get; set; }
@@ -1587,6 +1714,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var advisories = _superService.AdvisoryService.GetAdvisories();
             BrowserEnumerable = new ObservableCollection<IAdvisory>(advisories);
+            ManagerType = EntityEnum.Advisory;
         }
 
         public IMvxCommand ViewContractsCommand { get; set; }
@@ -1594,6 +1722,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var contracts = _superService.ContractService.GetContracts();
             BrowserEnumerable = new ObservableCollection<IContract>(contracts);
+            ManagerType = EntityEnum.Contract;
         }
 
         public IMvxCommand ViewCoursesCommand { get; set; }
@@ -1601,6 +1730,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var courses = _superService.CourseService.GetCourses();
             BrowserEnumerable = new ObservableCollection<ICourse>(courses);
+            ManagerType = EntityEnum.Course;
         }
 
         public IMvxCommand ViewDepartmentsCommand { get; set; }
@@ -1608,6 +1738,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var departments = _superService.DepartmentService.GetDepartments();
             BrowserEnumerable = new ObservableCollection<IDepartment>(departments);
+            ManagerType = EntityEnum.Department;
         }
 
         public IMvxCommand ViewEnrollmentsCommand { get; set; }
@@ -1615,6 +1746,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var enrollments = _superService.EnrollmentService.GetEnrollments();
             BrowserEnumerable = new ObservableCollection<IEnrollment>(enrollments);
+            ManagerType = EntityEnum.Enrollment;
         }
 
         public IMvxCommand ViewProfessorsCommand { get; set; }
@@ -1622,6 +1754,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var professors = _superService.ProfessorService.GetProfessors();
             BrowserEnumerable = new ObservableCollection<IProfessor>(professors);
+            ManagerType = EntityEnum.Professor;
         }
 
         public IMvxCommand ViewProfessorContractsCommand { get; set; }
@@ -1629,6 +1762,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var professorContracts = _superService.ProfessorContractService.GetProfessorContracts();
             BrowserEnumerable = new ObservableCollection<IProfessorContract>(professorContracts);
+            ManagerType = EntityEnum.ProfessorContract;
         }
 
         public IMvxCommand ViewProfessorshipsCommand { get; set; }
@@ -1636,6 +1770,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var professorships = _superService.ProfessorshipService.GetProfessorships();
             BrowserEnumerable = new ObservableCollection<IProfessorship>(professorships);
+            ManagerType = EntityEnum.Professorship;
         }
 
         public IMvxCommand ViewSchedulesCommand { get; set; }
@@ -1643,6 +1778,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var schedules = _superService.ScheduleService.GetSchedules();
             BrowserEnumerable = new ObservableCollection<ISchedule>(schedules);
+            ManagerType = EntityEnum.Schedule;
         }
 
         public IMvxCommand ViewSchoolsCommand { get; set; }
@@ -1650,6 +1786,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var schools = _superService.SchoolService.GetSchools();
             BrowserEnumerable = new ObservableCollection<ISchool>(schools);
+            ManagerType = EntityEnum.School;
         }
 
         public IMvxCommand ViewSectionsCommand { get; set; }
@@ -1657,6 +1794,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var sections = _superService.SectionService.GetSections();
             BrowserEnumerable = new ObservableCollection<ISection>(sections);
+            ManagerType = EntityEnum.Section;
         }
 
         public IMvxCommand ViewStudentsCommand { get; set; }
@@ -1664,6 +1802,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var students = _superService.StudentService.GetStudents();
             BrowserEnumerable = new ObservableCollection<IStudent>(students);
+            ManagerType = EntityEnum.Student;
         }
 
         public IMvxCommand ViewTenuresCommand { get; set; }
@@ -1671,6 +1810,7 @@ namespace TinyCollege.Core.ViewModels
         {
             var tenures = _superService.TenureService.GetTenures();
             BrowserEnumerable = new ObservableCollection<ITenure>(tenures);
+            ManagerType = EntityEnum.Tenure;
         }
         #endregion
 

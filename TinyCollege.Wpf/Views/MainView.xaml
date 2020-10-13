@@ -107,6 +107,8 @@
                                             <iconPacks:PackIconModern Kind="Eye"/>
                                             <TextBlock Text=" "></TextBlock>
                                             <TextBlock Text="{Binding BrowserHeader, Mode=OneWay}" ></TextBlock>
+                                            <TextBlock Text="           "></TextBlock>
+                                            <TextBox Text="{Binding BrowserSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=300}" MinWidth="150"></TextBox>
                                         </StackPanel>
                                     </DataTemplate>
                                 </GroupBox.HeaderTemplate>

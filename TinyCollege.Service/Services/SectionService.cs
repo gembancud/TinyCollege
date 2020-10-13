@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using TinyCollege.Data.Models;
 
 namespace TinyCollege.Service.Services
@@ -17,6 +18,26 @@ namespace TinyCollege.Service.Services
             using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
 
             return _context.Sections.ToList();
+        }
+
+        public List<Section> GetSections(string query)
+        {
+            var stringProperties = typeof(Section).GetProperties().Where(prop =>
+                prop.PropertyType == typeof(string) ||
+                prop.PropertyType == typeof(int) ||
+                prop.PropertyType == typeof(int?)
+            );
+
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Sections.Where(
+                delegate (Section x)
+                {
+                    return stringProperties.Any(prop => (prop.PropertyType == typeof(int) && prop.GetValue(x)?.ToString() == query) ||
+                                                        (prop.PropertyType == typeof(int?) && prop.GetValue(x)?.ToString() == query) ||
+                                                        (prop.PropertyType == typeof(string) && EF.Functions.Like(prop.GetValue(x)?.ToString(), $"%{query}%")));
+                }
+            ).ToList();
         }
 
         public List<Section> CreateSection(Section section)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using TinyCollege.Data.Models;
 using TinyCollege.Data.Models.MotorPool;
 
@@ -18,6 +19,26 @@ namespace TinyCollege.Service.Services.MotorPool
             using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
 
             return _context.Parts.ToList();
+        }
+
+        public List<Part> GetParts(string query)
+        {
+            var stringProperties = typeof(Part).GetProperties().Where(prop =>
+                prop.PropertyType == typeof(string) ||
+                prop.PropertyType == typeof(int) ||
+                prop.PropertyType == typeof(int?)
+            );
+
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Parts.Where(
+                delegate (Part x)
+                {
+                    return stringProperties.Any(prop => (prop.PropertyType == typeof(int) && prop.GetValue(x)?.ToString() == query) ||
+                                                        (prop.PropertyType == typeof(int?) && prop.GetValue(x)?.ToString() == query) ||
+                                                        (prop.PropertyType == typeof(string) && EF.Functions.Like(prop.GetValue(x)?.ToString(), $"%{query}%")));
+                }
+            ).ToList();
         }
 
         public List<Part> CreatePart(Part part)

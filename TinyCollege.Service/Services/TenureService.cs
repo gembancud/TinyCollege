@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using TinyCollege.Data.Models;
 
 namespace TinyCollege.Service.Services
@@ -17,6 +18,26 @@ namespace TinyCollege.Service.Services
             using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
 
             return _context.Tenures.ToList();
+        }
+
+        public List<Tenure> GetTenures(string query)
+        {
+            var stringProperties = typeof(Tenure).GetProperties().Where(prop =>
+                prop.PropertyType == typeof(string) ||
+                prop.PropertyType == typeof(int) ||
+                prop.PropertyType == typeof(int?)
+            );
+
+            using TinyCollegeContext _context = new TinyCollegeContext(_builder.Options);
+
+            return _context.Tenures.Where(
+                delegate (Tenure x)
+                {
+                    return stringProperties.Any(prop => (prop.PropertyType == typeof(int) && prop.GetValue(x)?.ToString() == query) ||
+                                                        (prop.PropertyType == typeof(int?) && prop.GetValue(x)?.ToString() == query) ||
+                                                        (prop.PropertyType == typeof(string) && EF.Functions.Like(prop.GetValue(x)?.ToString(), $"%{query}%")));
+                }
+            ).ToList();
         }
 
         public List<Tenure> CreateTenure(Tenure tenure)
